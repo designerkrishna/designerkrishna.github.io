@@ -1,0 +1,49 @@
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  cursor: none !important;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.cursorCustom {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 25px;
+  height: 25px;
+  background: #000;
+  pointer-events: none !important;
+  border-radius: 100%;
+  mix-blend-mode: exclusion;
+  -webkit-filter: invert(100%);
+  filter: invert(100%);
+  z-index: 999;
+  opacity: 1;
+  transition: transform 30ms ease-in;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  background-color: #F1F1F1;
+}
+
+::-webkit-scrollbar-track {
+  background: #dbdbdb;
+  border-radius: 100vw;
+  margin-block: 40vh;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #F28B82;
+  border-radius: 100vw;
+  height: 5vh;
+}
