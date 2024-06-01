@@ -2,6 +2,18 @@
 <html lang="en-US">
 
 <head>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <style>
+        .material-symbols-rounded {
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 300,
+                'GRAD' 0,
+                'opsz' 14
+        }
+    </style>
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
     <meta name="description"
@@ -13,22 +25,6 @@
     <meta name="HandheldFriendly" content="true" />
     <meta name="MobileOptimized" content="320" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <style>
-        .material-symbols-rounded {
-            font-variation-settings:
-                'FILL' 0,
-                'wght' 400,
-                'GRAD' 0,
-                'opsz' 14
-        }
-    </style>
-
     <link href="assets/css/main.css" rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -36,7 +32,8 @@
         tailwind.config = {
             theme: {
                 fontFamily: {
-                    'body': ['Inter'],
+                    'gellixLight': ['Gellix-Light'],
+                    'gellixMedium': ['Gellix-Medium'],
                 },
                 extend: {
                     colors: {
@@ -62,32 +59,32 @@
     </script>
 </head>
 
-<body class="bg-light text-dark font-body carlet-accent accent-accent selection:bg-accent cursor-none">
+<body class="bg-light text-dark font-gellixLight carlet-accent accent-accent selection:bg-accent cursor-none">
     <div class="hidden lg:block cursorCustom"></div>
     <div class="container mx-auto">
 
         <!-- Navbar -->
         <nav
             class="z-[50] flex justify-between items-center sticky top-6 h-14 md:mx-auto md:w-[80%] md:mx-auto mix-blend-difference invert">
-            <div class="text-[18px] leading-[22px]"><span class="font-bold">KRISHNA</span> KUMAR</div>
-            <div onclick="showNav()" class="sm:hidden flex items-center px-1 py-1 rounded-full font-semibold">
+            <div class="text-[18px] leading-[22px]"><span class="font-gellixMedium">KRISHNA</span> KUMAR</div>
+            <div onclick="showNav()" class="sm:hidden flex items-center px-1 py-1 rounded-full font-gellixMedium">
                 <span class="material-symbols-rounded text-[24px]"> drag_handle </span>
             </div>
             <div class="hidden sm:flex sm:flex-row-reverse items-center gap-2">
                 <a href="mailto:krishnah2085@gmail.com?subject=Let%27s%20connect!" target="_blank"
-                    class="flex items-center px-5 py-1 rounded-full font-semibold hover:bg-dark/90 hover:text-white active:bg-dark hideCursorElement cursor-none">
+                    class="flex items-center px-5 py-1 rounded-full font-gellixMedium hover:bg-dark/90 hover:text-white active:bg-dark hideCursorElement cursor-none">
                     <span class="material-symbols-rounded text-[24px]"> arrow_outward </span>
                 </a>
                 <a href="/photography"
-                    class="flex items-center px-5 py-1 rounded-full font-semibold hover:bg-dark/90 hover:invert-0 hover:text-white !active:bg-dark hideCursorElement cursor-none">
+                    class="flex items-center px-5 py-1 rounded-full font-gellixMedium hover:bg-dark/90 hover:invert-0 hover:text-white !active:bg-dark hideCursorElement cursor-none">
                     <span class="material-symbols-rounded text-[24px]"> photo </span>
                 </a>
                 <a href="/work"
-                    class="flex items-center px-5 py-1 rounded-full font-semibold hover:bg-dark/90 hover:mix-blend-normal hover:text-white active:bg-dark hideCursorElement cursor-none">
+                    class="flex items-center px-5 py-1 rounded-full font-gellixMedium hover:bg-dark/90 hover:mix-blend-normal hover:text-white active:bg-dark hideCursorElement cursor-none">
                     <span class="material-symbols-rounded text-[24px]"> work </span>
                 </a>
                 <a href="/"
-                    class="flex items-center px-5 py-1 rounded-full font-semibold bg-accent hover:bg-dark/90 hover:text-white active:bg-dark hideCursorElement cursor-none hover:border-none">
+                    class="flex items-center px-5 py-1 rounded-full font-gellixMedium bg-accent hover:bg-dark/90 hover:text-white active:bg-dark hideCursorElement cursor-none hover:border-none">
                     <span class="material-symbols-rounded text-[24px]"> face </span>
                 </a>
         </nav>
@@ -95,7 +92,7 @@
         <div id="navigation-menu"
             class="mix-blend-normal invert-0 z-[100] fixed left-[100%] top-0 sm:hidden w-[100%] mx-auto h-[100vh] bg-dark text-light px-[1.5rem] ease-custom duration-500">
             <nav class="z-[99] flex justify-between items-center sticky top-6 h-14 mx-auto">
-                <div class="text-[18px] leading-[22px]"><span class="font-bold">KRISHNA</span> KUMAR</div>
+                <div class="text-[18px] leading-[22px]"><span class="font-gellixMedium">KRISHNA</span> KUMAR</div>
                 <div onclick="showNav()" class="sm:hidden flex items-center px-1 py-1">
                     <span class="material-symbols-rounded text-[24px]"> chevron_right </span>
                 </div>
@@ -105,13 +102,13 @@
                     class="flex justify-center items-center gap-2 w-[60%] py-3 rounded-full bg-accent text-dark absolute bottom-24 left-[50%] -translate-x-1/2">
                     Contact Me <span class="material-symbols-rounded text-[26px]"> arrow_outward </span>
                 </a>
-                <a href="/photography" class="flex items-center justify-center py-3 rounded-full font-semibold">
+                <a href="/photography" class="flex items-center justify-center py-3 rounded-full font-gellixMedium">
                     Photography
                 </a>
-                <a href="/work" class="flex items-center justify-center py-3 rounded-full font-semibold">
+                <a href="/work" class="flex items-center justify-center py-3 rounded-full font-gellixMedium">
                     Work
                 </a>
-                <a href="/" class="flex items-center justify-center py-3 rounded-full font-semibold text-accent">
+                <a href="/" class="flex items-center justify-center py-3 rounded-full font-gellixMedium text-accent">
                     About
                 </a>
             </div>
@@ -122,15 +119,15 @@
 
             <!-- Intro Section -->
             <div
-                class="font-medium tracking-[-4px] mt-6 text-center selection:leading-[48px] text-[56px] leading-[48px] sm:text-[56px] sm:leading-[56px] sm:tracking-[-4px] md:text-[87px] md:leading-[82px] md:tracking-[-6px] xl:text-[102px] xl:leading-[92px] xl:tracking-[-8px] sm:max-w-[80%] xl:w-[60%] 2xl:w-[50%] mx-auto hoverElement">
+                class="font-gellixMedium tracking-[-4px] mt-6 text-center selection:leading-[48px] text-[56px] leading-[48px] sm:text-[56px] sm:leading-[56px] sm:tracking-[-4px] md:text-[87px] md:leading-[82px] md:tracking-[-6px] xl:text-[102px] xl:leading-[92px] xl:tracking-[-8px] sm:max-w-[80%] xl:w-[60%] 2xl:w-[50%] mx-auto hoverElement">
                 SENIOR MULTIMEDIA DESIGNER©
             </div>
             <div
                 class="w-[85%] flex justify-between mt-6 mx-auto text-[10px] leading-[12px] max-w-[80%] sm:w-[50%] md:w-[55%] lg:w-[45%] 2xl:w-[35%] md:text-[14px] md:leading-[15px]">
-                <div class="font-semibold text-left">CURRENTLY CRAFTING <br /> EXPERIENCES @
+                <div class="font-gellixMedium text-left">CURRENTLY CRAFTING <br /> EXPERIENCES @
                     SELLERAPP
                 </div>
-                <div class="font-semibold text-right">(2021 - PRESENT)</div>
+                <div class="font-gellixMedium text-right">(2021 - PRESENT)</div>
             </div>
 
 
@@ -145,21 +142,21 @@
                 </video> -->
             </div>
             <div class="mt-12 flex flex-col gap-2 sm:w-[60%] md:w-[50%] lg:w-[40%] 2xl:w-[30%] mx-auto">
-                <div class="font-semibold text-[24px] leading-[26px] tracking-[-1px] text-center">
-                    Namaste! I am Krishna Kumar, a product designer based in Bengaluru.
+                <div class="font-gellixMedium text-[24px] leading-[26px] tracking-[-1px] text-center">
+                    Welcome to My Creative World!
                 </div>
                 <div class="text-[14px] leading-[16px] text-center text-dark/70">
-                    <b>I design products.</b> Through past experiences in tech, and product, my work
-                    aims to promote an holistic approach of aesthetics and balanced designs. FYI I developed this
-                    website by myself. In addition to designing digital products, I'm die hard part of OG CSGO
-                    community.
+                    <b>Namaste!</b> I am Krishna Kumar, a passionate Multimedia Designer and Video
+                    Creator based in the vibrant city of Bengaluru. With over 5 years of experience, I specialize in
+                    crafting visually stunning and impactful designs that resonate with audiences and tell compelling
+                    stories.
                 </div>
             </div>
 
 
             <!-- Quote -->
             <div class="flex flex-col gap-4 sm:w-[60%] md:w-[50%] lg:w-[40%] xl:w-[30%] mx-auto">
-                <div class="mt-24 font-semibold text-[24px] leading-[26px] tracking-[-1px] text-center">
+                <div class="mt-24 font-gellixMedium text-[24px] leading-[26px] tracking-[-1px] text-center">
                     Design Creates Culture, Culture Shapes Values, and Values determine the Future.
                 </div>
                 <div class="text-[10px] leading-[12px] md:text-[14px] md:leading-[15px] text-center text-dark/70">
@@ -169,22 +166,33 @@
 
             <div class="md:w-[80%] md:mx-auto">
 
+                <!-- Philosophy -->
+                <div class="text-[56px] leading-[48px] font-gellixMedium tracking-[-4px] mt-24 text-left">
+                    MY DESIGN PHILOSOPHY
+                </div>
+                <div class="mt-14 text-[14px] leading-[17px] text-left ml-[15%]">
+                    At the heart of my work lies a simple yet powerful philosophy: Creativity meets Functionality. I
+                    believe that great design is not just about aesthetics, but also about effective communication. My
+                    designs are crafted to not only catch the eye but also to convey messages in a clear, engaging, and
+                    memorable way.
+                </div>
+
                 <!-- Resume Section -->
-                <div class="text-[56px] leading-[48px] font-medium tracking-[-4px] mt-24 text-left">
+                <div class="text-[56px] leading-[48px] font-gellixMedium tracking-[-4px] mt-24 text-left">
                     RESUME
                 </div>
                 <div class="mt-14 text-[12px] leading-[15px] text-left ml-[15%]">
                     <div class="">You can check out my resume here</div>
                     <div class="flex flex-row gap-2 flex-wrap">
                         <a href="/Resume.pdf" download="Tirth's Resume" target="_blank"
-                            class="w-min flex flex-row items-center mt-4 font-semibold rounded-full px-6 py-2 text-dark hover:bg-dark hover:text-light hideCursorElement cursor-none outline outline-1 outline-dark hover:outline-dark ease-custom duration-200">
+                            class="w-min flex flex-row items-center mt-4 font-gellixMedium rounded-full px-6 py-2 text-dark hover:bg-dark hover:text-light hideCursorElement cursor-none outline outline-1 outline-dark hover:outline-dark ease-custom duration-200">
                             Download
                             <div class="w-6 pl-1 flex items-center">
                                 <span class="material-symbols-rounded"> download </span>
                             </div>
                         </a>
                         <a href="https://read.cv/tirth" target="_blank"
-                            class="w-min flex flex-row items-center mt-4 font-semibold rounded-full px-6 py-2 text-dark hover:bg-dark hover:text-light hideCursorElement cursor-none outline outline-1 outline-dark hover:outline-dark ease-custom duration-200">
+                            class="w-min flex flex-row items-center mt-4 font-gellixMedium rounded-full px-6 py-2 text-dark hover:bg-dark hover:text-light hideCursorElement cursor-none outline outline-1 outline-dark hover:outline-dark ease-custom duration-200">
                             Open
                             <div class="w-6 pl-1 flex items-center">
                                 <span class="material-symbols-rounded"> arrow_outward </span>
@@ -194,21 +202,21 @@
                 </div>
 
                 <!-- Blogs Section -->
-                <!-- <div class="text-[56px] leading-[48px] font-medium tracking-[-4px] mt-24 text-left">
+                <!-- <div class="text-[56px] leading-[48px] font-gellixMedium tracking-[-4px] mt-24 text-left">
                     I WRITE
                 </div>
                 <div class="mt-14 text-[12px] leading-[15px] text-left ml-[15%]">
                     <div class="">You can check out my resume here</div>
                     <div class="flex flex-row gap-2 mt-4 flex-wrap">
                         <a href="/Resume.pdf" download="Tirth's Resume" target="_blank"
-                            class="w-min flex flex-row items-center mt-4 font-semibold rounded-full px-6 py-2 text-dark hover:bg-dark hover:text-light hideCursorElement cursor-none outline outline-1 outline-dark hover:outline-dark ease-custom duration-200">
+                            class="w-min flex flex-row items-center mt-4 font-gellixMedium rounded-full px-6 py-2 text-dark hover:bg-dark hover:text-light hideCursorElement cursor-none outline outline-1 outline-dark hover:outline-dark ease-custom duration-200">
                             Download
                             <div class="w-6 pl-1 flex items-center">
                                 <span class="material-symbols-rounded"> download </span>
                             </div>
                         </a>
                         <a href="https://read.cv/tirth" target="_blank"
-                            class="w-min flex flex-row items-center mt-4 font-semibold rounded-full px-6 py-2 text-dark hover:bg-dark hover:text-light hideCursorElement cursor-none outline outline-1 outline-dark hover:outline-dark ease-custom duration-200">
+                            class="w-min flex flex-row items-center mt-4 font-gellixMedium rounded-full px-6 py-2 text-dark hover:bg-dark hover:text-light hideCursorElement cursor-none outline outline-1 outline-dark hover:outline-dark ease-custom duration-200">
                             Open
                             <div class="w-6 pl-1 flex items-center">
                                 <span class="material-symbols-rounded"> arrow_outward </span>
@@ -218,14 +226,14 @@
                 </div> -->
 
                 <!-- Experiences Section -->
-                <div class="text-[56px] leading-[48px] font-medium tracking-[-4px] mt-24 text-left">
+                <div class="text-[56px] leading-[48px] font-gellixMedium tracking-[-4px] mt-24 text-left">
                     RELEVANT EXPERIENCE
                 </div>
 
                 <!-- SellerApp -->
                 <div class="mt-14 text-[14px] leading-[16px] text-left ml-[15%]">
-                    <div class="font-semibold text-[24px] leading-[25px]">Sellerapp</div>
-                    <div class="mt-2 font-semibold flex flex-row justify-between uppercase">
+                    <div class="font-gellixMedium text-[24px] leading-[25px]">Sellerapp</div>
+                    <div class="mt-2 font-gellixMedium flex flex-row justify-between uppercase">
                         <div>Product Designer</div>
                         <div>(2021-Present)</div>
                     </div>
@@ -241,8 +249,8 @@
 
                 <!-- Truein -->
                 <div class="text-[14px] leading-[16px] text-left ml-[15%]">
-                    <div class="font-semibold text-[24px] leading-[25px]">Truein</div>
-                    <div class="mt-2 font-semibold flex flex-row justify-between uppercase">
+                    <div class="font-gellixMedium text-[24px] leading-[25px]">Truein</div>
+                    <div class="mt-2 font-gellixMedium flex flex-row justify-between uppercase">
                         <div>Product Intern</div>
                         <div>(2020-2021)</div>
                     </div>
@@ -258,8 +266,8 @@
 
                 <!-- MeriStreet -->
                 <div class="text-[14px] leading-[16px] text-left ml-[15%]">
-                    <div class="font-semibold text-[24px] leading-[25px]">Meristreet</div>
-                    <div class="mt-2 font-semibold flex flex-row justify-between uppercase">
+                    <div class="font-gellixMedium text-[24px] leading-[25px]">Meristreet</div>
+                    <div class="mt-2 font-gellixMedium flex flex-row justify-between uppercase">
                         <div>Startup</div>
                         <div>(2019-2020)</div>
                     </div>
@@ -270,11 +278,11 @@
                 </div>
 
                 <!-- Contact Section -->
-                <div class="text-[56px] leading-[48px] font-medium tracking-[-4px] mt-24 text-left">
+                <div class="text-[56px] leading-[48px] font-gellixMedium tracking-[-4px] mt-24 text-left">
                     CONTACT
                 </div>
                 <div class="mt-14 text-[12px] text-[12px] leading-[15px] text-left ml-[15%]">
-                    <div class="">Got <span class="font-bold">a brand in your
+                    <div class="">Got <span class="font-gellixMedium">a brand in your
                             hand?</span>
                         Let's discuss!</div>
                     <div class="flex flex-row gap-2 mt-4 flex-wrap">
@@ -283,35 +291,28 @@
                             <div
                                 class="w-6 h-6 bg-[url('/assets/icons/social/linkedin.svg')] group-hover:bg-[url('/assets/icons/social/linkedinHover.svg')] bg-cover">
                             </div>
-                            <span class="font-semibold group-hover:text-white">Linkedin</span>
+                            <span class="font-gellixMedium group-hover:text-white">Linkedin</span>
                         </a>
                         <a class="flex flex-row items-center gap-1 hideCursorElement cursor-none outline outline-1 hover:outline-dark hover:bg-dark px-6 py-2 rounded-full group ease-custom duration-200"
                             href="https://www.figma.com/@tirthjivani" target="_blank">
                             <div
                                 class="w-6 h-6 bg-[url('/assets/icons/social/figma.svg')] group-hover:bg-[url('/assets/icons/social/figmaHover.svg')] bg-cover">
                             </div>
-                            <span class="font-semibold group-hover:text-white">Figma</span>
+                            <span class="font-gellixMedium group-hover:text-white">Figma</span>
                         </a>
                         <a class="flex flex-row items-center gap-1 hideCursorElement cursor-none outline outline-1 hover:outline-dark hover:bg-dark px-6 py-2 rounded-full group ease-custom duration-200"
                             href="https://dribbble.com/tirthjivani" target="_blank">
                             <div
                                 class="w-6 h-6 bg-[url('/assets/icons/social/dribbble.svg')] group-hover:bg-[url('/assets/icons/social/dribbbleHover.svg')] bg-cover">
                             </div>
-                            <span class="font-semibold group-hover:text-white">Dribble</span>
+                            <span class="font-gellixMedium group-hover:text-white">Dribble</span>
                         </a>
                         <a class="flex flex-row items-center gap-1 hideCursorElement cursor-none outline outline-1 hover:outline-dark hover:bg-dark px-6 py-2 rounded-full group ease-custom duration-200"
                             href="https://github.com/tirthjivani" target="_blank">
                             <div
                                 class="w-6 h-6 bg-[url('/assets/icons/social/github.svg')] group-hover:bg-[url('/assets/icons/social/githubHover.svg')] bg-cover">
                             </div>
-                            <span class="font-semibold group-hover:text-white">Github</span>
-                        </a>
-                        <a class="flex flex-row items-center gap-1 hideCursorElement cursor-none outline outline-1 hover:outline-dark hover:bg-dark px-6 py-2 rounded-full group ease-custom duration-200"
-                            href="mailto:krishnah2085@gmail.com?subject=Let%27s%20connect!" target="_blank">
-                            <div class="w-6 h-6">
-                                <span class="material-symbols-rounded group-hover:text-white"> mail </span>
-                            </div>
-                            <span class="font-semibold group-hover:text-white">Mail</span>
+                            <span class="font-gellixMedium group-hover:text-white">Github</span>
                         </a>
                     </div>
                 </div>

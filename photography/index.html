@@ -2,6 +2,18 @@
 <html lang="en-US">
 
 <head>
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+	<style>
+		.material-symbols-rounded {
+			font-variation-settings:
+				'FILL' 0,
+				'wght' 300,
+				'GRAD' 0,
+				'opsz' 14
+		}
+	</style>
+
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 	<meta name="description"
@@ -13,22 +25,6 @@
 	<meta name="HandheldFriendly" content="true" />
 	<meta name="MobileOptimized" content="320" />
 
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap"
-		rel="stylesheet">
-	<link rel="stylesheet"
-		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-	<style>
-		.material-symbols-rounded {
-			font-variation-settings:
-				'FILL' 0,
-				'wght' 400,
-				'GRAD' 0,
-				'opsz' 14
-		}
-	</style>
-
 	<link href="../assets/css/main.css" rel="stylesheet">
 
 	<script src="https://cdn.tailwindcss.com"></script>
@@ -36,7 +32,8 @@
 		tailwind.config = {
 			theme: {
 				fontFamily: {
-					'body': ['Inter'],
+					'gellixLight': ['Gellix-Light'],
+					'gellixMedium': ['Gellix-Medium'],
 				},
 				extend: {
 					colors: {
@@ -62,30 +59,30 @@
 	</script>
 </head>
 
-<body class="bg-light text-dark font-body carlet-accent accent-accent selection:bg-accent cursor-none">
+<body class="bg-light text-dark font-gellixLight carlet-accent accent-accent selection:bg-accent cursor-none">
 	<div class="hidden lg:block cursorCustom"></div>
 	<div class="container mx-auto">
 		<nav
 			class="z-[50] flex justify-between items-center sticky top-6 h-14 md:mx-auto md:w-[80%] md:mx-auto mix-blend-difference invert">
-			<div class="text-[18px] leading-[22px]"><span class="font-bold">KRISHNA</span> KUMAR</div>
-			<div onclick="showNav()" class="sm:hidden flex items-center px-1 py-1 rounded-full font-semibold">
+			<div class="text-[18px] leading-[22px]"><span class="font-gellixMedium">KRISHNA</span> KUMAR</div>
+			<div onclick="showNav()" class="sm:hidden flex items-center px-1 py-1 rounded-full font-gellixMedium">
 				<span class="material-symbols-rounded text-[24px]"> drag_handle </span>
 			</div>
 			<div class="hidden sm:flex sm:flex-row-reverse items-center gap-2">
 				<a href="mailto:krishnah2085@gmail.com?subject=Let%27s%20connect!" target="_blank"
-					class="flex items-center px-5 py-1 rounded-full font-semibold hover:bg-dark/90 hover:text-white active:bg-dark hideCursorElement cursor-none">
+					class="flex items-center px-5 py-1 rounded-full font-gellixMedium hover:bg-dark/90 hover:text-white active:bg-dark hideCursorElement cursor-none">
 					<span class="material-symbols-rounded text-[24px]"> arrow_outward </span>
 				</a>
 				<a href="/photography"
-					class="flex items-center px-5 py-1 rounded-full font-semibold bg-accent hover:bg-dark/90 hover:invert-0 hover:text-white !active:bg-dark hideCursorElement cursor-none">
+					class="flex items-center px-5 py-1 rounded-full font-gellixMedium bg-accent hover:bg-dark/90 hover:invert-0 hover:text-white !active:bg-dark hideCursorElement cursor-none">
 					<span class="material-symbols-rounded text-[24px]"> photo </span>
 				</a>
 				<a href="/work"
-					class="flex items-center px-5 py-1 rounded-full font-semibold hover:bg-dark/90 hover:mix-blend-normal hover:text-white active:bg-dark hideCursorElement cursor-none">
+					class="flex items-center px-5 py-1 rounded-full font-gellixMedium hover:bg-dark/90 hover:mix-blend-normal hover:text-white active:bg-dark hideCursorElement cursor-none">
 					<span class="material-symbols-rounded text-[24px]"> work </span>
 				</a>
 				<a href="/"
-					class="flex items-center px-5 py-1 rounded-full font-semibold hover:bg-dark/90 hover:text-white active:bg-dark hideCursorElement cursor-none hover:border-none">
+					class="flex items-center px-5 py-1 rounded-full font-gellixMedium hover:bg-dark/90 hover:text-white active:bg-dark hideCursorElement cursor-none hover:border-none">
 					<span class="material-symbols-rounded text-[24px]"> face </span>
 				</a>
 			</div>
@@ -94,7 +91,7 @@
 		<div id="navigation-menu"
 			class="mix-blend-normal invert-0 z-[100] fixed left-[100%] top-0 sm:hidden w-[100%] mx-auto h-[100vh] bg-dark text-light px-[1.5rem] ease-custom duration-500">
 			<nav class="z-[99] flex justify-between items-center sticky top-6 h-14 mx-auto">
-				<div class="text-[18px] leading-[22px]"><span class="font-bold">KRISHNA</span> KUMAR</div>
+				<div class="text-[18px] leading-[22px]"><span class="font-gellixMedium">KRISHNA</span> KUMAR</div>
 				<div onclick="showNav()" class="sm:hidden flex items-center px-1 py-1">
 					<span class="material-symbols-rounded text-[24px]"> chevron_right </span>
 				</div>
@@ -105,13 +102,13 @@
 					Contact Me <span class="material-symbols-rounded text-[26px]"> arrow_outward </span>
 				</a>
 				<a href="/photography"
-					class="flex items-center justify-center py-3 rounded-full font-semibold text-accent">
+					class="flex items-center justify-center py-3 rounded-full font-gellixMedium text-accent">
 					Photography
 				</a>
-				<a href="/work" class="flex items-center justify-center py-3 rounded-full font-semibold">
+				<a href="/work" class="flex items-center justify-center py-3 rounded-full font-gellixMedium">
 					Work
 				</a>
-				<a href="/" class="flex items-center justify-center py-3 rounded-full font-semibold">
+				<a href="/" class="flex items-center justify-center py-3 rounded-full font-gellixMedium">
 					About
 				</a>
 			</div>
@@ -120,11 +117,11 @@
 		<div class="mx-auto mt-20">
 			<!-- Intro Section -->
 			<div
-				class="text-center font-semibold mt-4 mx-auto text-[10px] leading-[12px] max-w-[80%] sm: md:w-[55%] lg:w-[45%] 2xl:w-[35%] md:text-[14px] md:leading-[15px]">
+				class="text-center font-gellixMedium mt-4 mx-auto text-[10px] leading-[12px] max-w-[80%] sm: md:w-[55%] lg:w-[45%] 2xl:w-[35%] md:text-[14px] md:leading-[15px]">
 				SHOT ON IPHONE || DSLR
 			</div>
 			<div
-				class="font-medium tracking-[-4px] mt-6 mb-24 text-center text-[56px] leading-[48px] sm:text-[56px] sm:leading-[56px] sm:tracking-[-4px] md:text-[87px] md:leading-[82px] md:tracking-[-6px] xl:text-[102px] xl:leading-[92px] xl:tracking-[-8px] sm:max-w-[60%] xl:w-[60%] 2xl: mx-auto">
+				class="font-gellixMedium tracking-[-4px] mt-6 mb-24 text-center text-[56px] leading-[48px] sm:text-[56px] sm:leading-[56px] sm:tracking-[-4px] md:text-[87px] md:leading-[82px] md:tracking-[-6px] xl:text-[102px] xl:leading-[92px] xl:tracking-[-8px] sm:max-w-[60%] xl:w-[60%] 2xl: mx-auto">
 				RANDOM SHOTS
 			</div>
 
@@ -136,7 +133,7 @@
 					<div
 						class="w-6 h-6 bg-[url('/assets/icons/social/instagram.svg')] group-hover:bg-[url('/assets/icons/social/instagramHover.svg')] bg-cover">
 					</div>
-					<span class="font-semibold group-hover:text-white">Follow me on Instagram</span>
+					<span class="font-gellixMedium group-hover:text-white">Follow me on Instagram</span>
 				</a>
 
 				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-start my-12">

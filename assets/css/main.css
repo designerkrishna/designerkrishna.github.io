@@ -1,8 +1,24 @@
+@font-face {
+  font-family: 'Gellix-Light';
+  src: url(../fonts/Gellix-Light.ttf);
+}
+
+@font-face {
+  font-family: 'Gellix-Medium';
+  src: url(../fonts/Gellix-Medium.ttf);
+}
+
+@font-face {
+  font-family: 'Gellix-Black';
+  src: url(../fonts/Gellix-Black.ttf);
+}
+
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
+
 
 body {
   cursor: none !important;
