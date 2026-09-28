@@ -859,6 +859,61 @@ a.card, a.row { color: inherit; text-decoration: none; }
 .bar__logo { height: 36px; width: auto; transition: transform .4s var(--ease, ease); }
 .bar__mark:hover .bar__logo { transform: rotate(-6deg) scale(1.05); }
 @media (max-width: 640px) { .bar__logo { height: 30px; } }
+
+/* Mobile fit: keep every row inside the phone width */
+html { overflow-x: clip; }
+.work__controls, .work__controls > * { min-width: 0; max-width: 100%; }
+@media (max-width: 640px) { .work__controls { flex-wrap: nowrap; } .work__controls .chips { max-width: none; scroll-padding-inline: var(--pad); } }
+
+/* ============================================================
+   Responsive pass: phones, notched landscape, tablets, large and ultra wide screens
+   ============================================================ */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+video, svg, iframe, canvas { max-width: 100%; }
+h1, h2, h3, h4, p, dd, a { overflow-wrap: break-word; }
+.email a { overflow-wrap: anywhere; }
+
+/* Keep content clear of the notch and rounded corners in landscape */
+:root { --pad: max(clamp(16px, 3vw, 40px), env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px)); }
+.foot { --gut: max(clamp(20px, 5.5vw, 140px), env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px)); }
+
+/* Menu always fits and scrolls on short screens */
+.mnav { overflow-y: auto; overscroll-behavior: contain; }
+@media (max-height: 560px) {
+  .mnav { padding-top: calc(72px + env(safe-area-inset-top, 0px)); gap: 0; }
+  .mnav a { font-size: clamp(24px, 7vh, 34px); padding: 6px 0; }
+}
+
+/* Small phones */
+@media (max-width: 360px) {
+  :root { --pad: max(14px, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px)); }
+  .foot { --gut: 12px; }
+  .hero__actions .btn { flex: 1 1 100%; }
+  .fgrid__nav { gap: 28px 16px; padding-inline: 18px; }
+  .fgrid__intro { padding-inline: 18px; }
+  .fsoc a { width: 40px; }
+  .mnav a { font-size: 36px; }
+}
+
+/* Tablets in portrait: give the footer links room */
+@media (min-width: 641px) and (max-width: 1000px) {
+  .fgrid__nav { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* Large desktops: keep lines readable by centering the content */
+@media (min-width: 1600px) {
+  :root { --pad: max(56px, env(safe-area-inset-left, 0px)); }
+}
+@media (min-width: 1920px) {
+  :root { --pad: 64px; --edge: max(64px, calc((100vw - 1800px) / 2)); }
+  section, .bar, .case { padding-left: var(--edge); padding-right: var(--edge); }
+  .foot { --gut: max(140px, calc((100vw - 2160px) / 2)); }
+  .totop { right: var(--edge); }
+}
+@media (min-width: 2400px) {
+  body { font-size: 17px; }
+  .small { font-size: 14px; }
+}
 </style>
   <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}document.documentElement.classList.add(matchMedia("(prefers-reduced-motion: reduce)").matches?"rm":"motion")</script>
 <!--b:jsonld-->
