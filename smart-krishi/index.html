@@ -9,13 +9,13 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%8C%BE%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600&family=Noto+Sans+Kannada:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600&family=Noto+Sans+Kannada:wght@400;500;600&family=Noto+Sans+Tamil:wght@400;600&family=Noto+Sans+Telugu:wght@400;600&family=Noto+Sans+Bengali:wght@400;600&family=Noto+Sans+Gujarati:wght@400;600&family=Noto+Sans+Gurmukhi:wght@400;600&family=Noto+Sans+Malayalam:wght@400;600&family=Noto+Sans+Oriya:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{
   color-scheme: dark;
   --bg:#08130E; --bg2:#0B1A13; --card:#0E1F17; --card2:#11251C; --line:rgba(140,230,180,.13); --line2:rgba(140,230,180,.22);
   --text:#E9F3ED; --muted:#91AA9C; --dim:#5F7A6B; --mint:#5EE6A0; --mint2:#2FBF7C; --amber:#D9B46C; --lime:#CFE08A; --danger:#F08A6B;
-  --font:"Manrope","Noto Sans Devanagari","Noto Sans Kannada",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font:"Manrope","Noto Sans Devanagari","Noto Sans Kannada","Noto Sans Tamil","Noto Sans Telugu","Noto Sans Bengali","Noto Sans Gujarati","Noto Sans Gurmukhi","Noto Sans Malayalam","Noto Sans Oriya",system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:var(--font);
   box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
@@ -346,11 +346,153 @@ main{min-width:0}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
 }
-@media print{
-  #bgfx,.top,aside,.drawer,.scrim,.toast,.actions,.sechead .right{display:none!important}
-  .wrap{display:block;padding:0}body{background:#08130E}
-  .card,.hero{break-inside:avoid}
+
+/* soil auto */
+.soilrow{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:8px}
+.soilbadge{font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:999px;background:rgba(47,191,124,.16);color:var(--mint);border:1px solid rgba(94,230,160,.3);white-space:nowrap}
+.soilbadge.man{background:rgba(217,180,108,.14);color:var(--amber);border-color:rgba(217,180,108,.35)}
+.soilreset{background:none;border:0;color:var(--mint);font-size:12.5px;font-weight:600;cursor:pointer;padding:0;text-decoration:underline;text-underline-offset:3px}
+/* rain */
+.chart .rb{transform-box:fill-box;transform-origin:50% 100%;animation:grow .7s both cubic-bezier(.2,1.3,.4,1);transition:opacity .2s}
+.raingrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.raingrid .span2{grid-column:span 2}
+.rstat{display:flex;gap:28px;flex-wrap:wrap;margin:6px 0 4px}
+.rstat b{display:block;font-size:26px;font-weight:800;letter-spacing:-.03em}
+.rstat span{font-size:12.5px;color:var(--muted)}
+.rsrc{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.advice{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.advice div{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:#C4D6CB;background:rgba(8,19,14,.45);border:1px solid var(--line);border-radius:12px;padding:10px 12px;animation:axIn .5s both}
+.advice i{font-style:normal;flex:none}
+.pillst{display:inline-block;font-size:12.5px;font-weight:700;padding:4px 11px;border-radius:999px;margin-top:4px}
+.pillst.above{background:rgba(94,180,230,.16);color:#8FD0F5;border:1px solid rgba(143,208,245,.35)}
+.pillst.normal{background:rgba(47,191,124,.16);color:var(--mint);border:1px solid rgba(94,230,160,.3)}
+.pillst.below{background:rgba(240,138,107,.14);color:var(--danger);border:1px solid rgba(240,138,107,.35)}
+.pillst.typical{background:rgba(145,170,156,.14);color:var(--muted);border:1px solid var(--line2)}
+.wbar{height:12px;border-radius:9px;background:rgba(217,180,108,.18);overflow:hidden;display:flex;margin:14px 0 8px}
+.wbar .r{height:100%;background:linear-gradient(90deg,#3FA3E0,#8FD0F5);width:0;transition:width 1.4s cubic-bezier(.65,0,.35,1)}
+.wleg{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted)}
+.wleg b{color:var(--text)}
+.fitlist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
+.fit{display:flex;gap:12px;align-items:center;background:rgba(8,19,14,.45);border:1px solid var(--line);border-radius:14px;padding:10px 12px;animation:axIn .5s both}
+.fit .ph{width:46px;height:46px;border-radius:12px;background-size:280%;background-position:6% 55%;flex:none;border:1px solid rgba(140,230,180,.2)}
+.fit .nm{font-weight:700;font-size:14.5px;display:flex;justify-content:space-between;gap:8px}
+.fit .nm em{font-style:normal;color:var(--mint)}
+.fit .tg{font-size:12px;color:var(--muted);margin-top:2px}
+.fit .fb{height:4px;border-radius:4px;background:rgba(140,230,180,.12);margin-top:6px;overflow:hidden}
+.fit .fb i{display:block;height:100%;width:0;background:var(--mint);transition:width 1.2s cubic-bezier(.65,0,.35,1)}
+.fitact{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;align-items:center}
+.btnm{border:0;border-radius:10px;background:var(--mint);color:#052A18;font-weight:700;padding:9px 16px;cursor:pointer;font-size:14px}
+.btng{border:1px solid var(--line2);border-radius:10px;background:none;color:var(--text);padding:8px 14px;cursor:pointer;font-size:14px}
+.skel{border-radius:12px;background:linear-gradient(90deg,rgba(140,230,180,.06),rgba(140,230,180,.14),rgba(140,230,180,.06));background-size:200% 100%;animation:sk 1.4s linear infinite}
+@keyframes sk{to{background-position:-200% 0}}
+.rainmsg{font-size:14px;color:var(--muted);padding:12px 0}
+@media (max-width:1250px){.raingrid{grid-template-columns:1fr 1fr}.raingrid .span2{grid-column:1/-1}}
+@media (max-width:680px){.raingrid{grid-template-columns:1fr}.fitlist{grid-template-columns:1fr}}
+/* chat */
+.aifab{position:fixed;right:22px;bottom:calc(env(safe-area-inset-bottom,0px) + 22px);z-index:55;display:flex;align-items:center;gap:10px;border:0;border-radius:999px;padding:13px 20px 13px 16px;background:linear-gradient(135deg,#5EE6A0,#2FBF7C);color:#052A18;font-weight:800;font-size:15px;cursor:pointer;box-shadow:0 18px 40px -12px rgba(47,191,124,.65);transition:transform .25s}
+.aifab:hover{transform:translateY(-2px)}
+.aifab svg{width:20px;height:20px}
+.aifab.hide{transform:scale(.8);opacity:0;pointer-events:none}
+.chat{position:fixed;right:22px;bottom:calc(env(safe-area-inset-bottom,0px) + 22px);z-index:56;width:min(420px,calc(100vw - 24px));height:min(640px,calc(100vh - 110px));display:flex;flex-direction:column;background:rgba(10,24,17,.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(94,230,160,.28);border-radius:22px;box-shadow:0 40px 90px -20px rgba(0,0,0,.85);opacity:0;transform:translateY(16px) scale(.97);transform-origin:bottom right;pointer-events:none;transition:opacity .25s,transform .35s cubic-bezier(.2,.8,.2,1)}
+.chat.on{opacity:1;transform:none;pointer-events:auto}
+.chat header{padding:14px 16px 10px;border-bottom:1px solid var(--line)}
+.chat .hrow{display:flex;align-items:center;gap:10px}
+.chat .hrow b{font-size:16px;flex:1}
+.chat .x{background:none;border:0;color:var(--muted);font-size:22px;cursor:pointer;line-height:1}
+.chat .iconb{background:none;border:0;color:var(--muted);cursor:pointer;font-size:12.5px}
+.chat .iconb:hover,.chat .x:hover{color:var(--text)}
+.msel{margin-top:10px;width:100%;background:var(--bg);border:1px solid var(--line2);border-radius:10px;padding:9px 10px;font-size:14px;color:var(--text)}
+.msel optgroup,.msel option{background:var(--card);color:var(--text)}
+.keyrow{display:none;margin-top:8px;gap:8px;flex-direction:column}
+.keyrow.on{display:flex}
+.keyrow input[type=password],.keyrow input[type=text]{width:100%;background:var(--bg);border:1px solid var(--line2);border-radius:10px;padding:8px 10px;font-size:13.5px;color:var(--text)}
+.keyrow label{font-size:12.5px;color:var(--muted);display:flex;gap:6px;align-items:center}
+.keyrow a{color:var(--mint);font-size:12.5px}
+.ctxchip{margin-top:8px;font-size:12px;color:var(--muted);display:flex;gap:6px;align-items:center}
+.ctxchip i{width:6px;height:6px;border-radius:50%;background:var(--mint);flex:none}
+.msgs{flex:1;overflow:auto;padding:14px 16px;display:flex;flex-direction:column;gap:12px;overscroll-behavior:contain}
+.msg{max-width:88%;font-size:14.5px;line-height:1.5;padding:10px 13px;border-radius:14px;animation:axIn .35s both;word-wrap:break-word}
+.msg.u{align-self:flex-end;background:rgba(47,191,124,.22);border:1px solid rgba(94,230,160,.3);border-bottom-right-radius:4px}
+.msg.a{align-self:flex-start;background:rgba(20,42,31,.9);border:1px solid var(--line);border-bottom-left-radius:4px}
+.msg.a .who{font-size:11.5px;color:var(--mint);font-weight:700;margin-bottom:4px}
+.msg.e{align-self:stretch;max-width:100%;background:rgba(240,138,107,.1);border:1px solid rgba(240,138,107,.35);color:#F5C2B2;font-size:13.5px}
+.msg p{margin:0 0 8px}.msg p:last-child{margin:0}
+.msg ul,.msg ol{margin:4px 0 8px;padding-left:20px}
+.mdt{border-collapse:collapse;margin:6px 0 10px;font-size:13px;width:100%}.mdt th,.mdt td{border:1px solid var(--line2);padding:5px 7px;text-align:left;vertical-align:top}.mdt th{color:var(--mint);font-weight:700}
+.msg code{background:rgba(0,0,0,.3);padding:1px 5px;border-radius:5px;font-size:13px}
+.typing{display:inline-flex;gap:4px}.typing i{width:6px;height:6px;border-radius:50%;background:var(--mint);animation:ty 1s infinite}.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes ty{0%,100%{opacity:.25;transform:translateY(0)}50%{opacity:1;transform:translateY(-3px)}}
+.sugg{display:flex;flex-wrap:wrap;gap:8px}
+.sugg button{border:1px solid var(--line2);background:rgba(8,19,14,.5);color:var(--text);border-radius:999px;padding:7px 12px;font-size:13px;cursor:pointer;text-align:left}
+.sugg button:hover{border-color:var(--mint);color:var(--mint)}
+.chatin{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line);align-items:flex-end}
+.chatin textarea{flex:1;resize:none;max-height:120px;background:var(--bg);border:1px solid var(--line2);border-radius:12px;padding:10px 12px;font-size:14.5px;color:var(--text);font-family:var(--font);line-height:1.4}
+.chatin textarea:focus{outline:0;border-color:var(--mint)}
+.sendb{width:42px;height:42px;border-radius:12px;border:0;background:var(--mint);color:#052A18;cursor:pointer;display:grid;place-items:center;flex:none}
+.sendb svg{width:18px;height:18px}
+.sendb.stop{background:var(--danger)}
+@media (max-width:680px){.chat{right:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 12px)}.aifab{right:14px;bottom:calc(env(safe-area-inset-bottom,0px) + 14px)}}
+@media print{.aifab,.chat{display:none!important}}
+
+/* profile */
+.avatar{cursor:pointer;color:var(--text);background-size:cover;background-position:center;padding:0;overflow:hidden;transition:box-shadow .2s}
+.avatar:hover,.avatar[aria-expanded="true"]{box-shadow:0 0 0 3px rgba(94,230,160,.35)}
+.profpop{position:fixed;z-index:60;width:min(340px,94vw);background:rgba(10,24,17,.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(94,230,160,.28);border-radius:18px;box-shadow:0 34px 90px -20px rgba(0,0,0,.85);padding:18px;opacity:0;transform:translateY(-8px) scale(.98);transform-origin:top right;pointer-events:none;transition:opacity .22s,transform .3s cubic-bezier(.2,.8,.2,1)}
+.profpop.on{opacity:1;transform:none;pointer-events:auto}
+.pphead{display:flex;gap:14px;align-items:center;margin-bottom:14px}
+.pphead b{font-size:16px}
+.pphoto{position:relative;width:64px;height:64px;border-radius:50%;background:var(--card2) center/cover;border:1px solid var(--line2);display:grid;place-items:center;font-weight:700;font-size:20px;cursor:pointer;flex:none}
+.pphoto i{position:absolute;right:-2px;bottom:-2px;width:24px;height:24px;border-radius:50%;background:var(--mint);color:#052A18;font-style:normal;font-size:12px;display:grid;place-items:center}
+.pf{display:block;margin-bottom:12px}
+.pf span{display:block;font-size:12.5px;color:var(--muted);margin-bottom:6px}
+.pf input,.pf select{width:100%;background:var(--bg);border:1px solid var(--line2);border-radius:10px;padding:10px 12px;font-size:15px;color:var(--text);font-family:var(--font)}
+.pf input:focus,.pf select:focus{outline:0;border-color:var(--mint)}
+.ppact{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.hello{font-size:15px;color:var(--mint);font-weight:600;margin-bottom:6px}
+@media (max-width:1050px){.brand{order:1}.chip.lang{order:2}.avatar{order:3}.weathergroup{order:5}}
+@media (max-width:680px){
+ .top{gap:8px;padding:10px 14px}.brand small{display:none}.logo{width:40px;height:40px}.brand b{font-size:19px}
+ .chip.lang{padding:6px 10px;min-height:42px;gap:6px}.chip.lang .k,.chip.lang .caret{display:none}.chip.lang .v{font-size:13.5px}
+ .avatar{width:40px;height:40px}
 }
+/* report */
+#report{display:none}
+@media print{
+ @page{size:A4;margin:12mm}
+ html,body{background:#fff!important}
+ body::before{display:none!important}
+ body>*:not(#report){display:none!important}
+ #report{display:block!important}
+}
+#report{font-family:var(--font);color:#13241B;background:#fff;font-size:11.5pt;line-height:1.45;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+#report .rh{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid #1F9E62;padding-bottom:10px;margin-bottom:14px}
+#report .rlogo{display:flex;gap:10px;align-items:center}
+#report .rlogo .lg{width:38px;height:38px;border-radius:9px;background:#E8F7EF;border:1.5px solid #1F9E62;display:grid;place-items:center}
+#report .rlogo b{font-size:18pt;display:block;line-height:1.1;color:#0B3B24}
+#report .rlogo span{font-size:9.5pt;color:#4E6A5B}
+#report .rmeta{text-align:right;font-size:9.5pt;color:#4E6A5B}
+#report .rmeta b{color:#13241B;font-size:11pt}
+#report h2{font-size:13pt;color:#0B3B24;margin:16px 0 8px;padding-left:9px;border-left:4px solid #1F9E62;break-after:avoid}
+#report .kf{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+#report td{white-space:normal}#report td:first-child{white-space:nowrap}#report .kf div{border:1px solid #D6E6DC;border-radius:8px;padding:7px 9px;background:#F6FBF8}
+#report .kf span{display:block;font-size:8.5pt;color:#5B7567;text-transform:none}
+#report .kf b{font-size:11pt}
+#report table{width:100%;border-collapse:collapse;font-size:10pt;margin:4px 0 6px;break-inside:avoid}
+#report th{background:#E8F3EC;color:#0B3B24;text-align:left;font-weight:700;padding:6px 8px;border:1px solid #D6E6DC}
+#report td{padding:6px 8px;border:1px solid #D6E6DC}
+#report td.n,#report th.n{text-align:right;font-variant-numeric:tabular-nums}
+#report tr.tot td{font-weight:700;background:#F6FBF8}
+#report .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+#report ul{margin:4px 0 6px;padding-left:18px}
+#report li{margin:2px 0}
+#report .note{font-size:9pt;color:#5B7567}
+#report .chartbox{border:1px solid #D6E6DC;border-radius:8px;padding:8px;margin:6px 0;break-inside:avoid}
+#report .chartbox svg{width:100%;height:auto;display:block}
+#report .pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:9pt;font-weight:700;background:#E8F3EC;color:#0B3B24}
+#report .pb{break-before:page}
+#report .sec{break-inside:avoid}
+#report .foot{margin-top:18px;border-top:1px solid #D6E6DC;padding-top:8px;font-size:8.5pt;color:#5B7567}
+
 </style>
 </head>
 <body>
@@ -374,11 +516,11 @@ main{min-width:0}
   </div>
   <label class="chip plain lang">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 5h9M8.5 3v2M6 5c.6 3.6 3 6.5 6 8M11 5c-.7 3.8-3.3 7-7 9"/><path d="m13 21 4-10 4 10M14.5 17.5h5"/></svg>
-    <div><span class="k" data-i18n="language">Language options</span><span class="v" id="langLabel">English · हिंदी · ಕನ್ನಡ</span></div>
+    <div><span class="k" data-i18n="language">Language options</span><span class="v" id="langLabel">English</span></div>
     <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
     <select id="lang" aria-label="Language"><option value="en">English</option><option value="hi">हिंदी</option><option value="kn">ಕನ್ನಡ</option></select>
   </label>
-  <div class="avatar" aria-label="Profile">RK</div>
+  <button class="avatar" id="profBtn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="Profile"><span id="avInit">SK</span></button>
 </header>
 
 <div class="wrap">
@@ -386,6 +528,7 @@ main{min-width:0}
   <nav class="nav">
     <a href="#top" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg><span data-i18n="navDash">Farm dashboard</span></a>
     <button id="openSaved"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/></svg><span data-i18n="navSaved">Saved simulations</span><span class="count" id="savedCount">00</span></button>
+    <a href="#rainSec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 14h10a4 4 0 0 0 0-8 6 6 0 0 0-11.5 2A3 3 0 0 0 7 14z"/><path d="M8 17l-1 3M12 17l-1 3M16 17l-1 3"/></svg><span data-i18n="navRain">Rain outlook</span></a>
   </nav>
 
   <section class="panel" aria-labelledby="inTitle">
@@ -405,9 +548,10 @@ main{min-width:0}
     </div>
     <div class="field">
       <label for="soil" data-i18n="soil">Soil type</label>
-      <div class="inbox"><select id="soil"><option value="loamy" data-i18n="loamy">Loamy</option><option value="clay" data-i18n="clay">Clay</option><option value="sandy" data-i18n="sandy">Sandy</option></select>
+      <div class="inbox"><select id="soil"><option value="loamy" data-i18n="loamy">Alluvial loam</option><option value="clay" data-i18n="clay">Black cotton (clay)</option><option value="red" data-i18n="red">Red soil</option><option value="laterite" data-i18n="laterite">Laterite</option><option value="sandy" data-i18n="sandy">Desert sandy</option><option value="mountain" data-i18n="mountain">Mountain soil</option></select>
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="pointer-events:none;color:var(--muted)"><path d="m6 9 6 6 6-6"/></svg></div>
       <div class="hint" id="soilHint">Holds water well, drains evenly.</div>
+      <div class="soilrow"><span class="soilbadge" id="soilBadge">Suggested</span><button type="button" class="soilreset" id="soilReset" hidden>Reset</button></div>
     </div>
     <div class="field">
       <label for="season" data-i18n="season">Planning season</label>
@@ -430,6 +574,7 @@ main{min-width:0}
 <main id="top">
   <div class="titlerow">
     <div>
+      <div class="hello" id="helloLine" hidden></div>
       <h1 data-i18n="heroTitle">Your land. A clearer tomorrow.</h1>
       <p><span data-i18n="crumb">Farm intelligence / Overview</span> · <span id="crumbSeason">Kharif planning scenario</span></p>
     </div>
@@ -505,7 +650,38 @@ main{min-width:0}
     </article>
   </div>
 
-  <div class="sechead">
+    <div class="sechead" id="rainSec">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 14h10a4 4 0 0 0 0-8 6 6 0 0 0-11.5 2A3 3 0 0 0 7 14z"/><path d="M8 17l-1 3M12 17l-1 3M16 17l-1 3"/></svg>
+    <h2 data-i18n="rainTitle">Rain outlook and crop advice</h2>
+    <span class="muted" id="rainSub">for your district</span>
+    <div class="right"><span class="rsrc" id="rainSrc"></span></div>
+  </div>
+  <div class="raingrid" id="rainGrid">
+    <article class="card span2">
+      <h3><span data-i18n="next16">Next 16 days</span></h3>
+      <div class="rstat" id="r16stat"></div>
+      <div style="position:relative"><svg class="chart" id="r16Svg" viewBox="0 0 760 200"></svg><div class="tip" id="r16Tip"></div></div>
+      <div class="advice" id="rAdvice"></div>
+    </article>
+    <article class="card">
+      <h3><span data-i18n="seasonOut">Season outlook</span></h3>
+      <div id="rSeasonHead"></div>
+      <div style="position:relative"><svg class="chart" id="rSeasonSvg" viewBox="0 0 360 210"></svg><div class="tip" id="rSeasonTip"></div></div>
+      <div class="small" id="rSeasonNote"></div>
+    </article>
+    <article class="card">
+      <h3><span data-i18n="waterSit">Water situation</span></h3>
+      <div id="rWater"></div>
+    </article>
+    <article class="card span2">
+      <h3><span data-i18n="cropFit">Crops that fit this season</span></h3>
+      <div class="small" id="rFitSub"></div>
+      <div class="fitlist" id="rFit"></div>
+      <div class="fitact"><button class="btnm" id="planTop" type="button" data-i18n="planTop">Plan with the top 3 crops</button><button class="btng" id="planBack" type="button" hidden data-i18n="backRegional">Back to the regional plan</button></div>
+    </article>
+  </div>
+
+<div class="sechead">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l1.8 4.7L18.5 9l-4.7 1.8L12 15.5l-1.8-4.7L5.5 9l4.7-1.3z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg>
     <h2 data-i18n="recs">Smart recommendations</h2>
     <span class="muted" id="recSub">Built around your 5 acre scenario</span>
@@ -594,6 +770,30 @@ day,moisture,pump
   <div class="q"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="locQ" type="search" placeholder="Search district or state" autocomplete="off" aria-controls="locList"><span class="count" id="locCount"></span></div>
   <div class="list" id="locList" role="listbox"></div>
 </div>
+<button class="aifab" id="aiFab" type="button" aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l1.8 4.7L18.5 9l-4.7 1.8L12 15.5l-1.8-4.7L5.5 9l4.7-1.3z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg><span data-i18n="askAI">Ask Krishi AI</span></button>
+<section class="chat" id="chat" role="dialog" aria-label="Krishi AI chat">
+  <header>
+    <div class="hrow"><b data-i18n="askAI">Ask Krishi AI</b><button class="iconb" id="chatClear" type="button">Clear</button><button class="x" id="chatClose" type="button" aria-label="Close chat">×</button></div>
+    <select class="msel" id="mSel" aria-label="Choose AI model"></select>
+    <div class="keyrow" id="keyRow">
+      <input type="password" id="keyIn" autocomplete="off" placeholder="Paste your API key">
+      <input type="text" id="modelIn" autocomplete="off" placeholder="Model id">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><label><input type="checkbox" id="keyRem"> Remember on this device</label><a id="keyLink" href="#" target="_blank" rel="noopener">Get a key</a></div>
+      <div class="small" id="keyNote">Your key goes only from this browser to the provider.</div>
+    </div>
+    <div class="ctxchip"><i></i><span id="ctxChip">Knows your farm inputs, weather and rain outlook</span></div>
+  </header>
+  <div class="msgs" id="msgs"></div>
+  <div class="chatin"><textarea id="chatIn" rows="1" placeholder="Ask about crops, rain, irrigation, fertilizer"></textarea><button class="sendb" id="sendB" type="button" aria-label="Send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 12l16-8-6 16-2.5-6.5z"/></svg></button></div>
+</section>
+<div class="profpop" id="profPop" role="dialog" aria-label="Profile">
+  <div class="pphead"><label class="pphoto" id="ppPhoto" title="Change photo"><span id="ppInit">SK</span><input type="file" id="ppFile" accept="image/*" hidden><i>✎</i></label><div><b data-i18n="profile">Profile</b><div class="small" style="color:var(--muted)">Saved only on this device</div></div></div>
+  <label class="pf"><span data-i18n="pName">Your name</span><input id="ppName" maxlength="40" autocomplete="name"></label>
+  <label class="pf"><span data-i18n="pVillage">Village or farm name</span><input id="ppVillage" maxlength="60"></label>
+  <label class="pf"><span data-i18n="language">Language</span><select id="ppLang"></select></label>
+  <div class="ppact"><button class="btnm" id="ppSave" type="button" data-i18n="pSave">Save profile</button><button class="btng" id="ppRemove" type="button" hidden>Remove photo</button></div>
+</div>
+<div id="report" aria-hidden="true"></div>
 <div class="toast" id="toast" role="status"></div>
 
 <script>
@@ -604,9 +804,9 @@ const fmtIN=(n,d=0)=>Number(n).toLocaleString('en-IN',{minimumFractionDigits:d,m
 
 /* ---------- i18n ---------- */
 const T={
-en:{tagline:"Precision in every acre",farmLocation:"Farm location",weather:"Live weather · demo",temperature:"Temperature",humidity:"Humidity",language:"Language options",navDash:"Farm dashboard",navSaved:"Saved simulations",inputsTitle:"Farm input parameters",inputsSub:"Change any value and run the simulation to see the new plan.",landArea:"Land area",acres:"Acres",budget:"Budget",soil:"Soil type",loamy:"Loamy",clay:"Clay",sandy:"Sandy",season:"Planning season",run:"Run simulation",running:"Running model",illus:"How this works",smarter:"A smarter season starts here.",illusText:"Weather is live from Open-Meteo. Yields, prices and nutrient needs use reference values for each crop, so treat results as planning estimates.",help:"Need help with your inputs?",heroTitle:"Your land. A clearer tomorrow.",crumb:"Farm intelligence / Overview",sample:"Model run",export:"Export report",heroSub2:"One farm. Connected insight.",acresMapped:"Acres mapped",cropZones:"Crop zones",daysModeled:"Days modeled",analytics:"MATLAB & Simulink analytics",import:"Import MATLAB CSV",window:"Simulation window",soilMoisture:"Soil moisture profile",moistLegend:"Simulated root zone moisture",irrigTrig:"Irrigation trigger events",pumpLegend:"Pump switches on below the moisture threshold",cropDist:"Crop pattern distribution",diverse:"Diversified for yield, soil health and resilience",recs:"Smart recommendations",optimized:"Optimized plan · Model estimates",irrigation:"Irrigation schedule",optFreq:"Optimal watering frequency",fert:"Fertilizer input",nutNote:"Illustrative nutrient target per acre",pattern:"Crop pattern",yield:"Expected crop yield",quintals:"Quintals",income:"Expected income",grossRev:"Projected gross revenue per season",netProfit:"Net profit",margin:"Margin",disclaimer:"Planning estimates. Confirm with a soil test and local mandi rates before acting.",savedHint:"Select a run to load its inputs again.",every:"Every {n} days",avg:"{n}% average moisture",trig:"{n} automatic triggers",builtAround:"Built around your {n} acre scenario",heroP:"A {n} acre scenario, optimized for balanced growth and smarter resource use.",primary:"Primary",intercrop:"Intercrop",ofArea:"{n}% of total cultivated area",perCycle:"per cycle · {mm} mm across {a} acres",startBelow:"Start below {n}% soil moisture",early:"Early morning",acresW:"acres",moisture:"moisture",nextIrr:"Next irrigation",inDays:"in {n} days",area:"Area",yieldW:"Yield",day:"Day",changed:"Inputs changed. Run the simulation to update the plan.",applied:"Parameters applied to sample run {id}.",saved:"Simulation {id} saved",wxLive:"Live weather",wxAsOf:"Weather · {time}",clear:"Clear sky",fog:"Fog",drizzle:"Drizzle",rainH:"Rain",snow:"Snow",storm:"Thunderstorm",partly:"Partly cloudy",sunny:"Sunny",rain:"Light rain",overcast:"Overcast",Wheat:"Wheat",Mustard:"Mustard",Cotton:"Cotton",Soybean:"Soybean","Pigeon pea":"Pigeon pea",Lentil:"Lentil","Pearl millet":"Pearl millet",Cumin:"Cumin",Jute:"Jute",Sugarcane:"Sugarcane",Paddy:"Paddy",Maize:"Maize","Green gram":"Green gram",Ragi:"Ragi","Bengal gram":"Bengal gram",Sunflower:"Sunflower",Groundnut:"Groundnut",Sesame:"Sesame",scenario:"planning scenario"},
-hi:{tagline:"हर एकड़ में सटीकता",farmLocation:"खेत का स्थान",weather:"मौसम · डेमो",temperature:"तापमान",humidity:"आर्द्रता",language:"भाषा विकल्प",navDash:"खेत डैशबोर्ड",navSaved:"सहेजे गए सिमुलेशन",inputsTitle:"खेत इनपुट पैरामीटर",inputsSub:"कोई भी मान बदलें और नई योजना देखने के लिए सिमुलेशन चलाएँ।",landArea:"भूमि क्षेत्र",acres:"एकड़",budget:"बजट",soil:"मिट्टी का प्रकार",loamy:"दोमट",clay:"चिकनी",sandy:"बलुई",season:"योजना का मौसम",run:"सिमुलेशन चलाएँ",running:"मॉडल चल रहा है",illus:"यह कैसे काम करता है",smarter:"एक समझदार मौसम यहीं से शुरू होता है।",illusText:"मौसम Open-Meteo से लाइव है। उपज, भाव और पोषक ज़रूरतें हर फसल के संदर्भ मानों पर आधारित हैं, इसलिए परिणामों को योजना अनुमान मानें।",help:"इनपुट में मदद चाहिए?",heroTitle:"आपकी ज़मीन। एक साफ़ कल।",crumb:"खेत जानकारी / अवलोकन",sample:"मॉडल रन",export:"रिपोर्ट निर्यात करें",heroSub2:"एक खेत। जुड़ी हुई जानकारी।",acresMapped:"मैप किए एकड़",cropZones:"फसल क्षेत्र",daysModeled:"मॉडल किए दिन",analytics:"MATLAB और Simulink विश्लेषण",import:"MATLAB CSV जोड़ें",window:"सिमुलेशन अवधि",soilMoisture:"मिट्टी की नमी",moistLegend:"जड़ क्षेत्र की अनुमानित नमी",irrigTrig:"सिंचाई ट्रिगर",pumpLegend:"नमी सीमा से नीचे पंप चालू होता है",cropDist:"फसल वितरण",diverse:"उपज, मिट्टी के स्वास्थ्य और मज़बूती के लिए विविधता",recs:"स्मार्ट सिफारिशें",optimized:"अनुकूलित योजना · मॉडल अनुमान",irrigation:"सिंचाई कार्यक्रम",optFreq:"सबसे अच्छा सिंचाई अंतराल",fert:"उर्वरक",nutNote:"प्रति एकड़ उदाहरण पोषक लक्ष्य",pattern:"फसल पैटर्न",yield:"अनुमानित उपज",quintals:"क्विंटल",income:"अनुमानित आय",grossRev:"प्रति मौसम अनुमानित सकल आय",netProfit:"शुद्ध लाभ",margin:"मार्जिन",disclaimer:"योजना अनुमान। कदम उठाने से पहले मिट्टी जांच और स्थानीय मंडी भाव की पुष्टि करें।",savedHint:"इनपुट फिर से लोड करने के लिए कोई रन चुनें।",every:"हर {n} दिन",avg:"औसत नमी {n}%",trig:"{n} स्वचालित ट्रिगर",builtAround:"आपके {n} एकड़ परिदृश्य पर आधारित",heroP:"{n} एकड़ का परिदृश्य, संतुलित विकास और संसाधनों के बेहतर उपयोग के लिए।",primary:"मुख्य फसल",intercrop:"अंतरफसल",ofArea:"कुल खेती क्षेत्र का {n}%",perCycle:"प्रति चक्र · {a} एकड़ में {mm} मिमी",startBelow:"नमी {n}% से कम होने पर शुरू करें",early:"सुबह जल्दी",acresW:"एकड़",moisture:"नमी",nextIrr:"अगली सिंचाई",inDays:"{n} दिन में",area:"क्षेत्र",yieldW:"उपज",day:"दिन",changed:"इनपुट बदले गए। योजना अपडेट करने के लिए सिमुलेशन चलाएँ।",applied:"पैरामीटर नमूना रन {id} पर लागू।",saved:"सिमुलेशन {id} सहेजा गया",wxLive:"लाइव मौसम",wxAsOf:"मौसम · {time}",clear:"साफ़ आसमान",fog:"कोहरा",drizzle:"बूंदाबांदी",rainH:"बारिश",snow:"बर्फबारी",storm:"गरज के साथ बारिश",partly:"आंशिक बादल",sunny:"धूप",rain:"हल्की बारिश",overcast:"बादल छाए",Wheat:"गेहूं",Mustard:"सरसों",Cotton:"कपास",Soybean:"सोयाबीन","Pigeon pea":"अरहर",Lentil:"मसूर","Pearl millet":"बाजरा",Cumin:"जीरा",Jute:"जूट",Sugarcane:"गन्ना",Paddy:"धान",Maize:"मक्का","Green gram":"मूंग",Ragi:"रागी","Bengal gram":"चना",Sunflower:"सूरजमुखी",Groundnut:"मूंगफली",Sesame:"तिल",scenario:"योजना परिदृश्य"},
-kn:{tagline:"ಪ್ರತಿ ಎಕರೆಯಲ್ಲೂ ನಿಖರತೆ",farmLocation:"ಜಮೀನಿನ ಸ್ಥಳ",weather:"ಹವಾಮಾನ · ಡೆಮೊ",temperature:"ತಾಪಮಾನ",humidity:"ಆರ್ದ್ರತೆ",language:"ಭಾಷೆ ಆಯ್ಕೆ",navDash:"ಜಮೀನು ಡ್ಯಾಶ್‌ಬೋರ್ಡ್",navSaved:"ಉಳಿಸಿದ ಸಿಮ್ಯುಲೇಶನ್‌ಗಳು",inputsTitle:"ಜಮೀನಿನ ಇನ್‌ಪುಟ್ ವಿವರಗಳು",inputsSub:"ಯಾವುದೇ ಮೌಲ್ಯ ಬದಲಿಸಿ, ಹೊಸ ಯೋಜನೆ ನೋಡಲು ಸಿಮ್ಯುಲೇಶನ್ ಚಲಾಯಿಸಿ.",landArea:"ಭೂಮಿ ವಿಸ್ತೀರ್ಣ",acres:"ಎಕರೆ",budget:"ಬಜೆಟ್",soil:"ಮಣ್ಣಿನ ಪ್ರಕಾರ",loamy:"ಗೋಡು",clay:"ಜೇಡಿ",sandy:"ಮರಳು",season:"ಯೋಜನಾ ಹಂಗಾಮು",run:"ಸಿಮ್ಯುಲೇಶನ್ ಚಲಾಯಿಸಿ",running:"ಮಾದರಿ ಚಾಲನೆಯಲ್ಲಿದೆ",illus:"ಇದು ಹೇಗೆ ಕೆಲಸ ಮಾಡುತ್ತದೆ",smarter:"ಜಾಣ ಹಂಗಾಮು ಇಲ್ಲಿಂದ ಆರಂಭ.",illusText:"ಹವಾಮಾನ Open-Meteo ನಿಂದ ಲೈವ್. ಇಳುವರಿ, ದರ ಮತ್ತು ಪೋಷಕಾಂಶ ಅಗತ್ಯಗಳು ಪ್ರತಿ ಬೆಳೆಯ ಉಲ್ಲೇಖ ಮೌಲ್ಯಗಳನ್ನು ಆಧರಿಸಿವೆ, ಆದ್ದರಿಂದ ಫಲಿತಾಂಶಗಳನ್ನು ಯೋಜನಾ ಅಂದಾಜು ಎಂದು ಪರಿಗಣಿಸಿ.",help:"ಇನ್‌ಪುಟ್‌ಗಳಿಗೆ ಸಹಾಯ ಬೇಕೆ?",heroTitle:"ನಿಮ್ಮ ಭೂಮಿ. ಸ್ಪಷ್ಟ ನಾಳೆ.",crumb:"ಜಮೀನು ಒಳನೋಟ / ಅವಲೋಕನ",sample:"ಮಾದರಿ ರನ್",export:"ವರದಿ ರಫ್ತು",heroSub2:"ಒಂದು ಜಮೀನು. ಜೋಡಿಸಿದ ಒಳನೋಟ.",acresMapped:"ನಕ್ಷೆಯ ಎಕರೆ",cropZones:"ಬೆಳೆ ವಲಯಗಳು",daysModeled:"ಮಾದರಿ ದಿನಗಳು",analytics:"MATLAB ಮತ್ತು Simulink ವಿಶ್ಲೇಷಣೆ",import:"MATLAB CSV ಸೇರಿಸಿ",window:"ಸಿಮ್ಯುಲೇಶನ್ ಅವಧಿ",soilMoisture:"ಮಣ್ಣಿನ ತೇವಾಂಶ",moistLegend:"ಬೇರು ವಲಯದ ಅಂದಾಜು ತೇವಾಂಶ",irrigTrig:"ನೀರಾವರಿ ಪ್ರಚೋದನೆಗಳು",pumpLegend:"ತೇವಾಂಶ ಮಿತಿಗಿಂತ ಕಡಿಮೆಯಾದಾಗ ಪಂಪ್ ಆನ್",cropDist:"ಬೆಳೆ ಹಂಚಿಕೆ",diverse:"ಇಳುವರಿ, ಮಣ್ಣಿನ ಆರೋಗ್ಯ ಮತ್ತು ಸ್ಥಿರತೆಗಾಗಿ ವೈವಿಧ್ಯ",recs:"ಸ್ಮಾರ್ಟ್ ಶಿಫಾರಸುಗಳು",optimized:"ಉತ್ತಮಗೊಳಿಸಿದ ಯೋಜನೆ · ಮಾದರಿ ಅಂದಾಜು",irrigation:"ನೀರಾವರಿ ವೇಳಾಪಟ್ಟಿ",optFreq:"ಸೂಕ್ತ ನೀರುಣಿಸುವ ಅಂತರ",fert:"ರಸಗೊಬ್ಬರ",nutNote:"ಪ್ರತಿ ಎಕರೆಗೆ ಉದಾಹರಣೆ ಪೋಷಕಾಂಶ ಗುರಿ",pattern:"ಬೆಳೆ ಮಾದರಿ",yield:"ನಿರೀಕ್ಷಿತ ಇಳುವರಿ",quintals:"ಕ್ವಿಂಟಾಲ್",income:"ನಿರೀಕ್ಷಿತ ಆದಾಯ",grossRev:"ಹಂಗಾಮಿಗೆ ಅಂದಾಜು ಒಟ್ಟು ಆದಾಯ",netProfit:"ನಿವ್ವಳ ಲಾಭ",margin:"ಲಾಭಾಂಶ",disclaimer:"ಯೋಜನಾ ಅಂದಾಜು. ಕ್ರಮ ಕೈಗೊಳ್ಳುವ ಮೊದಲು ಮಣ್ಣು ಪರೀಕ್ಷೆ ಮತ್ತು ಸ್ಥಳೀಯ ಮಂಡಿ ದರ ಪರಿಶೀಲಿಸಿ.",savedHint:"ಇನ್‌ಪುಟ್ ಮತ್ತೆ ತರಲು ಒಂದು ರನ್ ಆಯ್ಕೆಮಾಡಿ.",every:"ಪ್ರತಿ {n} ದಿನಕ್ಕೊಮ್ಮೆ",avg:"ಸರಾಸರಿ ತೇವಾಂಶ {n}%",trig:"{n} ಸ್ವಯಂ ಪ್ರಚೋದನೆಗಳು",builtAround:"ನಿಮ್ಮ {n} ಎಕರೆ ಯೋಜನೆಗೆ ತಕ್ಕಂತೆ",heroP:"{n} ಎಕರೆಯ ಯೋಜನೆ, ಸಮತೋಲಿತ ಬೆಳವಣಿಗೆ ಮತ್ತು ಜಾಣ ಸಂಪನ್ಮೂಲ ಬಳಕೆಗಾಗಿ.",primary:"ಮುಖ್ಯ ಬೆಳೆ",intercrop:"ಅಂತರ ಬೆಳೆ",ofArea:"ಒಟ್ಟು ಸಾಗುವಳಿ ಪ್ರದೇಶದ {n}%",perCycle:"ಪ್ರತಿ ಸುತ್ತು · {a} ಎಕರೆಗೆ {mm} ಮಿಮೀ",startBelow:"ತೇವಾಂಶ {n}% ಗಿಂತ ಕಡಿಮೆಯಾದಾಗ ಆರಂಭಿಸಿ",early:"ಮುಂಜಾನೆ",acresW:"ಎಕರೆ",moisture:"ತೇವಾಂಶ",nextIrr:"ಮುಂದಿನ ನೀರಾವರಿ",inDays:"{n} ದಿನಗಳಲ್ಲಿ",area:"ವಿಸ್ತೀರ್ಣ",yieldW:"ಇಳುವರಿ",day:"ದಿನ",changed:"ಇನ್‌ಪುಟ್ ಬದಲಾಗಿದೆ. ಯೋಜನೆ ನವೀಕರಿಸಲು ಸಿಮ್ಯುಲೇಶನ್ ಚಲಾಯಿಸಿ.",applied:"ವಿವರಗಳನ್ನು ಮಾದರಿ ರನ್ {id} ಗೆ ಅನ್ವಯಿಸಲಾಗಿದೆ.",saved:"ಸಿಮ್ಯುಲೇಶನ್ {id} ಉಳಿಸಲಾಗಿದೆ",wxLive:"ಲೈವ್ ಹವಾಮಾನ",wxAsOf:"ಹವಾಮಾನ · {time}",clear:"ಸ್ಪಷ್ಟ ಆಕಾಶ",fog:"ಮಂಜು",drizzle:"ತುಂತುರು ಮಳೆ",rainH:"ಮಳೆ",snow:"ಹಿಮಪಾತ",storm:"ಗುಡುಗು ಸಹಿತ ಮಳೆ",partly:"ಭಾಗಶಃ ಮೋಡ",sunny:"ಬಿಸಿಲು",rain:"ಲಘು ಮಳೆ",overcast:"ಮೋಡ ಕವಿದ",Wheat:"ಗೋಧಿ",Mustard:"ಸಾಸಿವೆ",Cotton:"ಹತ್ತಿ",Soybean:"ಸೋಯಾಬೀನ್","Pigeon pea":"ತೊಗರಿ",Lentil:"ಮಸೂರ್","Pearl millet":"ಸಜ್ಜೆ",Cumin:"ಜೀರಿಗೆ",Jute:"ಸೆಣಬು",Sugarcane:"ಕಬ್ಬು",Paddy:"ಭತ್ತ",Maize:"ಮೆಕ್ಕೆಜೋಳ","Green gram":"ಹೆಸರುಕಾಳು",Ragi:"ರಾಗಿ","Bengal gram":"ಕಡಲೆ",Sunflower:"ಸೂರ್ಯಕಾಂತಿ",Groundnut:"ಶೇಂಗಾ",Sesame:"ಎಳ್ಳು",scenario:"ಯೋಜನಾ ಸನ್ನಿವೇಶ"}
+en:{tagline:"Precision in every acre",farmLocation:"Farm location",weather:"Live weather · demo",temperature:"Temperature",humidity:"Humidity",language:"Language options",navDash:"Farm dashboard",navSaved:"Saved simulations",inputsTitle:"Farm input parameters",inputsSub:"Change any value and run the simulation to see the new plan.",landArea:"Land area",acres:"Acres",budget:"Budget",soil:"Soil type",loamy:"Alluvial loam",clay:"Black cotton (clay)",red:"Red soil",laterite:"Laterite",sandy:"Desert sandy",mountain:"Mountain soil",soilAuto:"Suggested for {p}",soilMan:"Your choice",soilReset:"Use {s} again",rainTitle:"Rain outlook and crop advice",rainFor:"for {p}",next16:"Next 16 days",seasonOut:"Season outlook",waterSit:"Water situation",cropFit:"Crops that fit this season",planTop:"Plan with the top 3 crops",backRegional:"Back to the regional plan",askAI:"Ask Krishi AI",totRain:"Total rain",rainyDays:"Rainy days",wettest:"Wettest day",typical:"Typical year",above:"Above normal",below:"Below normal",normal:"Near normal",expected:"expected",tenYr:"10 year average",rainCovers:"of crop water from rain",rainNA:"Rain outlook for {p} loads live on krishna-kumar.in/smart-krishi.",navRain:"Rain outlook",season:"Planning season",run:"Run simulation",running:"Running model",illus:"How this works",smarter:"A smarter season starts here.",illusText:"Weather is live from Open-Meteo. Yields, prices and nutrient needs use reference values for each crop, so treat results as planning estimates.",help:"Need help with your inputs?",heroTitle:"Your land. A clearer tomorrow.",crumb:"Farm intelligence / Overview",sample:"Model run",export:"Export report",heroSub2:"One farm. Connected insight.",acresMapped:"Acres mapped",cropZones:"Crop zones",daysModeled:"Days modeled",analytics:"MATLAB & Simulink analytics",import:"Import MATLAB CSV",window:"Simulation window",soilMoisture:"Soil moisture profile",moistLegend:"Simulated root zone moisture",irrigTrig:"Irrigation trigger events",pumpLegend:"Pump switches on below the moisture threshold",cropDist:"Crop pattern distribution",diverse:"Diversified for yield, soil health and resilience",recs:"Smart recommendations",optimized:"Optimized plan · Model estimates",irrigation:"Irrigation schedule",optFreq:"Optimal watering frequency",fert:"Fertilizer input",nutNote:"Illustrative nutrient target per acre",pattern:"Crop pattern",yield:"Expected crop yield",quintals:"Quintals",income:"Expected income",grossRev:"Projected gross revenue per season",netProfit:"Net profit",margin:"Margin",disclaimer:"Planning estimates. Confirm with a soil test and local mandi rates before acting.",savedHint:"Select a run to load its inputs again.",every:"Every {n} days",avg:"{n}% average moisture",trig:"{n} automatic triggers",builtAround:"Built around your {n} acre scenario",heroP:"A {n} acre scenario, optimized for balanced growth and smarter resource use.",primary:"Primary",intercrop:"Intercrop",ofArea:"{n}% of total cultivated area",perCycle:"per cycle · {mm} mm across {a} acres",startBelow:"Start below {n}% soil moisture",early:"Early morning",acresW:"acres",moisture:"moisture",nextIrr:"Next irrigation",inDays:"in {n} days",area:"Area",yieldW:"Yield",day:"Day",changed:"Inputs changed. Run the simulation to update the plan.",applied:"Parameters applied to sample run {id}.",saved:"Simulation {id} saved",wxLive:"Live weather",wxAsOf:"Weather · {time}",clear:"Clear sky",fog:"Fog",drizzle:"Drizzle",rainH:"Rain",snow:"Snow",storm:"Thunderstorm",partly:"Partly cloudy",sunny:"Sunny",rain:"Light rain",overcast:"Overcast",Wheat:"Wheat",Mustard:"Mustard",Cotton:"Cotton",Soybean:"Soybean","Pigeon pea":"Pigeon pea",Lentil:"Lentil","Pearl millet":"Pearl millet",Cumin:"Cumin",Jute:"Jute",Sugarcane:"Sugarcane",Paddy:"Paddy",Maize:"Maize","Green gram":"Green gram",Ragi:"Ragi","Bengal gram":"Bengal gram",Sunflower:"Sunflower",Groundnut:"Groundnut",Sesame:"Sesame",scenario:"planning scenario"},
+hi:{tagline:"हर एकड़ में सटीकता",farmLocation:"खेत का स्थान",weather:"मौसम · डेमो",temperature:"तापमान",humidity:"आर्द्रता",language:"भाषा विकल्प",navDash:"खेत डैशबोर्ड",navSaved:"सहेजे गए सिमुलेशन",inputsTitle:"खेत इनपुट पैरामीटर",inputsSub:"कोई भी मान बदलें और नई योजना देखने के लिए सिमुलेशन चलाएँ।",landArea:"भूमि क्षेत्र",acres:"एकड़",budget:"बजट",soil:"मिट्टी का प्रकार",loamy:"जलोढ़ दोमट",clay:"काली मिट्टी",red:"लाल मिट्टी",laterite:"लैटेराइट",sandy:"रेतीली मिट्टी",mountain:"पर्वतीय मिट्टी",soilAuto:"{p} के लिए सुझाई गई",soilMan:"आपकी पसंद",soilReset:"फिर से {s} चुनें",rainTitle:"बारिश का अनुमान और फसल सलाह",rainFor:"{p} के लिए",next16:"अगले 16 दिन",seasonOut:"मौसम का अनुमान",waterSit:"पानी की स्थिति",cropFit:"इस मौसम के लिए उपयुक्त फसलें",planTop:"शीर्ष 3 फसलों से योजना बनाएँ",backRegional:"क्षेत्रीय योजना पर लौटें",askAI:"कृषि AI से पूछें",totRain:"कुल बारिश",rainyDays:"बारिश के दिन",wettest:"सबसे ज़्यादा बारिश",typical:"सामान्य वर्ष",above:"सामान्य से अधिक",below:"सामान्य से कम",normal:"लगभग सामान्य",expected:"अनुमानित",tenYr:"10 वर्ष का औसत",rainCovers:"फसल का पानी बारिश से",navRain:"बारिश का अनुमान",season:"योजना का मौसम",run:"सिमुलेशन चलाएँ",running:"मॉडल चल रहा है",illus:"यह कैसे काम करता है",smarter:"एक समझदार मौसम यहीं से शुरू होता है।",illusText:"मौसम Open-Meteo से लाइव है। उपज, भाव और पोषक ज़रूरतें हर फसल के संदर्भ मानों पर आधारित हैं, इसलिए परिणामों को योजना अनुमान मानें।",help:"इनपुट में मदद चाहिए?",heroTitle:"आपकी ज़मीन। एक साफ़ कल।",crumb:"खेत जानकारी / अवलोकन",sample:"मॉडल रन",export:"रिपोर्ट निर्यात करें",heroSub2:"एक खेत। जुड़ी हुई जानकारी।",acresMapped:"मैप किए एकड़",cropZones:"फसल क्षेत्र",daysModeled:"मॉडल किए दिन",analytics:"MATLAB और Simulink विश्लेषण",import:"MATLAB CSV जोड़ें",window:"सिमुलेशन अवधि",soilMoisture:"मिट्टी की नमी",moistLegend:"जड़ क्षेत्र की अनुमानित नमी",irrigTrig:"सिंचाई ट्रिगर",pumpLegend:"नमी सीमा से नीचे पंप चालू होता है",cropDist:"फसल वितरण",diverse:"उपज, मिट्टी के स्वास्थ्य और मज़बूती के लिए विविधता",recs:"स्मार्ट सिफारिशें",optimized:"अनुकूलित योजना · मॉडल अनुमान",irrigation:"सिंचाई कार्यक्रम",optFreq:"सबसे अच्छा सिंचाई अंतराल",fert:"उर्वरक",nutNote:"प्रति एकड़ उदाहरण पोषक लक्ष्य",pattern:"फसल पैटर्न",yield:"अनुमानित उपज",quintals:"क्विंटल",income:"अनुमानित आय",grossRev:"प्रति मौसम अनुमानित सकल आय",netProfit:"शुद्ध लाभ",margin:"मार्जिन",disclaimer:"योजना अनुमान। कदम उठाने से पहले मिट्टी जांच और स्थानीय मंडी भाव की पुष्टि करें।",savedHint:"इनपुट फिर से लोड करने के लिए कोई रन चुनें।",every:"हर {n} दिन",avg:"औसत नमी {n}%",trig:"{n} स्वचालित ट्रिगर",builtAround:"आपके {n} एकड़ परिदृश्य पर आधारित",heroP:"{n} एकड़ का परिदृश्य, संतुलित विकास और संसाधनों के बेहतर उपयोग के लिए।",primary:"मुख्य फसल",intercrop:"अंतरफसल",ofArea:"कुल खेती क्षेत्र का {n}%",perCycle:"प्रति चक्र · {a} एकड़ में {mm} मिमी",startBelow:"नमी {n}% से कम होने पर शुरू करें",early:"सुबह जल्दी",acresW:"एकड़",moisture:"नमी",nextIrr:"अगली सिंचाई",inDays:"{n} दिन में",area:"क्षेत्र",yieldW:"उपज",day:"दिन",changed:"इनपुट बदले गए। योजना अपडेट करने के लिए सिमुलेशन चलाएँ।",applied:"पैरामीटर नमूना रन {id} पर लागू।",saved:"सिमुलेशन {id} सहेजा गया",wxLive:"लाइव मौसम",wxAsOf:"मौसम · {time}",clear:"साफ़ आसमान",fog:"कोहरा",drizzle:"बूंदाबांदी",rainH:"बारिश",snow:"बर्फबारी",storm:"गरज के साथ बारिश",partly:"आंशिक बादल",sunny:"धूप",rain:"हल्की बारिश",overcast:"बादल छाए",Wheat:"गेहूं",Mustard:"सरसों",Cotton:"कपास",Soybean:"सोयाबीन","Pigeon pea":"अरहर",Lentil:"मसूर","Pearl millet":"बाजरा",Cumin:"जीरा",Jute:"जूट",Sugarcane:"गन्ना",Paddy:"धान",Maize:"मक्का","Green gram":"मूंग",Ragi:"रागी","Bengal gram":"चना",Sunflower:"सूरजमुखी",Groundnut:"मूंगफली",Sesame:"तिल",scenario:"योजना परिदृश्य"},
+kn:{tagline:"ಪ್ರತಿ ಎಕರೆಯಲ್ಲೂ ನಿಖರತೆ",farmLocation:"ಜಮೀನಿನ ಸ್ಥಳ",weather:"ಹವಾಮಾನ · ಡೆಮೊ",temperature:"ತಾಪಮಾನ",humidity:"ಆರ್ದ್ರತೆ",language:"ಭಾಷೆ ಆಯ್ಕೆ",navDash:"ಜಮೀನು ಡ್ಯಾಶ್‌ಬೋರ್ಡ್",navSaved:"ಉಳಿಸಿದ ಸಿಮ್ಯುಲೇಶನ್‌ಗಳು",inputsTitle:"ಜಮೀನಿನ ಇನ್‌ಪುಟ್ ವಿವರಗಳು",inputsSub:"ಯಾವುದೇ ಮೌಲ್ಯ ಬದಲಿಸಿ, ಹೊಸ ಯೋಜನೆ ನೋಡಲು ಸಿಮ್ಯುಲೇಶನ್ ಚಲಾಯಿಸಿ.",landArea:"ಭೂಮಿ ವಿಸ್ತೀರ್ಣ",acres:"ಎಕರೆ",budget:"ಬಜೆಟ್",soil:"ಮಣ್ಣಿನ ಪ್ರಕಾರ",loamy:"ಮೆಕ್ಕಲು ಗೋಡು",clay:"ಕಪ್ಪು ಮಣ್ಣು",red:"ಕೆಂಪು ಮಣ್ಣು",laterite:"ಜಂಬಿಟ್ಟಿಗೆ ಮಣ್ಣು",sandy:"ಮರಳು ಮಣ್ಣು",mountain:"ಪರ್ವತ ಮಣ್ಣು",soilAuto:"{p} ಗೆ ಸೂಚಿತ",soilMan:"ನಿಮ್ಮ ಆಯ್ಕೆ",soilReset:"ಮತ್ತೆ {s} ಬಳಸಿ",rainTitle:"ಮಳೆ ಮುನ್ಸೂಚನೆ ಮತ್ತು ಬೆಳೆ ಸಲಹೆ",rainFor:"{p} ಗಾಗಿ",next16:"ಮುಂದಿನ 16 ದಿನಗಳು",seasonOut:"ಹಂಗಾಮಿನ ಮುನ್ನೋಟ",waterSit:"ನೀರಿನ ಸ್ಥಿತಿ",cropFit:"ಈ ಹಂಗಾಮಿಗೆ ಸೂಕ್ತ ಬೆಳೆಗಳು",planTop:"ಮೊದಲ 3 ಬೆಳೆಗಳಿಂದ ಯೋಜನೆ",backRegional:"ಪ್ರಾದೇಶಿಕ ಯೋಜನೆಗೆ ಹಿಂತಿರುಗಿ",askAI:"ಕೃಷಿ AI ಕೇಳಿ",totRain:"ಒಟ್ಟು ಮಳೆ",rainyDays:"ಮಳೆಯ ದಿನಗಳು",wettest:"ಹೆಚ್ಚು ಮಳೆಯ ದಿನ",typical:"ಸಾಮಾನ್ಯ ವರ್ಷ",above:"ಸಾಮಾನ್ಯಕ್ಕಿಂತ ಹೆಚ್ಚು",below:"ಸಾಮಾನ್ಯಕ್ಕಿಂತ ಕಡಿಮೆ",normal:"ಸುಮಾರು ಸಾಮಾನ್ಯ",expected:"ನಿರೀಕ್ಷಿತ",tenYr:"10 ವರ್ಷದ ಸರಾಸರಿ",rainCovers:"ಬೆಳೆಯ ನೀರು ಮಳೆಯಿಂದ",navRain:"ಮಳೆ ಮುನ್ಸೂಚನೆ",season:"ಯೋಜನಾ ಹಂಗಾಮು",run:"ಸಿಮ್ಯುಲೇಶನ್ ಚಲಾಯಿಸಿ",running:"ಮಾದರಿ ಚಾಲನೆಯಲ್ಲಿದೆ",illus:"ಇದು ಹೇಗೆ ಕೆಲಸ ಮಾಡುತ್ತದೆ",smarter:"ಜಾಣ ಹಂಗಾಮು ಇಲ್ಲಿಂದ ಆರಂಭ.",illusText:"ಹವಾಮಾನ Open-Meteo ನಿಂದ ಲೈವ್. ಇಳುವರಿ, ದರ ಮತ್ತು ಪೋಷಕಾಂಶ ಅಗತ್ಯಗಳು ಪ್ರತಿ ಬೆಳೆಯ ಉಲ್ಲೇಖ ಮೌಲ್ಯಗಳನ್ನು ಆಧರಿಸಿವೆ, ಆದ್ದರಿಂದ ಫಲಿತಾಂಶಗಳನ್ನು ಯೋಜನಾ ಅಂದಾಜು ಎಂದು ಪರಿಗಣಿಸಿ.",help:"ಇನ್‌ಪುಟ್‌ಗಳಿಗೆ ಸಹಾಯ ಬೇಕೆ?",heroTitle:"ನಿಮ್ಮ ಭೂಮಿ. ಸ್ಪಷ್ಟ ನಾಳೆ.",crumb:"ಜಮೀನು ಒಳನೋಟ / ಅವಲೋಕನ",sample:"ಮಾದರಿ ರನ್",export:"ವರದಿ ರಫ್ತು",heroSub2:"ಒಂದು ಜಮೀನು. ಜೋಡಿಸಿದ ಒಳನೋಟ.",acresMapped:"ನಕ್ಷೆಯ ಎಕರೆ",cropZones:"ಬೆಳೆ ವಲಯಗಳು",daysModeled:"ಮಾದರಿ ದಿನಗಳು",analytics:"MATLAB ಮತ್ತು Simulink ವಿಶ್ಲೇಷಣೆ",import:"MATLAB CSV ಸೇರಿಸಿ",window:"ಸಿಮ್ಯುಲೇಶನ್ ಅವಧಿ",soilMoisture:"ಮಣ್ಣಿನ ತೇವಾಂಶ",moistLegend:"ಬೇರು ವಲಯದ ಅಂದಾಜು ತೇವಾಂಶ",irrigTrig:"ನೀರಾವರಿ ಪ್ರಚೋದನೆಗಳು",pumpLegend:"ತೇವಾಂಶ ಮಿತಿಗಿಂತ ಕಡಿಮೆಯಾದಾಗ ಪಂಪ್ ಆನ್",cropDist:"ಬೆಳೆ ಹಂಚಿಕೆ",diverse:"ಇಳುವರಿ, ಮಣ್ಣಿನ ಆರೋಗ್ಯ ಮತ್ತು ಸ್ಥಿರತೆಗಾಗಿ ವೈವಿಧ್ಯ",recs:"ಸ್ಮಾರ್ಟ್ ಶಿಫಾರಸುಗಳು",optimized:"ಉತ್ತಮಗೊಳಿಸಿದ ಯೋಜನೆ · ಮಾದರಿ ಅಂದಾಜು",irrigation:"ನೀರಾವರಿ ವೇಳಾಪಟ್ಟಿ",optFreq:"ಸೂಕ್ತ ನೀರುಣಿಸುವ ಅಂತರ",fert:"ರಸಗೊಬ್ಬರ",nutNote:"ಪ್ರತಿ ಎಕರೆಗೆ ಉದಾಹರಣೆ ಪೋಷಕಾಂಶ ಗುರಿ",pattern:"ಬೆಳೆ ಮಾದರಿ",yield:"ನಿರೀಕ್ಷಿತ ಇಳುವರಿ",quintals:"ಕ್ವಿಂಟಾಲ್",income:"ನಿರೀಕ್ಷಿತ ಆದಾಯ",grossRev:"ಹಂಗಾಮಿಗೆ ಅಂದಾಜು ಒಟ್ಟು ಆದಾಯ",netProfit:"ನಿವ್ವಳ ಲಾಭ",margin:"ಲಾಭಾಂಶ",disclaimer:"ಯೋಜನಾ ಅಂದಾಜು. ಕ್ರಮ ಕೈಗೊಳ್ಳುವ ಮೊದಲು ಮಣ್ಣು ಪರೀಕ್ಷೆ ಮತ್ತು ಸ್ಥಳೀಯ ಮಂಡಿ ದರ ಪರಿಶೀಲಿಸಿ.",savedHint:"ಇನ್‌ಪುಟ್ ಮತ್ತೆ ತರಲು ಒಂದು ರನ್ ಆಯ್ಕೆಮಾಡಿ.",every:"ಪ್ರತಿ {n} ದಿನಕ್ಕೊಮ್ಮೆ",avg:"ಸರಾಸರಿ ತೇವಾಂಶ {n}%",trig:"{n} ಸ್ವಯಂ ಪ್ರಚೋದನೆಗಳು",builtAround:"ನಿಮ್ಮ {n} ಎಕರೆ ಯೋಜನೆಗೆ ತಕ್ಕಂತೆ",heroP:"{n} ಎಕರೆಯ ಯೋಜನೆ, ಸಮತೋಲಿತ ಬೆಳವಣಿಗೆ ಮತ್ತು ಜಾಣ ಸಂಪನ್ಮೂಲ ಬಳಕೆಗಾಗಿ.",primary:"ಮುಖ್ಯ ಬೆಳೆ",intercrop:"ಅಂತರ ಬೆಳೆ",ofArea:"ಒಟ್ಟು ಸಾಗುವಳಿ ಪ್ರದೇಶದ {n}%",perCycle:"ಪ್ರತಿ ಸುತ್ತು · {a} ಎಕರೆಗೆ {mm} ಮಿಮೀ",startBelow:"ತೇವಾಂಶ {n}% ಗಿಂತ ಕಡಿಮೆಯಾದಾಗ ಆರಂಭಿಸಿ",early:"ಮುಂಜಾನೆ",acresW:"ಎಕರೆ",moisture:"ತೇವಾಂಶ",nextIrr:"ಮುಂದಿನ ನೀರಾವರಿ",inDays:"{n} ದಿನಗಳಲ್ಲಿ",area:"ವಿಸ್ತೀರ್ಣ",yieldW:"ಇಳುವರಿ",day:"ದಿನ",changed:"ಇನ್‌ಪುಟ್ ಬದಲಾಗಿದೆ. ಯೋಜನೆ ನವೀಕರಿಸಲು ಸಿಮ್ಯುಲೇಶನ್ ಚಲಾಯಿಸಿ.",applied:"ವಿವರಗಳನ್ನು ಮಾದರಿ ರನ್ {id} ಗೆ ಅನ್ವಯಿಸಲಾಗಿದೆ.",saved:"ಸಿಮ್ಯುಲೇಶನ್ {id} ಉಳಿಸಲಾಗಿದೆ",wxLive:"ಲೈವ್ ಹವಾಮಾನ",wxAsOf:"ಹವಾಮಾನ · {time}",clear:"ಸ್ಪಷ್ಟ ಆಕಾಶ",fog:"ಮಂಜು",drizzle:"ತುಂತುರು ಮಳೆ",rainH:"ಮಳೆ",snow:"ಹಿಮಪಾತ",storm:"ಗುಡುಗು ಸಹಿತ ಮಳೆ",partly:"ಭಾಗಶಃ ಮೋಡ",sunny:"ಬಿಸಿಲು",rain:"ಲಘು ಮಳೆ",overcast:"ಮೋಡ ಕವಿದ",Wheat:"ಗೋಧಿ",Mustard:"ಸಾಸಿವೆ",Cotton:"ಹತ್ತಿ",Soybean:"ಸೋಯಾಬೀನ್","Pigeon pea":"ತೊಗರಿ",Lentil:"ಮಸೂರ್","Pearl millet":"ಸಜ್ಜೆ",Cumin:"ಜೀರಿಗೆ",Jute:"ಸೆಣಬು",Sugarcane:"ಕಬ್ಬು",Paddy:"ಭತ್ತ",Maize:"ಮೆಕ್ಕೆಜೋಳ","Green gram":"ಹೆಸರುಕಾಳು",Ragi:"ರಾಗಿ","Bengal gram":"ಕಡಲೆ",Sunflower:"ಸೂರ್ಯಕಾಂತಿ",Groundnut:"ಶೇಂಗಾ",Sesame:"ಎಳ್ಳು",scenario:"ಯೋಜನಾ ಸನ್ನಿವೇಶ"}
 };
 let lang='en';
 const t=(k,v={})=>{let s=(T[lang][k]??T.en[k]??k);for(const x in v)s=s.replace('{'+x+'}',v[x]);return s};
@@ -655,9 +855,12 @@ const LX=[["anantapur-andhra-pradesh","Anantapur","Andhra Pradesh",31,64,"sunny"
 LX.forEach(([k,n,st,t,h,w,e,r,z,y,a])=>{if(!LOCS[k])LOCS[k]={name:n+", "+st,state:st,temp:t,hum:h,wx:w,et:e,rainP:r,zone:z,yf:y,alias:a}});
 Object.entries({'darjeeling-west-bengal':[17,82],'kalimpong-west-bengal':[19,80],'nilgiris-tamil-nadu':[18,78],'kodagu-karnataka':[22,82],'chikkamagaluru-karnataka':[23,76],'idukki-kerala':[22,84],'wayanad-kerala':[23,82],'dehradun-uttarakhand':[24,68],'nainital-uttarakhand':[19,70],'almora-uttarakhand':[19,68],'tehri-garhwal-uttarakhand':[18,70],'pauri-garhwal-uttarakhand':[20,68],'chamoli-uttarakhand':[16,72],'pithoragarh-uttarakhand':[17,72],'uttarkashi-uttarakhand':[16,70],'rudraprayag-uttarakhand':[17,72],'bageshwar-uttarakhand':[18,70],'champawat-uttarakhand':[19,70],'east-khasi-hills-meghalaya':[19,84]}).forEach(([k,[t,h]])=>{if(LOCS[k])Object.assign(LOCS[k],{temp:t,hum:h,wx:'overcast',et:.75,rainP:.14})});Object.assign(LOCS.mysuru,{alias:'Mysore'});Object.assign(LOCS.belagavi,{alias:'Belgaum'});Object.assign(LOCS.purnia,{alias:'Purnea'});Object.assign(LOCS.bardhaman,{alias:'Burdwan'});Object.assign(LOCS.nashik,{alias:'Nasik'});
 const SOILS={
- loamy:{fc:42,thr:25,drain:3.0,depth:20,yf:1,nf:1,hint:"Holds water well and drains evenly."},
- clay:{fc:48,thr:28,drain:2.35,depth:25,yf:.95,nf:.9,hint:"Holds water longest. Fewer, deeper irrigations."},
- sandy:{fc:34,thr:20,drain:3.7,depth:15,yf:.85,nf:1.15,hint:"Drains fast. Short, frequent irrigations."}
+ loamy:{fc:30,wp:12,thr:21,drain:1.4,yf:1.02,nf:1,hint:"Fertile river soil. Holds water well and drains evenly."},
+ clay:{fc:40,wp:22,thr:31,drain:1.2,yf:.97,nf:.9,hint:"Holds water longest and cracks when dry. Fewer, deeper irrigations."},
+ red:{fc:22,wp:9,thr:15.5,drain:1.5,yf:.92,nf:1.1,hint:"Light and well drained, low in nitrogen. Water a little more often."},
+ laterite:{fc:26,wp:12,thr:19,drain:1.5,yf:.88,nf:1.15,hint:"Acidic and leached by heavy rain. Add organic matter and lime."},
+ sandy:{fc:14,wp:5,thr:9.5,drain:1.7,yf:.8,nf:1.2,hint:"Drains very fast. Short, frequent irrigations work best."},
+ mountain:{fc:32,wp:13,thr:22.5,drain:1.3,yf:.95,nf:.95,hint:"Rich in humus on slopes. Terrace and mulch to hold water."}
 };
 const CROPS={
  "Paddy":{v:"Jaya",y:20,p:2300,npk:[80,40,40],img:"paddy"},
@@ -717,18 +920,30 @@ function rng(seed){return()=>{seed|=0;seed=seed+0x6D2B79F5|0;let x=Math.imul(see
 function hash(s){let h=2166136261;for(const c of s)h=Math.imul(h^c.charCodeAt(0),16777619);return h>>>0}
 
 function simulate(){
- const L=LOCS[S.loc],So=SOILS[S.soil],Se={crops:cropsFor(S.loc,S.season)};
+ const L=LOCS[S.loc],So=SOILS[S.soil]||SOILS.loamy,Se={crops:S.plan?S.plan.map((n,i)=>({n,s:[.6,.25,.15][i],c:CCOL[i],...CROPS[n]})):cropsFor(S.loc,S.season)};
  const r=rng(hash([S.loc,S.soil,S.season,S.acres,S.budget,S.win].join('|')));
  const et=So.drain*L.et*(1+(L.temp-26)*.04)*(1-(L.hum-60)*.006);
  let series=[],pump=[],m=So.fc*.97,trig=0,lastTrig=null,gaps=[];
+ const H=!S.imported&&RAIN&&RAIN[S.loc]&&RAIN[S.loc].hist;let nat=null,dates=null,todayX=null,refills=[];
  if(S.imported){series=S.imported.m.map((v,i)=>[S.imported.d[i],v]);pump=S.imported.p.map((v,i)=>[S.imported.d[i],v]);trig=0;for(let i=1;i<pump.length;i++)if(pump[i][1]>0&&pump[i-1][1]===0)trig++;if(pump.length&&pump[0][1]>0)trig++;}
+ else if(H){
+  const i0=Math.max(H.first,H.today-S.win),i1=Math.min(H.t.length,H.today+16);nat=[];dates=[];
+  let extra=0,last=H.sm[i0]!=null?H.sm[i0]:So.fc*.8;
+  for(let i=i0;i<i1;i++){const x=i-i0;dates.push(H.t[i]);const nv=H.sm[i]!=null?H.sm[i]:last;last=nv;nat.push([x,nv]);
+   let mm=nv+Math.min(extra,Math.max(0,So.fc-nv)),on=0;
+   if(mm<=So.thr){on=1;trig++;refills.push((So.fc-mm)*3);if(lastTrig!==null)gaps.push(x-lastTrig);lastTrig=x}
+   series.push([x,+mm.toFixed(2)]);pump.push([x,on]);
+   if(on)extra+=So.fc-mm;
+   extra=Math.max(0,Math.min(extra,So.fc-nv))*(1-Math.min(.35,.08+(H.et0[i]||3)*.025))}
+  todayX=H.today-i0;
+ }
  else{
   for(let d=0;d<=S.win+1e-9;d+=.5){
    let on=0;
-   if(m<=So.thr){on=1;trig++;if(lastTrig!==null)gaps.push(d-lastTrig);lastTrig=d}
+   if(m<=So.thr){on=1;trig++;refills.push((So.fc-m)*3);if(lastTrig!==null)gaps.push(d-lastTrig);lastTrig=d}
    series.push([d,+m.toFixed(2)]);pump.push([d,on]);
    if(on){m=So.fc*(.97+r()*.03)}
-   else{m-=et*.5*(.82+r()*.36);if(r()<L.rainP*.5)m=Math.min(So.fc,m+2+r()*4)}
+   else{m-=et*.5*(.82+r()*.36);const FC=RAIN&&RAIN[S.loc]&&RAIN[S.loc].fc;if(FC&&d<FC.p.length){if(d%1===0&&FC.p[d]>0)m=Math.min(So.fc,m+FC.p[d]*.3)}else if(r()<L.rainP*.5)m=Math.min(So.fc,m+2+r()*4)}
   }
  }
  const avg=series.reduce((a,b)=>a+b[1],0)/series.length;
@@ -744,14 +959,14 @@ function simulate(){
  const cost=bf<=1?S.budget:req+(S.budget-req)*.5;
  const net=rev-cost, margin=rev>0?net/rev*100:0;
  const npk=[0,1,2].map(k=>Math.round(crops.reduce((a,c)=>a+c.npk[k]*c.share,0)*So.nf/5)*5);
- const liters=Math.round(S.acres*4046.86*So.depth/100)*100;
+ const DEPTH=refills.length?refills.reduce((a,b)=>a+b,0)/refills.length:(So.fc-So.thr)*3,liters=Math.round(S.acres*4046.86*DEPTH/100)*100;
  const zoneOff=[1.2,-.8,-2.2];
  crops.forEach((c,i)=>c.moist=Math.round(avg+zoneOff[i]+(S.soil==='sandy'&&i===0?-1:0)));
  const r2=rng(hash('spark'+S.budget+S.loc));
  const spark=[];const m0=margin*.68;for(let i=0;i<14;i++){const p=i/13;spark.push(m0+(margin-m0)*Math.pow(p,.8)+(r2()-.5)*margin*.06*(1-p))}spark[13]=margin;
  const lastSeries=series[series.length-1][1];
  const daysToNext=Math.max(1,Math.round((lastSeries-So.thr)/Math.max(.5,et)));
- return{series,pump,avg,trig,interval,crops,totalQ,bench,rev,cost,net,margin,npk,liters,spark,thr:(S.imported&&S.imported.thr)||So.thr,fc:(S.imported&&S.imported.fc)||So.fc,depth:So.depth,daysToNext,bf};
+ return{series,pump,avg,trig,interval,crops,totalQ,bench,rev,cost,net,margin,npk,liters,spark,thr:(S.imported&&S.imported.thr)||So.thr,fc:(S.imported&&S.imported.fc)||So.fc,depth:Math.round(DEPTH),nat,dates,todayX,real:!!H,daysToNext,bf};
 }
 
 /* ---------- helpers ---------- */
@@ -777,11 +992,11 @@ function reveal(el,fn){
  const r=el.getBoundingClientRect();if(r.top<innerHeight*.92)return fn();
  const io=new IntersectionObserver(es=>{if(es[0].isIntersecting){io.disconnect();fn()}},{threshold:.3});io.observe(el);
 }
-function axes(xmax,ymin,ymax,yticks,xlabel){
+function axes(xmax,ymin,ymax,yticks,xlabel,lbl){
  let g='';
  yticks.forEach((v,i)=>{const y=CH.y1-(v-ymin)/(ymax-ymin)*(CH.y1-CH.y0);g+=`<line class="grid" x1="${CH.x0}" x2="${CH.x1}" y1="${y}" y2="${y}"/><text class="ax" x="${CH.x0-14}" y="${y+4}" text-anchor="end" style="animation-delay:${i*60}ms">${v}</text>`});
- const step=xmax<=15?3:xmax<=30?6:xmax<=45?9:12;let k=0;
- for(let v=0;v<=xmax+1e-9;v+=step){const x=CH.x0+v/xmax*(CH.x1-CH.x0);g+=`<text class="ax" x="${x}" y="${CH.y1+22}" text-anchor="middle" style="animation-delay:${k++*50}ms">${Math.round(v)}</text>`}
+ const step=lbl?Math.max(1,Math.ceil(xmax/6)):xmax<=15?3:xmax<=30?6:xmax<=45?9:12;let k=0;
+ for(let v=0;v<=xmax+1e-9;v+=step){const x=CH.x0+v/xmax*(CH.x1-CH.x0);g+=`<text class="ax" x="${x}" y="${CH.y1+22}" text-anchor="middle" style="animation-delay:${k++*50}ms">${lbl?lbl(v):Math.round(v)}</text>`}
  g+=`<text class="ax lab" x="${(CH.x0+CH.x1)/2}" y="${CH.y1+46}" text-anchor="middle">${xlabel}</text>`;
  return g;
 }
@@ -795,13 +1010,16 @@ const PB={t:0,playing:!reduce,last:0,hold:0,raf:0,lastRead:''};
 
 function moistChart(R){
  const svg=$('#moistSvg');const xmax=R.series[R.series.length-1][0]||S.win;
- const ymin=15,ymax=Math.max(55,Math.ceil(Math.max(...R.series.map(p=>p[1]))/5)*5+5);
+ const allv=[...R.series.map(p=>p[1]),...(R.nat||[]).map(p=>p[1]),R.thr,R.fc];const ymin=Math.max(0,Math.floor((Math.min(...allv)-3)/5)*5),ymax=Math.ceil((Math.max(...allv)+3)/5)*5;const LB=R.dates?(v=>fmtD(R.dates[Math.min(R.dates.length-1,Math.round(v))])):null;
  const X=d=>CH.x0+d/xmax*(CH.x1-CH.x0),Y=v=>CH.y1-(v-ymin)/(ymax-ymin)*(CH.y1-CH.y0);
- const ticks=[];for(let v=20;v<=ymax;v+=10)ticks.push(v);
+ const ticks=[];for(let v=ymin;v<=ymax;v+=(ymax-ymin)>30?10:5)ticks.push(v);
  let d='';R.series.forEach((p,i)=>{d+=(i?'L':'M')+X(p[0]).toFixed(1)+' '+Y(p[1]).toFixed(1)});
  const area=d+`L${X(xmax)} ${CH.y1}L${CH.x0} ${CH.y1}Z`;
  const trigs=R.pump.filter(p=>p[1]).map(p=>p[0]);
  const marks=trigs.map((t0,i)=>`<g class="drop" style="animation-delay:${1.1+i*.12}s" transform="translate(${X(t0)} ${Y(R.thr)})"><circle r="9" fill="rgba(217,180,108,.16)"/><circle r="3.6" fill="#D9B46C"/></g>`).join('');
+ let extra='';
+ if(R.todayX!=null){const tx=X(R.todayX);extra+=`<rect x="${tx}" y="${CH.y0}" width="${CH.x1-tx}" height="${CH.y1-CH.y0}" fill="rgba(143,208,245,.06)"/><line x1="${tx}" x2="${tx}" y1="${CH.y0}" y2="${CH.y1}" stroke="rgba(143,208,245,.55)" stroke-dasharray="3 4"/><text class="ax" x="${tx+6}" y="${CH.y0+10}" style="fill:#8FD0F5">Today · forecast</text>`}
+ if(R.nat&&R.nat.length)extra+=`<path class="natl" d="${R.nat.map((p,i)=>(i?'L':'M')+X(p[0]).toFixed(1)+' '+Y(p[1]).toFixed(1)).join('')}" fill="none" stroke="#8FD0F5" stroke-width="1.6" stroke-dasharray="4 4" opacity=".9"/><text class="ax" x="${CH.x0+4}" y="${CH.y0+10}" style="fill:#8FD0F5">- - Measured, no irrigation</text>`;
  svg.innerHTML=`<defs>
   <linearGradient id="mg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5EE6A0" stop-opacity=".34"/><stop offset=".7" stop-color="#5EE6A0" stop-opacity=".05"/><stop offset="1" stop-color="#5EE6A0" stop-opacity="0"/></linearGradient>
   <linearGradient id="ml" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2FBF7C"/><stop offset=".55" stop-color="#5EE6A0"/><stop offset="1" stop-color="#CFE08A"/></linearGradient>
@@ -810,8 +1028,8 @@ function moistChart(R){
   <clipPath id="mclip"><rect class="wipe" x="${CH.x0}" y="0" width="${reduce?600:0}" height="230"/></clipPath>
   <filter id="glow" x="-10%" y="-30%" width="120%" height="160%"><feGaussianBlur stdDeviation="3.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
  </defs>
- ${axes(xmax,ymin,ymax,ticks,t('day')+'s')}
- <g clip-path="url(#mclip)"><path d="${area}" fill="url(#mg)"/></g>
+ ${axes(xmax,ymin,ymax,ticks,LB?'':t('day')+'s',LB)}
+ <g clip-path="url(#mclip)"><path d="${area}" fill="url(#mg)"/></g>${extra}
  <line class="thr" x1="${CH.x0}" x2="${CH.x1}" y1="${Y(R.thr)}" y2="${Y(R.thr)}" stroke="#D9B46C" stroke-width="1.2" stroke-dasharray="4 5"/>
  <text class="ax" x="${CH.x1}" y="${Y(R.thr)-9}" text-anchor="end" style="fill:#D9B46C;animation-delay:.9s">${R.thr}% trigger</text>
  <path id="mline" d="${d}" fill="none" stroke="url(#ml)" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round" filter="url(#glow)"/>
@@ -833,7 +1051,7 @@ function moistChart(R){
  hit.addEventListener('pointermove',e=>{const b=svg.getBoundingClientRect();const day=dayFrom(e);
   let best=R.series[0];for(const p of R.series)if(Math.abs(p[0]-day)<Math.abs(best[0]-day))best=p;
   const x=X(best[0]),y=Y(best[1]);mx.setAttribute('x1',x);mx.setAttribute('x2',x);mx.setAttribute('opacity',1);md.setAttribute('cx',x);md.setAttribute('cy',y);md.setAttribute('opacity',1);
-  tip.innerHTML=`<span>${t('day')} ${(+best[0]).toFixed(best[0]%1?1:0)}</span><b>${best[1].toFixed(1)}%</b>`;tip.style.opacity=1;
+  tip.innerHTML=`<span>${R.dates?fmtD(R.dates[best[0]]):t('day')+' '+(+best[0]).toFixed(best[0]%1?1:0)}</span><b>${best[1].toFixed(1)}%</b>`;tip.style.opacity=1;
   tip.style.left=(x/560*b.width)+'px';tip.style.top=(y/230*b.height-46)+'px'});
  hit.addEventListener('pointerleave',()=>{tip.style.opacity=0;mx.setAttribute('opacity',0);md.setAttribute('opacity',0)});
  hit.addEventListener('click',e=>{PB.t=dayFrom(e);updatePlayhead(true)});
@@ -848,7 +1066,7 @@ function pumpChart(R){
  const bars=on.map((t0,i)=>`<g class="pbar" data-d="${t0}" transform="translate(${X(t0)+(X(w)-X(0))/2} ${Y(0)})"><rect class="pb" x="${-bw/2}" y="${Y(1)-Y(0)}" width="${bw}" height="${Y(0)-Y(1)}" rx="4" fill="url(#pg)" style="animation-delay:${.35+i*.12}s"/><circle class="cap" cy="${Y(1)-Y(0)}" r="3" fill="#C9FBE0" style="animation-delay:${.6+i*.12}s"/></g>`).join('');
  svg.innerHTML=`<defs><linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5EE6A0" stop-opacity=".55"/><stop offset="1" stop-color="#5EE6A0" stop-opacity=".04"/></linearGradient>
   <filter id="glow2" x="-10%" y="-30%" width="120%" height="160%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
- ${axes(xmax,0,1,[],t('day')+'s')}
+ ${axes(xmax,0,1,[],R.dates?'':t('day')+'s',R.dates?(v=>fmtD(R.dates[Math.min(R.dates.length-1,Math.round(v))])):null)}${R.todayX!=null?`<line x1="${X(R.todayX)}" x2="${X(R.todayX)}" y1="${CH.y0}" y2="${CH.y1}" stroke="rgba(143,208,245,.55)" stroke-dasharray="3 4"/><text class="ax" x="${X(R.todayX)+6}" y="${CH.y0+10}" style="fill:#8FD0F5">Today</text>`:''}
  <line class="grid" x1="${CH.x0}" x2="${CH.x1}" y1="${Y(1)}" y2="${Y(1)}"/><line class="grid" x1="${CH.x0}" x2="${CH.x1}" y1="${Y(0)}" y2="${Y(0)}"/>
  <text class="ax" x="${CH.x0-14}" y="${Y(1)+4}" text-anchor="end">On</text><text class="ax" x="${CH.x0-14}" y="${Y(0)+4}" text-anchor="end">Off</text>
  ${bars}<path id="pline" d="${d}" fill="none" stroke="#5EE6A0" stroke-width="2.2" stroke-linejoin="round" filter="url(#glow2)"/>
@@ -857,7 +1075,7 @@ function pumpChart(R){
  P={X,Y,w,xmax,bars:[...svg.querySelectorAll('.pbar')].map(g=>({d:+g.dataset.d,g}))};
  const tip=$('#pumpTip');
  P.bars.forEach(({g,d:dd})=>{g.style.cursor='pointer';
-  g.addEventListener('pointerenter',()=>{const bb=svg.getBoundingClientRect();tip.innerHTML=`<span>${t('day')} ${(+dd).toFixed(dd%1?1:0)}</span><b>Pump on</b>`;tip.style.opacity=1;tip.style.left=(X(dd)/560*bb.width)+'px';tip.style.top=(Y(1)/230*bb.height-50)+'px';g.classList.add('hov')});
+  g.addEventListener('pointerenter',()=>{const bb=svg.getBoundingClientRect();tip.innerHTML=`<span>${R.dates?fmtD(R.dates[dd]):t('day')+' '+(+dd).toFixed(dd%1?1:0)}</span><b>${R.todayX!=null&&dd>=R.todayX?'Irrigate (planned)':'Irrigate'}</b>`;tip.style.opacity=1;tip.style.left=(X(dd)/560*bb.width)+'px';tip.style.top=(Y(1)/230*bb.height-50)+'px';g.classList.add('hov')});
   g.addEventListener('pointerleave',()=>{tip.style.opacity=0;g.classList.remove('hov')});
   g.addEventListener('click',()=>{PB.t=dd;updatePlayhead(true)})});
 }
@@ -876,7 +1094,7 @@ function updatePlayhead(force){
  const lbl=mph.querySelector('.lbl');lbl.setAttribute('transform',`translate(${Math.min(CH.x1-30,Math.max(CH.x0+30,x))} ${y})`);lbl.querySelector('text').textContent=v.toFixed(1)+'%';
  const on=P.bars.some(b=>tt>=b.d&&tt<b.d+P.w);
  const pph=$('#pumpSvg #pph');if(pph){pph.setAttribute('opacity',1);const px=P.X(tt);pph.querySelector('line').setAttribute('x1',px);pph.querySelector('line').setAttribute('x2',px);const c=pph.querySelector('circle');c.setAttribute('cx',px);c.setAttribute('cy',P.Y(on?1:0))}
- const read=`${t('day')} ${Math.floor(tt)} · ${Math.round(v)}% · ${on?'Pump on':'Pump off'}`;
+ const fd=Math.floor(tt),RR=M.R;const read=`${RR.dates?fmtD(RR.dates[Math.min(RR.dates.length-1,fd)])+(RR.todayX!=null&&fd>RR.todayX?' (forecast)':''):t('day')+' '+fd} · ${Math.round(v)}% · ${on?'Pump on':'Pump off'}`;
  if(read!==PB.lastRead||force){PB.lastRead=read;$('#pbRead').textContent=read;$('#pbRead').classList.toggle('on',on);
   document.querySelectorAll('.pin .zm').forEach((s,i)=>{const z=S.result.crops[i];if(z)s.textContent=Math.round(v+[1.2,-.8,-2.2][i])+'% '+t('moisture')})}
  $('#pbFill').style.width=(tt/M.xmax*100)+'%';
@@ -981,8 +1199,9 @@ function render(animate=true){
  reveal($('#moistCard'),()=>{moistChart(R);pumpChart(R);PB.hold=performance.now()+1700});reveal($('#donut').closest('.card'),()=>donut(R));reveal($('#spark').closest('.card'),()=>spark(R));
  $('#avgMoist').textContent=t('avg',{n:Math.round(R.avg)});
  $('#trigCount').textContent=t('trig',{n:R.trig});
- $('#moistSrc').textContent=S.imported?('File: '+S.imported.name):'MATLAB model';
- $('#irrEvery').textContent=t('every',{n:R.interval});
+ $('#moistSrc').textContent=S.imported?('File: '+S.imported.name):R.real?'Open-Meteo soil data':'Estimated model';
+ $('#moistCard .legend').textContent=S.imported?'Imported MATLAB moisture':R.real?`Root zone 9 to 27 cm · last ${R.todayX} days and ${R.series.length-R.todayX} day forecast`:t('moistLegend')+' (live soil data loads on the website)';
+ $('#irrEvery').textContent=R.trig>=2?t('every',{n:R.interval}):R.trig===1?`1 × / ${R.series.length} ${t('day').toLowerCase()}`:t('noIrr');
  countUp($('#liters'),R.liters,{suf:' L'});
  $('#litersSub').textContent=t('perCycle',{mm:R.depth,a:fmtIN(S.acres,S.acres%1?1:0)});
  const hot=LOCS[S.loc].temp>=30;
@@ -1034,9 +1253,10 @@ budget.addEventListener('input',()=>{S.budget=parseBudget(budget.value);budgetR.
 budget.addEventListener('blur',()=>budget.value=fmtIN(S.budget));
 budgetR.addEventListener('input',()=>{S.budget=+budgetR.value;budget.value=fmtIN(S.budget);markDirty()});
 document.querySelectorAll('[data-step]').forEach(b=>b.addEventListener('click',()=>{const st=+b.dataset.step.split(':')[1];S.acres=Math.max(.5,Math.min(100,+(S.acres+st).toFixed(1)));acres.value=S.acres.toFixed(1);acresR.value=Math.min(25,S.acres);markDirty()}));
-$('#soil').addEventListener('change',e=>{S.soil=e.target.value;$('#soilHint').textContent=SOILS[S.soil].hint;markDirty()});
-$('#season').addEventListener('change',e=>{S.season=e.target.value;markDirty()});
-locSel.addEventListener('change',e=>{S.loc=e.target.value;setWeather(true);refreshLive(S.loc);markDirty()});
+$('#soil').addEventListener('change',e=>{S.soil=e.target.value;S.soilAuto=false;soilUI();markDirty()});
+$('#soilReset').addEventListener('click',()=>{autoSoil();markDirty()});
+$('#season').addEventListener('change',e=>{S.season=e.target.value;S.plan=null;renderRain();markDirty()});
+locSel.addEventListener('change',e=>{S.loc=e.target.value;S.plan=null;setWeather(true);refreshLive(S.loc);autoSoil();loadRain(S.loc);renderRain();markDirty()});
 /* searchable all India location picker */
 (()=>{
  const btn=$('#locBtn'),pop=$('#locPop'),q=$('#locQ'),list=$('#locList');
@@ -1098,7 +1318,7 @@ $('#clearAll').addEventListener('click',e=>{const b=e.currentTarget;
  const backup=saved.slice();document.querySelectorAll('.runrow').forEach((r,k)=>setTimeout(()=>r.classList.add('gone'),reduce?0:k*40));
  setTimeout(()=>{saved=[];persistSaved();renderSaved();toastUndo('All saved runs cleared',()=>{saved=backup;persistSaved();renderSaved();toast('Saved runs restored')})},reduce?0:360);
 });
-function syncInputs(){acres.value=S.acres.toFixed(1);acresR.value=Math.min(25,S.acres);budget.value=fmtIN(S.budget);budgetR.value=S.budget;$('#soil').value=S.soil;$('#season').value=S.season;locSel.value=S.loc;$('#win').value=S.win;$('#winLabel').textContent=S.win+' days';$('#soilHint').textContent=SOILS[S.soil].hint}
+function syncInputs(){acres.value=S.acres.toFixed(1);acresR.value=Math.min(25,S.acres);budget.value=fmtIN(S.budget);budgetR.value=S.budget;$('#soil').value=S.soil;$('#season').value=S.season;locSel.value=S.loc;$('#win').value=S.win;$('#winLabel').textContent=S.win+' days';$('#soilHint').textContent=SOILS[S.soil].hint;S.plan=null;soilUI();loadRain(S.loc)}
 const openDrawer=()=>{$('#drawer').classList.add('open');$('#scrim').classList.add('on');$('#closeSaved').focus()};
 const closeDrawer=()=>{$('#drawer').classList.remove('open');$('#scrim').classList.remove('on')};
 $('#openSaved').addEventListener('click',openDrawer);$('#closeSaved').addEventListener('click',closeDrawer);$('#scrim').addEventListener('click',()=>{closeDrawer();$('#helpModal').classList.remove('on')});
@@ -1131,17 +1351,17 @@ $('#csvIn').addEventListener('change',e=>{
 });
 
 /* ---------- export ---------- */
-$('#exportBtn').addEventListener('click',()=>{try{window.print()}catch(e){toast('Use your browser print menu to save this report as PDF.')}});
+$('#exportBtn').addEventListener('click',()=>{try{buildReport();setTimeout(()=>{try{window.print()}catch(e){toast('Use your browser print menu to save this report as PDF.')}},80)}catch(e){console.error(e);toast('Could not build the report')}});
 
 /* ---------- language ---------- */
 function applyLang(){
  document.documentElement.lang=lang;
  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(el.tagName==='OPTION')el.textContent=t(k);else el.textContent=t(k)});
- $('#langLabel').textContent={en:'English',hi:'हिंदी',kn:'ಕನ್ನಡ'}[lang]+'  ·  '+['English','हिंदी','ಕನ್ನಡ'].filter((x,i)=>['en','hi','kn'][i]!==lang).join(' · ');
+ langLabelUI();refreshSeasons();drawProfile();
  setWeather(false);if(!dirty&&!running){$('#runNote').textContent=t('applied',{id:'SK-'+String(S.runNo).padStart(3,'0')})}
  render();renderSaved();
 }
-$('#lang').addEventListener('change',e=>{lang=e.target.value;applyLang()});
+$('#lang').addEventListener('change',e=>{lang=e.target.value;try{localStorage.setItem('sk_lang',lang)}catch(er){}applyLang()});
 
 /* ---------- toast ---------- */
 let tt;function toast(m){const el=$('#toast');el.textContent=m;el.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>el.classList.remove('on'),2600)}
@@ -1181,9 +1401,437 @@ function toastUndo(m,fn){const el=$('#toast');el.textContent=m;const u=document.
 $('#playBtn').addEventListener('click',e=>{PB.playing=!PB.playing;e.currentTarget.querySelector('.pp').setAttribute('d',PB.playing?'M7 5h3.5v14H7zM13.5 5H17v14h-3.5z':'M8 5v14l11-7z');e.currentTarget.setAttribute('aria-label',PB.playing?'Pause playback':'Play playback')});
 if(reduce){$('#playBtn').querySelector('.pp').setAttribute('d','M8 5v14l11-7z')}
 document.querySelectorAll('.card').forEach(c=>c.addEventListener('pointermove',e=>{const b=c.getBoundingClientRect();c.style.setProperty('--sx',(e.clientX-b.left)+'px');c.style.setProperty('--sy',(e.clientY-b.top)+'px')}));
+/* ================= soil by location ================= */
+function soilFor(k){
+ const L=LOCS[k];if(!L)return'loamy';const st=L.state,a=L.lat??20,o=L.lon??78,n=(L.name||'').toLowerCase();
+ const hillN=['darjeeling','kalimpong','nilgiris','idukki','wayanad','karbi anglong','dima hasao'];
+ if(hillN.some(h=>n.startsWith(h)))return'mountain';
+ if(['Himachal Pradesh','Jammu and Kashmir','Sikkim','Arunachal Pradesh','Meghalaya','Nagaland','Manipur','Mizoram'].includes(st))return'mountain';
+ if(st==='Ladakh'||st==='Lakshadweep')return'sandy';
+ if(st==='Uttarakhand')return(a<29.4&&o>77.8)||n.startsWith('haridwar')||n.startsWith('udham')?'loamy':'mountain';
+ if(['Punjab','Delhi','Chandigarh','Uttar Pradesh','Bihar','Assam','Puducherry'].includes(st))return(st==='Uttar Pradesh'&&a<25.6&&o<81.2)?'red':'loamy';
+ if(st==='Haryana')return o<76.1?'sandy':'loamy';
+ if(st==='Rajasthan')return o<74.6?'sandy':(a<25.6&&o>75.4)?'clay':'loamy';
+ if(st==='Gujarat')return(a>22.9&&o<71.3)?'sandy':a>23.2?'loamy':'clay';
+ if(st==='Maharashtra')return o<73.6?'laterite':o>79.3?'red':'clay';
+ if(st==='Madhya Pradesh')return a>25.8&&o>77.5?'loamy':o>80.3?'red':'clay';
+ if(['Chhattisgarh','Jharkhand','Tripura'].includes(st))return'red';
+ if(st==='Odisha')return(o>85.4&&a<21.6)?'loamy':'red';
+ if(st==='West Bengal')return o<87.3&&a<24.2?'laterite':'loamy';
+ if(st==='Karnataka')return o<75.2?'laterite':(o<75.9&&a>12.1&&a<14.3)?'laterite':a>15.3?'clay':'red';
+ if(st==='Kerala'||st==='Goa'||st==='Andaman and Nicobar Islands')return'laterite';
+ if(st==='Tamil Nadu')return(o>78.9&&a>10.2&&a<11.5)?'loamy':'red';
+ if(st==='Andhra Pradesh')return(a>15.8&&a<17.3&&o>80.6)?'loamy':(a>15.4&&a<16.7&&o>79.4)?'clay':'red';
+ if(st==='Telangana')return a>18.6&&o<79.3?'clay':'red';
+ if(st==='Dadra and Nagar Haveli'||st==='Daman and Diu')return'clay';
+ return'loamy';
+}
+S.soilAuto=true;
+function soilUI(){
+ const sug=soilFor(S.loc),place=LOCS[S.loc].name.split(',')[0];
+ $('#soilHint').textContent=SOILS[S.soil].hint;
+ $('#soilBadge').textContent=S.soil===sug?t('soilAuto',{p:place}):t('soilMan');
+ $('#soilBadge').classList.toggle('man',S.soil!==sug);
+ $('#soilReset').hidden=S.soil===sug;$('#soilReset').textContent=t('soilReset',{s:t(sug)});
+}
+function autoSoil(){S.soil=soilFor(S.loc);S.soilAuto=true;$('#soil').value=S.soil;soilUI()}
+
+/* ================= season calendar ================= */
+const SMONTHS={kharif:[6,7,8,9,10],rabi:[11,12,1,2,3],summer:[3,4,5]};
+function seasonInfo(key){
+ const now=new Date(),y=now.getFullYear(),m=now.getMonth()+1;let sy;
+ if(key==='kharif')sy=m<=7?y:y+1;else if(key==='rabi')sy=m===1?y-1:y;else sy=m<=3?y:y+1;
+ const months=SMONTHS[key].map(mm=>{const yy=key==='rabi'&&mm<=3?sy+1:sy;return yy+'-'+String(mm).padStart(2,'0')});
+ const label=key==='rabi'?`Rabi ${sy}/${String(sy+1).slice(2)}`:(key==='kharif'?'Kharif ':'Summer ')+sy;
+ return{label,months};
+}
+['kharif','rabi','summer'].forEach(k=>{SEASONS[k].label=seasonInfo(k).label});
+document.querySelectorAll('#season option').forEach(o=>o.textContent=SEASONS[o.value].label);
+
+/* ================= crop water and soil needs ================= */
+const NEED={ // [min,max] seasonal water mm, seasons, good soils
+ "Paddy":[1000,1500,['kharif','summer'],['loamy','clay','laterite','mountain'],1],
+ "Maize":[500,800,['kharif','rabi','summer'],['loamy','red','mountain','laterite']],
+ "Green gram":[300,400,['kharif','summer','rabi'],['loamy','red','sandy']],
+ "Ragi":[350,500,['kharif','rabi'],['red','laterite','mountain']],
+ "Bengal gram":[250,400,['rabi'],['clay','loamy']],
+ "Sunflower":[350,500,['rabi','summer','kharif'],['clay','red','loamy']],
+ "Groundnut":[450,600,['kharif','summer'],['red','sandy','loamy']],
+ "Sesame":[300,400,['kharif','summer'],['red','loamy','sandy']],
+ "Wheat":[400,500,['rabi'],['loamy','clay','mountain']],
+ "Mustard":[250,400,['rabi'],['loamy','sandy']],
+ "Cotton":[700,1200,['kharif'],['clay','loamy']],
+ "Soybean":[450,700,['kharif'],['clay','loamy']],
+ "Pigeon pea":[600,1000,['kharif'],['red','clay','loamy']],
+ "Lentil":[250,350,['rabi'],['loamy','clay']],
+ "Pearl millet":[300,450,['kharif','summer'],['sandy','red']],
+ "Cumin":[250,350,['rabi'],['sandy','loamy']],
+ "Jute":[1000,1500,['kharif'],['loamy'],1],
+ "Sugarcane":[1500,2500,['kharif'],['loamy','clay'],1]
+};
+
+/* ================= rain outlook ================= */
+const RAINSNAP={"loc":"mandya","at":"2026-10-16T19:00","seas":{"2026-10":[158.0,16],"2026-11":[77.2,30],"2026-12":[21.3,31],"2027-01":[2.3,31],"2027-02":[1.9,28],"2027-03":[3.8,31],"2027-04":[5.8,16]},"norm":{"01":6.0,"02":4.3,"03":15.7,"04":28.7,"05":135.7,"06":112.3,"07":151.2,"08":140.9,"09":146.8,"10":194.8,"11":77.7,"12":40.0},"raw":{"t":["2026-07-16","2026-07-17","2026-07-18","2026-07-19","2026-07-20","2026-07-21","2026-07-22","2026-07-23","2026-07-24","2026-07-25","2026-07-26","2026-07-27","2026-07-28","2026-07-29","2026-07-30","2026-07-31","2026-08-01","2026-08-02","2026-08-03","2026-08-04","2026-08-05","2026-08-06","2026-08-07","2026-08-08","2026-08-09","2026-08-10","2026-08-11","2026-08-12","2026-08-13","2026-08-14","2026-08-15","2026-08-16","2026-08-17","2026-08-18","2026-08-19","2026-08-20","2026-08-21","2026-08-22","2026-08-23","2026-08-24","2026-08-25","2026-08-26","2026-08-27","2026-08-28","2026-08-29","2026-08-30","2026-08-31","2026-09-01","2026-09-02","2026-09-03","2026-09-04","2026-09-05","2026-09-06","2026-09-07","2026-09-08","2026-09-09","2026-09-10","2026-09-11","2026-09-12","2026-09-13","2026-09-14","2026-09-15","2026-09-16","2026-09-17","2026-09-18","2026-09-19","2026-09-20","2026-09-21","2026-09-22","2026-09-23","2026-09-24","2026-09-25","2026-09-26","2026-09-27","2026-09-28","2026-09-29","2026-09-30","2026-10-01","2026-10-02","2026-10-03","2026-10-04","2026-10-05","2026-10-06","2026-10-07","2026-10-08","2026-10-09","2026-10-10","2026-10-11","2026-10-12","2026-10-13","2026-10-14","2026-10-15","2026-10-16","2026-10-17","2026-10-18","2026-10-19","2026-10-20","2026-10-21","2026-10-22","2026-10-23","2026-10-24","2026-10-25","2026-10-26","2026-10-27","2026-10-28","2026-10-29","2026-10-30","2026-10-31"],"p":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4.7,0.2,4.3,0.9,3.1,2.0,16.5,3.0,2.5,1.3,0.9,1.1,1.1,0.5,10.5,1.8,1.1,0.8,0.3,0.1,0,0.8,1.4,1.6,0.1,0,0.1,1.3,3.0,6.5,0.2,2.6,1.1,11.1,16.0,0.8,0,0.9,6.4,0.3,2.1,2.6,12.0,9.9,1.2,0,0,0.9,5.8,0.6,0.9,0.7,2.7,0.5,0,0,0.1,0,10.0,13.1,19.8,15.2,15.4,5.7,18.8,9.4,13.2,9.6,15.1,15.5,0,0,0.6,0.6,0],"pr":[0,0,0,0,0,0,0,0,10,6,0,26,29,10,6,65,65,58,77,100,23,75,84,10,0,29,6,23,29,3,0,0,0,93,83,97,64,86,90,100,92,96,73,84,67,69,52,100,93,69,67,29,39,12,39,65,59,16,14,6,62,97,100,61,90,59,100,100,100,53,58,100,25,65,88,94,100,55,6,6,39,100,99,37,22,84,41,4,12,18,6,98,100,100,95,97,75,84,96,95,86,70,60,43,35,35,27,24],"et0":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4.0,4.13,4.16,4.93,5.1,4.96,3.54,3.49,5.16,5.54,5.78,5.69,5.87,5.45,4.36,5.5,4.19,5.11,5.64,5.69,5.59,5.74,5.63,5.31,5.29,6.0,5.76,5.08,4.94,4.98,4.64,5.16,5.23,3.85,3.58,5.13,5.73,5.05,3.85,5.04,4.97,4.47,4.28,3.94,3.54,5.4,5.33,5.3,4.32,4.97,5.19,5.51,4.28,5.41,6.42,5.74,5.99,5.24,4.36,3.58,3.03,3.65,3.76,3.21,3.27,2.96,3.5,3.45,3.2,3.18,3.84,4.36,3.97,3.79,4.78],"sm":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,23.2,23.73,23.57,27.53,29.3,28.81,27.55,26.2,25.3,25.91,25.48,24.5,24.44,23.89,24.67,24.26,24.61,24.93,24.66,23.81,22.78,22.34,21.5,20.71,20.46,20.08,19.51,18.86,19.35,19.15,18.57,19.02,19.12,20.63,23.93,26.24,28.48,25.16,22.48,22.1,21.39,20.85,21.51,20.98,21.13,21.58,20.98,19.69,18.21,17.62,17.51,17.38,16.01,15.15,14.45,13.87,14.18,15.77,17.32,17.1,18.19,19.54,25.18,30.42,34.13,35.08,39.12,39.0,38.9,39.27,39.7,39.44,36.78,35.0,33.64,33.03]}};
+var RAIN={};
+const dim=ym=>{const[y,m]=ym.split('-').map(Number);return new Date(y,m,0).getDate()};
+async function getJSON(url,ms=15000){const c=new AbortController();const tm=setTimeout(()=>c.abort(),ms);try{const r=await fetch(url,{signal:c.signal});if(!r.ok)throw new Error('http '+r.status);return await r.json()}finally{clearTimeout(tm)}}
+function rawFrom(f){const d=f.daily,g={};(f.hourly&&f.hourly.time||[]).forEach((tm,i)=>{const v=f.hourly.soil_moisture_9_to_27cm[i];if(v!=null){const k=tm.slice(0,10);(g[k]=g[k]||[]).push(v)}});
+ return{t:d.time,p:d.precipitation_sum.map(x=>x||0),pr:d.precipitation_probability_max.map(x=>x||0),et0:d.et0_fao_evapotranspiration.map(x=>x||0),sm:d.time.map(k=>g[k]?+(g[k].reduce((a,b)=>a+b,0)/g[k].length*100).toFixed(2):null)}}
+function splitRaw(r,day){const today=day||new Date().toLocaleDateString('en-CA',{timeZone:'Asia/Kolkata'});let ti=r.t.indexOf(today);if(ti<0)ti=Math.max(0,r.t.length-16);
+ const first=Math.max(0,r.sm.findIndex(x=>x!=null));return{fc:{t:r.t.slice(ti,ti+16),p:r.p.slice(ti,ti+16),pr:r.pr.slice(ti,ti+16)},hist:{...r,today:ti,first}}}
+async function loadRain(k){
+ const L=LOCS[k];if(!L||L.lat==null){RAIN[k]={status:'err'};return}
+ if(RAIN[k]&&(RAIN[k].status==='ok'||RAIN[k].status==='loading'))return;
+ RAIN[k]={status:'loading'};if(k===S.loc)renderRain();
+ const q=`latitude=${L.lat}&longitude=${L.lon}`;
+ try{
+  const [f,se,ar]=await Promise.all([
+   getJSON(`https://api.open-meteo.com/v1/forecast?${q}&daily=precipitation_sum,precipitation_probability_max,et0_fao_evapotranspiration&hourly=soil_moisture_9_to_27cm&past_days=92&forecast_days=16&timezone=Asia%2FKolkata`,20000),
+   getJSON(`https://seasonal-api.open-meteo.com/v1/seasonal?${q}&daily=precipitation_sum&forecast_days=183`,25000).catch(()=>null),
+   getJSON(`https://archive-api.open-meteo.com/v1/archive?${q}&start_date=2016-01-01&end_date=2025-12-31&daily=precipitation_sum&timezone=Asia%2FKolkata`,25000)
+  ]);
+  const seas={};
+  if(se&&se.daily){const d=se.daily,mem=Object.keys(d).filter(x=>x.startsWith('precipitation_sum'));
+   d.time.forEach((tm,i)=>{const v=mem.map(x=>d[x][i]).filter(x=>x!=null);if(!v.length)return;const ym=tm.slice(0,7);seas[ym]=seas[ym]||[0,0];seas[ym][0]+=v.reduce((a,b)=>a+b,0)/v.length;seas[ym][1]++})}
+  const tot={};ar.daily.time.forEach((tm,i)=>{const mm=tm.slice(5,7);tot[mm]=(tot[mm]||0)+(ar.daily.precipitation_sum[i]||0)});
+  const norm={};Object.keys(tot).forEach(mm=>norm[mm]=tot[mm]/10);
+  RAIN[k]={status:'ok',at:new Date(),...splitRaw(rawFrom(f)),seas,norm,seasLive:!!se};
+ }catch(e){
+  if(RAINSNAP.loc===k)RAIN[k]={status:'snap',at:new Date(RAINSNAP.at+':00+05:30'),...splitRaw(RAINSNAP.raw,RAINSNAP.at.slice(0,10)),seas:RAINSNAP.seas,norm:RAINSNAP.norm,seasLive:true};
+  else RAIN[k]={status:'err'};
+ }
+ if(k===S.loc){renderRain();if(!dirty&&!running)render()}
+}
+function seasonRain(D,key){
+ const info=seasonInfo(key);
+ return info.months.map(ym=>{const n=D.norm[ym.slice(5)]||0,days=dim(ym),f=D.seas&&D.seas[ym];
+  let exp=n,src='avg';if(f&&f[1]>=days*.8){exp=f[0];src='fc'}else if(f&&f[1]>0){exp=f[0]+n*(1-f[1]/days);src='mix'}
+  return{ym,n,exp,src}});
+}
+function cropFits(D,key){
+ const L=LOCS[S.loc],months=seasonRain(D,key),eff=months.reduce((a,m)=>a+m.exp,0)*.8;
+ const zoneSet=new Set(Object.values(ZONES[L.zone]).flat().map(x=>x[0])),zoneNow=new Set(ZONES[L.zone][key].map(x=>x[0]));
+ return Object.entries(NEED).filter(([n,v])=>v[2].includes(key)).map(([n,v])=>{
+  const mid=(v[0]+v[1])/2,ratio=eff/mid,wet=!!v[4];
+  let rs=ratio>=.85&&ratio<=1.4?1:ratio<.85?.3+.7*(ratio/.85):(wet?1:Math.max(.35,1-(ratio-1.4)*.5));
+  const ss=v[3].includes(S.soil)?1:.45,zs=zoneNow.has(n)?1.05:zoneSet.has(n)?.85:.6;
+  const score=Math.min(1,.5*rs+.3*ss+.2*zs);
+  const gap=Math.max(0,mid-eff);
+  let tag=ratio>=.85?(ratio>1.6&&!wet?'Rain fed, watch for waterlogging':'Mostly rain fed'):`Needs about ${Math.round(gap)} mm irrigation`;
+  return{n,score,ratio,gap,tag,soilOk:v[3].includes(S.soil),need:v}}).sort((a,b)=>b.score-a.score);
+}
+function fmtD(iso){const d=new Date(iso+'T00:00:00');return d.toLocaleDateString('en-IN',{day:'numeric',month:'short'})}
+function renderRain(){
+ const k=S.loc,D=RAIN[k],L=LOCS[k],place=L.name.split(',')[0];
+ $('#rainSub').textContent=t('rainFor',{p:L.name});
+ const grid=$('#rainGrid');
+ if(!D||D.status==='loading'){
+  $('#rainSrc').innerHTML='<i class="livedot"></i> Loading forecast';
+  ['#r16stat','#rAdvice','#rSeasonHead','#rWater','#rFit','#rSeasonNote','#rFitSub'].forEach(s=>$(s).innerHTML='');
+  $('#r16Svg').innerHTML='<rect class="skel" x="0" y="10" width="760" height="170" rx="14" fill="rgba(140,230,180,.07)"/>';
+  $('#rSeasonSvg').innerHTML='<rect x="0" y="10" width="360" height="180" rx="14" fill="rgba(140,230,180,.07)"/>';
+  $('#rWater').innerHTML='<div class="skel" style="height:120px"></div>';$('#rFit').innerHTML='<div class="skel" style="height:120px;grid-column:1/-1"></div>';return}
+ if(D.status==='err'){
+  $('#rainSrc').innerHTML='';
+  const msg=`<div class="rainmsg">${t('rainNA',{p:place})}</div>`;
+  ['#r16stat','#rSeasonHead','#rWater','#rFit','#rSeasonNote','#rFitSub'].forEach(s=>$(s).innerHTML='');
+  $('#rAdvice').innerHTML=msg;$('#r16Svg').innerHTML='';$('#rSeasonSvg').innerHTML='';return}
+ const live=D.status==='ok';
+ $('#rainSrc').innerHTML=`<span class="${live?'islive':''}" style="display:flex;gap:6px;align-items:center"><i class="livedot"></i>${live?'Live forecast · Open-Meteo':'Forecast snapshot · '+D.at.toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',hour12:false,timeZone:'Asia/Kolkata'})+' IST'}</span>`;
+ // 16 days
+ const p=D.fc.p,pr=D.fc.pr,tt=D.fc.t,tot=p.reduce((a,b)=>a+b,0),rainy=p.filter(x=>x>=2.5).length,hi=p.indexOf(Math.max(...p));
+ $('#r16stat').innerHTML=`<div><b>${fmtIN(tot,0)} mm</b><span>${t('totRain')}</span></div><div><b>${rainy}</b><span>${t('rainyDays')}</span></div><div><b>${p[hi]>0?fmtD(tt[hi]):'None'}</b><span>${t('wettest')}${p[hi]>0?' · '+fmtIN(p[hi],0)+' mm':''}</span></div>`;
+ const svg=$('#r16Svg'),W=760,x0=36,x1=750,y0=14,y1=160,n=p.length,bw=(x1-x0)/n;
+ const pmax=Math.max(20,Math.ceil(Math.max(...p)/10)*10),Y=v=>y1-v/pmax*(y1-y0);
+ let g=`<defs><linearGradient id="rg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8FD0F5"/><stop offset="1" stop-color="#3FA3E0" stop-opacity=".35"/></linearGradient></defs>`;
+ [0,pmax/2,pmax].forEach(v=>g+=`<line class="grid" x1="${x0}" x2="${x1}" y1="${Y(v)}" y2="${Y(v)}"/><text class="ax" x="${x0-8}" y="${Y(v)+4}" text-anchor="end">${Math.round(v)}</text>`);
+ let line='';
+ p.forEach((v,i)=>{const x=x0+i*bw+bw*.18,w=bw*.64,h=Math.max(1.5,y1-Y(v));
+  g+=`<rect class="rb" data-i="${i}" x="${x}" y="${y1-h}" width="${w}" height="${h}" rx="4" fill="${v>=64.5?'#F08A6B':'url(#rg)'}" style="animation-delay:${i*45}ms"/>`;
+  if(i%2===0)g+=`<text class="ax" x="${x+w/2}" y="${y1+18}" text-anchor="middle" style="animation-delay:${i*30}ms">${fmtD(tt[i])}</text>`;
+  const py=y0+(1-pr[i]/100)*(y1-y0);line+=(i?'L':'M')+(x+w/2)+' '+py});
+ g+=`<path id="prl" d="${line}" fill="none" stroke="#D9B46C" stroke-width="1.6" stroke-dasharray="3 4" opacity=".9"/><text class="ax" x="${x1}" y="${y0-2}" text-anchor="end" style="fill:#D9B46C">Chance of rain %</text><text class="ax" x="${x0}" y="${y0-2}" style="fill:#8FD0F5">mm</text>
+ <rect id="r16hit" x="${x0}" y="0" width="${x1-x0}" height="${y1}" fill="transparent"/>`;
+ svg.innerHTML=g;
+ const tip=$('#r16Tip');svg.querySelector('#r16hit').addEventListener('pointermove',e=>{const b=svg.getBoundingClientRect();const sx=(e.clientX-b.left)/b.width*W;const i=Math.max(0,Math.min(n-1,Math.floor((sx-x0)/bw)));
+  tip.innerHTML=`<span>${fmtD(tt[i])}</span><b>${fmtIN(p[i],1)} mm · ${pr[i]}%</b>`;tip.style.opacity=1;tip.style.left=((x0+i*bw+bw/2)/W*b.width)+'px';tip.style.top=(Y(p[i])/200*b.height-46)+'px';
+  svg.querySelectorAll('.rb').forEach(r=>r.style.opacity=+r.dataset.i===i?1:.45)});
+ svg.querySelector('#r16hit').addEventListener('pointerleave',()=>{tip.style.opacity=0;svg.querySelectorAll('.rb').forEach(r=>r.style.opacity=1)});
+ // advice
+ const adv=[];let cum=0,sow=-1;for(let i=0;i<n;i++){cum+=p[i];if(i>=7)cum-=p[i-7];if(cum>=25&&sow<0)sow=i}
+ const heavy=p.map((v,i)=>[v,i]).filter(x=>x[0]>=64.5);
+ if(tot<10)adv.push(['☀️',`Dry fortnight ahead in ${place}, about ${fmtIN(tot,0)} mm in 16 days. Irrigate before sowing, or wait for the next rain.`]);
+ else if(sow>=0)adv.push(['🌱',`Good soil moisture for sowing around ${fmtD(tt[sow])}, after about 25 mm of rain in a week.`]);
+ else adv.push(['🌦',`Light, scattered rain of about ${fmtIN(tot,0)} mm. Keep irrigation ready for sowing.`]);
+ if(heavy.length)adv.push(['⚠️',`Heavy rain likely on ${heavy.map(h=>fmtD(tt[h[1]])).join(', ')}. Clear field drains and skip fertilizer or spraying the day before.`]);
+ const dry=(()=>{let best=0,cur=0,end=0;p.forEach((v,i)=>{if(v<1){cur++;if(cur>best){best=cur;end=i}}else cur=0});return[best,end]})();
+ if(dry[0]>=7&&tot>=10)adv.push(['💧',`Dry spell of ${dry[0]} days ending around ${fmtD(tt[dry[1]])}. Plan one irrigation in that stretch.`]);
+ $('#rAdvice').innerHTML=adv.map(a=>`<div><i>${a[0]}</i><span>${a[1]}</span></div>`).join('');
+ // season outlook
+ const key=S.season,months=seasonRain(D,key),E=months.reduce((a,m)=>a+m.exp,0),N=months.reduce((a,m)=>a+m.n,0),ratio=N?E/N:1;
+ const anyFc=months.some(m=>m.src!=='avg');
+ const st=!anyFc?['typical',t('typical')]:ratio>1.2?['above',t('above')]:ratio<.8?['below',t('below')]:['normal',t('normal')];
+ $('#rSeasonHead').innerHTML=`<div class="rstat"><div><b>${fmtIN(E,0)} mm</b><span>${SEASONS[key].label} ${t('expected')}</span></div><div><b>${fmtIN(N,0)} mm</b><span>${t('tenYr')}</span></div></div><span class="pillst ${st[0]}">${st[1]}${anyFc?' · '+Math.round(ratio*100)+'%':''}</span>`;
+ const ss=$('#rSeasonSvg'),sx0=30,sx1=355,sy0=12,sy1=170,mx=Math.max(20,...months.map(m=>Math.max(m.exp,m.n)))*1.1,SY=v=>sy1-v/mx*(sy1-sy0),cw=(sx1-sx0)/months.length;
+ let sg='';[0,mx/2].forEach(v=>sg+=`<line class="grid" x1="${sx0}" x2="${sx1}" y1="${SY(v)}" y2="${SY(v)}"/>`);
+ months.forEach((m,i)=>{const cx=sx0+i*cw,w=cw*.3;const mon=new Date(m.ym+'-01T00:00:00').toLocaleDateString('en-IN',{month:'short'});
+  sg+=`<rect class="rb" x="${cx+cw*.17}" y="${SY(m.n)}" width="${w}" height="${sy1-SY(m.n)}" rx="4" fill="none" stroke="rgba(233,243,237,.35)" stroke-dasharray="3 3" style="animation-delay:${i*90}ms"/>`;
+  sg+=`<rect class="rb sb" data-i="${i}" x="${cx+cw*.53}" y="${SY(m.exp)}" width="${w}" height="${Math.max(1.5,sy1-SY(m.exp))}" rx="4" fill="${m.src==='avg'?'rgba(143,208,245,.35)':'url(#rg2)'}" style="animation-delay:${120+i*90}ms"/>`;
+  sg+=`<text class="ax" x="${cx+cw/2}" y="${sy1+18}" text-anchor="middle">${mon}</text>`});
+ ss.innerHTML=`<defs><linearGradient id="rg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8FD0F5"/><stop offset="1" stop-color="#3FA3E0" stop-opacity=".4"/></linearGradient></defs>`+sg+`<rect id="shit" x="${sx0}" y="0" width="${sx1-sx0}" height="${sy1}" fill="transparent"/>`;
+ const stp=$('#rSeasonTip');ss.querySelector('#shit').addEventListener('pointermove',e=>{const b=ss.getBoundingClientRect();const i=Math.max(0,Math.min(months.length-1,Math.floor(((e.clientX-b.left)/b.width*360-sx0)/cw)));const m=months[i];
+  stp.innerHTML=`<span>${new Date(m.ym+'-01T00:00:00').toLocaleDateString('en-IN',{month:'long',year:'numeric'})}</span><b>${fmtIN(m.exp,0)} mm</b><span>avg ${fmtIN(m.n,0)}</span>`;stp.style.opacity=1;stp.style.left=((sx0+i*cw+cw/2)/360*b.width)+'px';stp.style.top=(SY(Math.max(m.exp,m.n))/210*b.height-46)+'px'});
+ ss.querySelector('#shit').addEventListener('pointerleave',()=>stp.style.opacity=0);
+ $('#rSeasonNote').textContent=anyFc?'Solid bars: seasonal forecast. Dashed: 10 year average. Months beyond the forecast range use the average.':'This season is beyond the 6 month forecast range, so bars show the 10 year average for your district.';
+ // water situation
+ const R=S.result;if(R){const need=R.crops.reduce((a,c)=>{const v=NEED[c.n]||[400,600];return a+c.share*(v[0]+v[1])/2},0),eff=E*.8,cov=Math.min(1,eff/need),gap=Math.max(0,need-eff),lit=gap*S.acres*4046.86;
+  $('#rWater').innerHTML=`<div class="rstat"><div><b>${Math.round(cov*100)}%</b><span>${t('rainCovers')}</span></div></div>
+  <div class="wbar"><div class="r" id="wbr"></div></div><div class="wleg"><span>Rain <b>${fmtIN(Math.min(eff,need),0)} mm</b></span><span>Irrigation <b>${fmtIN(gap,0)} mm</b></span></div>
+  <p class="sub" style="margin:14px 0 0;font-size:14px;color:#C4D6CB">${gap>0?`Your plan needs about <b>${fmtIN(need,0)} mm</b> of water this season. Plan about <b>${fmtIN(Math.round(lit/1e5)/10,1)} lakh litres</b> of irrigation across ${fmtIN(S.acres,S.acres%1?1:0)} acres.`:eff>need*1.3?`Expected rain is more than the crops need. Keep field drains open and store the extra in a farm pond.`:`Expected rain should cover the crop plan with little irrigation.`}</p>`;
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{const b=$('#wbr');if(b)b.style.width=(cov*100)+'%'}))}
+ // crop fit
+ const fits=cropFits(D,key).slice(0,6);
+ $('#rFitSub').textContent=`Ranked for ${SEASONS[key].label} in ${place} using expected rain, your ${t(S.soil).toLowerCase()} and crops common in the region.`;
+ $('#rFit').innerHTML=fits.map((f,i)=>`<div class="fit" style="animation-delay:${i*70}ms"><div class="ph" style="background-image:url(${CROPIMG[CROPS[f.n].img]})"></div><div style="flex:1;min-width:0"><div class="nm"><span>${t(f.n)}</span><em>${Math.round(f.score*100)}%</em></div><div class="tg">${f.tag}${f.soilOk?'':' · less suited to this soil'}</div><div class="fb"><i data-w="${f.score*100}"></i></div></div></div>`).join('');
+ requestAnimationFrame(()=>requestAnimationFrame(()=>document.querySelectorAll('#rFit .fb i').forEach(b=>b.style.width=b.dataset.w+'%')));
+ RAIN[k].top=fits.slice(0,3).map(f=>f.n);
+ $('#planBack').hidden=!S.plan;
+}
+$('#planTop').addEventListener('click',()=>{const D=RAIN[S.loc];if(!D||!D.top)return;S.plan=D.top.slice();$('#planBack').hidden=false;run();toast('Planning with '+S.plan.map(n=>t(n)).join(', '))});
+$('#planBack').addEventListener('click',()=>{S.plan=null;$('#planBack').hidden=true;run()});
+
+/* ================= AI chat ================= */
+const MODELS=[
+ {id:'claude',g:'On claude.ai',label:'Claude',prov:'claude',hidden:true},
+ {id:'free',g:'Free, no sign up',label:'GPT OSS 20B (Pollinations)',prov:'poll',model:'openai'},
+ {id:'p-sonnet',g:'Free with a Puter account',label:'Claude Sonnet 5.5',prov:'puter',model:'claude-sonnet-5-5'},
+ {id:'p-haiku',g:'Free with a Puter account',label:'Claude Haiku 5.5',prov:'puter',model:'claude-haiku-5-5'},
+ {id:'p-gpt',g:'Free with a Puter account',label:'GPT 6 Luna',prov:'puter',model:'gpt-6-luna'},
+ {id:'p-gemini',g:'Free with a Puter account',label:'Gemini 3.8 Flash',prov:'puter',model:'gemini-3.8-flash'},
+ {id:'p-deepseek',g:'Free with a Puter account',label:'DeepSeek Flash',prov:'puter',model:'deepseek-flash'},
+ {id:'p-grok',g:'Free with a Puter account',label:'Grok 4.7',prov:'puter',model:'grok-4.7'},
+ {id:'p-mistral',g:'Free with a Puter account',label:'Mistral Large 4',prov:'puter',model:'mistral-large-4'},
+ {id:'p-llama',g:'Free with a Puter account',label:'Llama 4 Maverick',prov:'puter',model:'infron:meta-llama/llama-4-maverick'},
+ {id:'k-openai',g:'Use your own API key',label:'OpenAI',prov:'openai',model:'gpt-5.5',link:'https://platform.openai.com/api-keys'},
+ {id:'k-anthropic',g:'Use your own API key',label:'Anthropic Claude',prov:'anthropic',model:'claude-sonnet-5-5',link:'https://console.anthropic.com/settings/keys'},
+ {id:'k-gemini',g:'Use your own API key',label:'Google Gemini',prov:'gemini',model:'gemini-3.5-flash',link:'https://aistudio.google.com/apikey'},
+ {id:'k-openrouter',g:'Use your own API key',label:'OpenRouter (any model)',prov:'openrouter',model:'openrouter/auto',link:'https://openrouter.ai/keys'}
+];
+const CH_={msgs:[],busy:false,ctl:null,model:'free'};
+const lsGet=k=>{try{return localStorage.getItem(k)}catch(e){return null}},lsSet=(k,v)=>{try{v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch(e){}};
+let claudeSample=null;
+function drawModels(){const groups={};MODELS.filter(m=>!m.hidden).forEach(m=>(groups[m.g]=groups[m.g]||[]).push(m));
+ $('#mSel').innerHTML=Object.entries(groups).map(([g,ms])=>`<optgroup label="${g}">${ms.map(m=>`<option value="${m.id}">${m.label}</option>`).join('')}</optgroup>`).join('');$('#mSel').value=CH_.model;keyUI()}
+function curModel(){return MODELS.find(m=>m.id===CH_.model)||MODELS[1]}
+function keyUI(){const m=curModel(),byo=['openai','anthropic','gemini','openrouter'].includes(m.prov);$('#keyRow').classList.toggle('on',byo);
+ if(byo){$('#keyIn').placeholder='Paste your '+m.label.split(' (')[0]+' API key';$('#keyIn').value=sessionKeys[m.prov]||lsGet('sk_key_'+m.prov)||'';$('#modelIn').value=lsGet('sk_model_'+m.prov)||m.model;$('#keyRem').checked=!!lsGet('sk_key_'+m.prov);$('#keyLink').href=m.link}}
+const sessionKeys={};
+$('#mSel').addEventListener('change',e=>{CH_.model=e.target.value;lsSet('sk_ai_model',CH_.model);keyUI();if(curModel().prov==='puter')loadPuter().catch(()=>{})});
+$('#keyIn').addEventListener('input',e=>{const p=curModel().prov;sessionKeys[p]=e.target.value.trim();if($('#keyRem').checked)lsSet('sk_key_'+p,sessionKeys[p])});
+$('#keyRem').addEventListener('change',e=>{const p=curModel().prov;lsSet('sk_key_'+p,e.target.checked?($('#keyIn').value.trim()||null):null)});
+$('#modelIn').addEventListener('change',e=>{lsSet('sk_model_'+curModel().prov,e.target.value.trim()||null)});
+function farmContext(){
+ const L=LOCS[S.loc],R=S.result,D=RAIN[S.loc];
+ let c=`You are Krishi AI inside the Smart Krishi farm planning website for Indian farmers. Give practical, specific advice in simple language. Use metric units and rupees. Keep answers short (under 180 words) unless asked for detail. Answer in ${uiLangName()}. These numbers are planning estimates from a simple model, so suggest a soil test and local Krishi Vigyan Kendra advice for big decisions.\n\nFARM CONTEXT${PROFILE.name?`\nFarmer: ${PROFILE.name}${PROFILE.village?', '+PROFILE.village:''}`:''}\nLocation: ${L.name}\nWeather now: ${t(L.wx)}, ${L.temp} °C, humidity ${L.hum}%\nSoil: ${t(S.soil)}${S.soil===soilFor(S.loc)?' (regional soil map)':' (set by farmer)'}\nLand: ${S.acres} acres, budget Rs. ${fmtIN(S.budget)}\nSeason: ${SEASONS[S.season].label}`;
+ if(R)c+=`\nCrop plan: ${R.crops.map(x=>`${x.n} ${fmtIN(x.acres,2)} acres`).join(', ')}\nIrrigation: every ${R.interval} days, ${fmtIN(R.liters)} litres per cycle, trigger below ${R.thr}% soil moisture\nFertilizer per acre: N ${R.npk[0]} kg, P ${R.npk[1]} kg, K ${R.npk[2]} kg\nExpected yield: ${fmtIN(R.totalQ,1)} quintals, revenue Rs. ${fmtIN(Math.round(R.rev))}, net profit Rs. ${fmtIN(Math.round(R.net))}`;
+ if(D&&D.fc){const tot=D.fc.p.reduce((a,b)=>a+b,0);c+=`\nRain next 16 days: ${fmtIN(tot,0)} mm total; daily mm: ${D.fc.t.map((d,i)=>fmtD(d)+' '+Math.round(D.fc.p[i])).join(', ')}`;
+  const m=seasonRain(D,S.season);c+=`\nSeason rain expected: ${m.map(x=>x.ym+' '+Math.round(x.exp)+' mm (10 yr avg '+Math.round(x.n)+')').join('; ')}`;
+  c+=`\nBest fit crops this season: ${cropFits(D,S.season).slice(0,6).map(f=>f.n+' '+Math.round(f.score*100)+'%').join(', ')}`}
+ return c;
+}
+function uiLangName(){return{en:'English',hi:'Hindi',kn:'Kannada'}[lang]||'English'}
+function md(s){const esc=s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));const lines=esc.split('\n');let h='',list=null;
+ const inl=x=>x.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/`([^`]+)`/g,'<code>$1</code>').replace(/^#{1,4}\s*(.+)$/,'<b>$1</b>');
+ let tbl=null;const endT=()=>{if(tbl){h+='<div style="overflow-x:auto"><table class="mdt">'+tbl.map((r,i)=>'<tr>'+r.map(c=>i?`<td>${inl(c)}</td>`:`<th>${inl(c)}</th>`).join('')+'</tr>').join('')+'</table></div>';tbl=null}};
+ lines.forEach(l=>{if(/^\s*\|.*\|\s*$/.test(l)){if(list){h+=`</${list}>`;list=null}if(/^\s*\|[\s:|-]+\|\s*$/.test(l))return;(tbl=tbl||[]).push(l.trim().slice(1,-1).split('|').map(c=>c.trim()));return}endT();const ul=l.match(/^\s*[-*•]\s+(.*)/),ol=l.match(/^\s*\d+[.)]\s+(.*)/);
+  if(ul||ol){const tg=ul?'ul':'ol';if(list!==tg){if(list)h+=`</${list}>`;h+=`<${tg}>`;list=tg}h+=`<li>${inl((ul||ol)[1])}</li>`}
+  else{if(list){h+=`</${list}>`;list=null}if(l.trim())h+=`<p>${inl(l)}</p>`}});endT();if(list)h+=`</${list}>`;return h}
+async function*sse(resp){const rd=resp.body.getReader(),dec=new TextDecoder();let buf='';for(;;){const{value,done}=await rd.read();if(done)break;buf+=dec.decode(value,{stream:true});let i;while((i=buf.indexOf('\n'))>=0){const line=buf.slice(0,i).trim();buf=buf.slice(i+1);if(line.startsWith('data:')){const d=line.slice(5).trim();if(d==='[DONE]')return;try{yield JSON.parse(d)}catch(e){}}}}}
+async function openaiCompat(url,headers,model,sys,msgs,onDelta,signal){
+ const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json',...headers},body:JSON.stringify({model,stream:true,messages:[{role:'system',content:sys},...msgs]}),signal});
+ if(!r.ok)throw new Error(await errText(r));
+ if(!(r.headers.get('content-type')||'').includes('event-stream')){const j=await r.json();onDelta(j.choices?.[0]?.message?.content||'');return}
+ for await(const j of sse(r)){const d=j.choices?.[0]?.delta?.content;if(d)onDelta(d)}
+}
+async function errText(r){let x='';try{const j=await r.json();x=j.error?.message||j.message||JSON.stringify(j).slice(0,160)}catch(e){}return`${r.status} ${x}`.trim()}
+let puterP=null;
+function loadPuter(){if(window.puter)return Promise.resolve();if(puterP)return puterP;puterP=new Promise((res,rej)=>{const s=document.createElement('script');s.src='https://js.puter.com/v2/';s.onload=()=>res();s.onerror=()=>{puterP=null;rej(new Error('Could not load Puter'))};document.head.appendChild(s)});return puterP}
+async function callAI(sys,msgs,onDelta,signal){
+ const m=curModel(),p=m.prov,key=(sessionKeys[p]||lsGet('sk_key_'+p)||'').trim(),model=(lsGet('sk_model_'+p)||m.model);
+ if(['openai','anthropic','gemini','openrouter'].includes(p)&&!key)throw new Error('Add your '+m.label.split(' (')[0]+' API key above first.');
+ if(p==='claude'){if(!claudeSample)throw new Error('Claude is only available when this page runs on claude.ai.');
+  const conv=msgs.map((x,i)=>({role:x.role,content:i===0?sys+'\n\nFarmer: '+x.content:x.content}));let last='';
+  await claudeSample(conv,{signal,onText:({text})=>{onDelta(text.slice(last.length));last=text}});return}
+ if(p==='poll')return openaiCompat('https://text.pollinations.ai/openai',{},model,sys,msgs,onDelta,signal);
+ if(p==='openai')return openaiCompat('https://api.openai.com/v1/chat/completions',{Authorization:'Bearer '+key},model,sys,msgs,onDelta,signal);
+ if(p==='openrouter')return openaiCompat('https://openrouter.ai/api/v1/chat/completions',{Authorization:'Bearer '+key,'HTTP-Referer':location.origin,'X-Title':'Smart Krishi'},model,sys,msgs,onDelta,signal);
+ if(p==='anthropic'){const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',signal,headers:{'content-type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model,max_tokens:1024,system:sys,messages:msgs,stream:true})});
+  if(!r.ok)throw new Error(await errText(r));for await(const j of sse(r)){if(j.type==='content_block_delta'&&j.delta?.text)onDelta(j.delta.text)}return}
+ if(p==='gemini'){const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:streamGenerateContent?alt=sse&key=${encodeURIComponent(key)}`,{method:'POST',signal,headers:{'content-type':'application/json'},body:JSON.stringify({systemInstruction:{parts:[{text:sys}]},contents:msgs.map(x=>({role:x.role==='assistant'?'model':'user',parts:[{text:x.content}]}))})});
+  if(!r.ok)throw new Error(await errText(r));for await(const j of sse(r)){const d=(j.candidates?.[0]?.content?.parts||[]).map(x=>x.text||'').join('');if(d)onDelta(d)}return}
+ if(p==='puter'){await loadPuter();const resp=await puter.ai.chat([{role:'system',content:sys},...msgs],{model,stream:true});
+  for await(const part of resp){if(signal.aborted)break;if(part?.text)onDelta(part.text)}return}
+}
+const SUGG=['Which crop is best for my farm this season?','When should I sow, given the rain forecast?','How can I cut my irrigation water?','Explain my fertilizer plan in simple steps'];
+function drawMsgs(){const box=$('#msgs');
+ if(!CH_.msgs.length){box.innerHTML=`<div class="msg a"><div class="who">Krishi AI</div><p>Namaste! Ask me anything about your farm in ${LOCS[S.loc].name.split(',')[0]}. I can see your inputs, weather and rain outlook.</p></div><div class="sugg">${SUGG.map(s=>`<button type="button">${s}</button>`).join('')}</div>`;
+  box.querySelectorAll('.sugg button').forEach(b=>b.addEventListener('click',()=>{$('#chatIn').value=b.textContent;send()}));return}
+ box.innerHTML=CH_.msgs.map(m=>m.role==='user'?`<div class="msg u">${md(m.content)}</div>`:m.role==='error'?`<div class="msg e">${md(m.content)}</div>`:`<div class="msg a"><div class="who">${m.who||'Krishi AI'}</div>${m.content?md(m.content):'<span class="typing"><i></i><i></i><i></i></span>'}</div>`).join('');
+ box.scrollTop=box.scrollHeight}
+function ctxChip(){$('#ctxChip').textContent=`${LOCS[S.loc].name.split(',')[0]} · ${t(S.soil)} · ${SEASONS[S.season].label} · ${S.acres} acres`}
+async function send(){
+ if(CH_.busy){CH_.ctl&&CH_.ctl.abort();return}
+ const q=$('#chatIn').value.trim();if(!q)return;$('#chatIn').value='';autoGrow();
+ CH_.msgs=CH_.msgs.filter(m=>m.role!=='error');CH_.msgs.push({role:'user',content:q});const m=curModel();const out={role:'assistant',content:'',who:m.label};CH_.msgs.push(out);drawMsgs();
+ CH_.busy=true;CH_.ctl=new AbortController();$('#sendB').classList.add('stop');$('#sendB').setAttribute('aria-label','Stop');
+ const hist=CH_.msgs.filter(x=>x.role==='user'||x.role==='assistant').slice(0,-1).slice(-12).map(x=>({role:x.role,content:x.content}));
+ let raf=0;const flush=()=>{raf=0;const el=$('#msgs').lastElementChild;if(el){el.innerHTML=`<div class="who">${out.who}</div>${md(out.content)}`;$('#msgs').scrollTop=$('#msgs').scrollHeight}};
+ try{await callAI(farmContext(),hist,d=>{out.content+=d;if(!raf)raf=requestAnimationFrame(flush)},CH_.ctl.signal);
+  if(!out.content)out.content='(No answer came back. Try again or pick another model.)'}
+ catch(e){if(e.name==='AbortError'){out.content+=out.content?'\n\n(Stopped)':'(Stopped)'}else{CH_.msgs.pop();const net=e instanceof TypeError;CH_.msgs.push({role:'error',content:net?`Couldn't reach ${m.label}. Check your connection${location.hostname.includes('claude')?'. On claude.ai only Claude works; every model works on krishna-kumar.in/smart-krishi':''}.`:String(e.message||e)})}}
+ CH_.busy=false;$('#sendB').classList.remove('stop');$('#sendB').setAttribute('aria-label','Send');drawMsgs();
+ try{sessionStorage.setItem('sk_chat',JSON.stringify(CH_.msgs.filter(x=>x.role!=='error').slice(-30)))}catch(e){}
+}
+function autoGrow(){const a=$('#chatIn');a.style.height='auto';a.style.height=Math.min(120,a.scrollHeight)+'px'}
+$('#chatIn').addEventListener('input',autoGrow);
+$('#chatIn').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send()}});
+$('#sendB').addEventListener('click',send);
+$('#aiFab').addEventListener('click',()=>{ctxChip();$('#chat').classList.add('on');$('#aiFab').classList.add('hide');drawMsgs();setTimeout(()=>$('#chatIn').focus(),200)});
+$('#chatClose').addEventListener('click',()=>{$('#chat').classList.remove('on');$('#aiFab').classList.remove('hide')});
+$('#chatClear').addEventListener('click',()=>{CH_.ctl&&CH_.ctl.abort();CH_.msgs=[];try{sessionStorage.removeItem('sk_chat')}catch(e){}drawMsgs()});
+try{CH_.msgs=JSON.parse(sessionStorage.getItem('sk_chat')||'[]')||[]}catch(e){}
+CH_.model=lsGet('sk_ai_model')||'free';drawModels();
+(async()=>{try{if(window.claude&&window.claude.use){const s=await window.claude.use('sample');if(s){claudeSample=s;const c=MODELS.find(m=>m.id==='claude');c.hidden=false;if(!lsGet('sk_ai_model'))CH_.model='claude';drawModels()}}}catch(e){}})();
+
+/* ================= languages ================= */
+const LANGS=[['en','English','English'],['hi','हिंदी','Hindi'],['bn','বাংলা','Bengali'],['te','తెలుగు','Telugu'],['mr','मराठी','Marathi'],['ta','தமிழ்','Tamil'],['gu','ગુજરાતી','Gujarati'],['kn','ಕನ್ನಡ','Kannada'],['ml','മലയാളം','Malayalam'],['or','ଓଡ଼ିଆ','Odia'],['pa','ਪੰਜਾਬੀ','Punjabi'],['as','অসমীয়া','Assamese']];
+{const TR={"ta":{"tagline":"ஒவ்வொரு ஏக்கரிலும் துல்லியம்","farmLocation":"பண்ணை இருப்பிடம்","temperature":"வெப்பநிலை","humidity":"ஈரப்பதம்","language":"மொழி","navDash":"பண்ணை டாஷ்போர்டு","navSaved":"சேமித்த உருவகப்படுத்தல்கள்","navRain":"மழை முன்னறிவிப்பு","inputsTitle":"பண்ணை உள்ளீட்டு அளவுருக்கள்","inputsSub":"எந்த மதிப்பையும் மாற்றி, புதிய திட்டத்தைக் காண உருவகப்படுத்தலை இயக்கவும்.","landArea":"நிலப்பரப்பு","acres":"ஏக்கர்","budget":"பட்ஜெட்","soil":"மண் வகை","loamy":"வண்டல் மண்","clay":"கரிசல் மண்","red":"செம்மண்","laterite":"சரளை மண்","sandy":"மணல் மண்","mountain":"மலை மண்","season":"திட்டப் பருவம்","run":"உருவகப்படுத்தலை இயக்கு","running":"மாதிரி இயங்குகிறது","heroTitle":"உங்கள் நிலம். தெளிவான நாளை.","heroSub2":"ஒரு பண்ணை. இணைந்த பார்வை.","acresMapped":"வரைபடமிட்ட ஏக்கர்","cropZones":"பயிர் மண்டலங்கள்","daysModeled":"மாதிரி நாட்கள்","export":"அறிக்கை ஏற்றுமதி","analytics":"MATLAB & Simulink பகுப்பாய்வு","soilMoisture":"மண் ஈரப்பதம்","irrigTrig":"பாசன நிகழ்வுகள்","cropDist":"பயிர் பரவல்","recs":"ஸ்மார்ட் பரிந்துரைகள்","irrigation":"பாசன அட்டவணை","fert":"உர அளவு","pattern":"பயிர் முறை","yield":"எதிர்பார்க்கும் மகசூல்","quintals":"குவிண்டால்","income":"எதிர்பார்க்கும் வருமானம்","netProfit":"நிகர லாபம்","margin":"லாப விகிதம்","every":"ஒவ்வொரு {n} நாட்களுக்கும்","rainTitle":"மழை முன்னறிவிப்பு மற்றும் பயிர் ஆலோசனை","next16":"அடுத்த 16 நாட்கள்","seasonOut":"பருவ முன்னோட்டம்","waterSit":"நீர் நிலை","cropFit":"இந்தப் பருவத்துக்கு ஏற்ற பயிர்கள்","planTop":"முதல் 3 பயிர்களுடன் திட்டமிடு","askAI":"கிருஷி AI இடம் கேளுங்கள்","totRain":"மொத்த மழை","rainyDays":"மழை நாட்கள்","above":"இயல்புக்கு மேல்","below":"இயல்புக்குக் கீழ்","normal":"ஏறக்குறைய இயல்பு","wxLive":"நேரடி வானிலை","partly":"ஓரளவு மேகமூட்டம்","clear":"தெளிவான வானம்","overcast":"மேகமூட்டம்","rain":"லேசான மழை","rainH":"மழை","drizzle":"தூறல்","fog":"மூடுபனி","storm":"இடியுடன் மழை","moisture":"ஈரப்பதம்","day":"நாள்","disclaimer":"திட்ட மதிப்பீடுகள். செயல்படும் முன் மண் பரிசோதனை மற்றும் உள்ளூர் மண்டி விலையை உறுதிப்படுத்தவும்.","sKharif":"காரிஃப்","sRabi":"ரபி","sZaid":"சைத் (கோடை)","sZaidKharif":"சைத் காரிஃப்","sPerennial":"ஆண்டு முழுவதும்","profile":"சுயவிவரம்","pName":"உங்கள் பெயர்","pVillage":"கிராமம் அல்லது பண்ணை பெயர்","pSave":"சுயவிவரத்தைச் சேமி","hello":"வணக்கம்","Paddy":"நெல்","Maize":"மக்காச்சோளம்","Green gram":"பாசிப்பயறு","Ragi":"கேழ்வரகு","Bengal gram":"கொண்டைக்கடலை","Sunflower":"சூரியகாந்தி","Groundnut":"நிலக்கடலை","Sesame":"எள்","Wheat":"கோதுமை","Mustard":"கடுகு","Cotton":"பருத்தி","Soybean":"சோயாபீன்","Pigeon pea":"துவரை","Lentil":"மசூர் பருப்பு","Pearl millet":"கம்பு","Cumin":"சீரகம்","Jute":"சணல்","Sugarcane":"கரும்பு"},"te":{"tagline":"ప్రతి ఎకరంలో ఖచ్చితత్వం","farmLocation":"పొలం స్థానం","temperature":"ఉష్ణోగ్రత","humidity":"తేమ","language":"భాష","navDash":"పొలం డాష్‌బోర్డ్","navSaved":"సేవ్ చేసిన సిమ్యులేషన్లు","navRain":"వర్ష సూచన","inputsTitle":"పొలం ఇన్‌పుట్ వివరాలు","inputsSub":"ఏ విలువనైనా మార్చి, కొత్త ప్రణాళిక కోసం సిమ్యులేషన్ నడపండి.","landArea":"భూమి విస్తీర్ణం","acres":"ఎకరాలు","budget":"బడ్జెట్","soil":"నేల రకం","loamy":"ఒండ్రు నేల","clay":"నల్లరేగడి నేల","red":"ఎర్ర నేల","laterite":"లాటరైట్ నేల","sandy":"ఇసుక నేల","mountain":"కొండ నేల","season":"ప్రణాళిక సీజన్","run":"సిమ్యులేషన్ నడపండి","running":"మోడల్ నడుస్తోంది","heroTitle":"మీ భూమి. స్పష్టమైన రేపు.","heroSub2":"ఒక పొలం. అనుసంధానమైన అవగాహన.","acresMapped":"మ్యాప్ చేసిన ఎకరాలు","cropZones":"పంట మండలాలు","daysModeled":"మోడల్ రోజులు","export":"నివేదిక ఎగుమతి","analytics":"MATLAB & Simulink విశ్లేషణ","soilMoisture":"నేల తేమ","irrigTrig":"నీటిపారుదల సంఘటనలు","cropDist":"పంటల పంపిణీ","recs":"స్మార్ట్ సిఫార్సులు","irrigation":"నీటిపారుదల షెడ్యూల్","fert":"ఎరువుల మోతాదు","pattern":"పంట విధానం","yield":"అంచనా దిగుబడి","quintals":"క్వింటాళ్లు","income":"అంచనా ఆదాయం","netProfit":"నికర లాభం","margin":"లాభ శాతం","every":"ప్రతి {n} రోజులకు","rainTitle":"వర్ష సూచన మరియు పంట సలహా","next16":"రాబోయే 16 రోజులు","seasonOut":"సీజన్ అంచనా","waterSit":"నీటి పరిస్థితి","cropFit":"ఈ సీజన్‌కు సరిపడే పంటలు","planTop":"మొదటి 3 పంటలతో ప్రణాళిక","askAI":"కృషి AI ని అడగండి","totRain":"మొత్తం వర్షం","rainyDays":"వర్షపు రోజులు","above":"సాధారణం కంటే ఎక్కువ","below":"సాధారణం కంటే తక్కువ","normal":"దాదాపు సాధారణం","wxLive":"ప్రత్యక్ష వాతావరణం","partly":"పాక్షిక మేఘావృతం","clear":"నిర్మల ఆకాశం","overcast":"మేఘావృతం","rain":"తేలికపాటి వర్షం","rainH":"వర్షం","drizzle":"జల్లులు","fog":"పొగమంచు","storm":"ఉరుములతో వర్షం","moisture":"తేమ","day":"రోజు","disclaimer":"ఇవి ప్రణాళిక అంచనాలు. చర్య తీసుకునే ముందు నేల పరీక్ష మరియు స్థానిక మండీ ధరలను నిర్ధారించుకోండి.","sKharif":"ఖరీఫ్","sRabi":"రబీ","sZaid":"జైద్ (వేసవి)","sZaidKharif":"జైద్ ఖరీఫ్","sPerennial":"సంవత్సరం పొడవునా","profile":"ప్రొఫైల్","pName":"మీ పేరు","pVillage":"గ్రామం లేదా పొలం పేరు","pSave":"ప్రొఫైల్ సేవ్ చేయండి","hello":"నమస్తే","Paddy":"వరి","Maize":"మొక్కజొన్న","Green gram":"పెసలు","Ragi":"రాగి","Bengal gram":"శనగలు","Sunflower":"పొద్దుతిరుగుడు","Groundnut":"వేరుశనగ","Sesame":"నువ్వులు","Wheat":"గోధుమ","Mustard":"ఆవాలు","Cotton":"పత్తి","Soybean":"సోయాబీన్","Pigeon pea":"కందులు","Lentil":"మసూర్ పప్పు","Pearl millet":"సజ్జలు","Cumin":"జీలకర్ర","Jute":"జనపనార","Sugarcane":"చెరకు"},"mr":{"tagline":"प्रत्येक एकरात अचूकता","farmLocation":"शेताचे ठिकाण","temperature":"तापमान","humidity":"आर्द्रता","language":"भाषा","navDash":"शेत डॅशबोर्ड","navSaved":"जतन केलेले सिम्युलेशन","navRain":"पावसाचा अंदाज","inputsTitle":"शेतीचे इनपुट तपशील","inputsSub":"कोणतेही मूल्य बदला आणि नवीन योजना पाहण्यासाठी सिम्युलेशन चालवा.","landArea":"जमिनीचे क्षेत्र","acres":"एकर","budget":"बजेट","soil":"मातीचा प्रकार","loamy":"गाळाची माती","clay":"काळी माती","red":"तांबडी माती","laterite":"जांभी माती","sandy":"वाळूमय माती","mountain":"डोंगराळ माती","season":"नियोजन हंगाम","run":"सिम्युलेशन चालवा","running":"मॉडेल चालू आहे","heroTitle":"तुमची जमीन. स्पष्ट उद्या.","heroSub2":"एक शेत. जोडलेली माहिती.","acresMapped":"नकाशावरील एकर","cropZones":"पीक विभाग","daysModeled":"मॉडेल दिवस","export":"अहवाल निर्यात","analytics":"MATLAB व Simulink विश्लेषण","soilMoisture":"मातीतील ओलावा","irrigTrig":"सिंचन घटना","cropDist":"पीक वाटप","recs":"स्मार्ट शिफारसी","irrigation":"सिंचन वेळापत्रक","fert":"खत मात्रा","pattern":"पीक पद्धत","yield":"अपेक्षित उत्पादन","quintals":"क्विंटल","income":"अपेक्षित उत्पन्न","netProfit":"निव्वळ नफा","margin":"नफा टक्का","every":"दर {n} दिवसांनी","rainTitle":"पावसाचा अंदाज आणि पीक सल्ला","next16":"पुढील 16 दिवस","seasonOut":"हंगामाचा अंदाज","waterSit":"पाण्याची स्थिती","cropFit":"या हंगामासाठी योग्य पिके","planTop":"पहिल्या 3 पिकांसह योजना करा","askAI":"कृषी AI ला विचारा","totRain":"एकूण पाऊस","rainyDays":"पावसाचे दिवस","above":"सरासरीपेक्षा जास्त","below":"सरासरीपेक्षा कमी","normal":"जवळपास सरासरी","wxLive":"थेट हवामान","partly":"अंशतः ढगाळ","clear":"निरभ्र आकाश","overcast":"ढगाळ","rain":"हलका पाऊस","rainH":"पाऊस","drizzle":"रिमझिम","fog":"धुके","storm":"वादळी पाऊस","moisture":"ओलावा","day":"दिवस","disclaimer":"हे नियोजनासाठी अंदाज आहेत. निर्णयापूर्वी माती परीक्षण आणि स्थानिक बाजारभाव तपासा.","sKharif":"खरीप","sRabi":"रब्बी","sZaid":"उन्हाळी (झैद)","sZaidKharif":"झैद खरीप","sPerennial":"वर्षभर","profile":"प्रोफाइल","pName":"तुमचे नाव","pVillage":"गाव किंवा शेताचे नाव","pSave":"प्रोफाइल जतन करा","hello":"नमस्कार","Paddy":"भात","Maize":"मका","Green gram":"मूग","Ragi":"नाचणी","Bengal gram":"हरभरा","Sunflower":"सूर्यफूल","Groundnut":"भुईमूग","Sesame":"तीळ","Wheat":"गहू","Mustard":"मोहरी","Cotton":"कापूस","Soybean":"सोयाबीन","Pigeon pea":"तूर","Lentil":"मसूर","Pearl millet":"बाजरी","Cumin":"जिरे","Jute":"ताग","Sugarcane":"ऊस"},"bn":{"tagline":"প্রতিটি একরে নির্ভুলতা","farmLocation":"খামারের অবস্থান","temperature":"তাপমাত্রা","humidity":"আর্দ্রতা","language":"ভাষা","navDash":"খামার ড্যাশবোর্ড","navSaved":"সংরক্ষিত সিমুলেশন","navRain":"বৃষ্টির পূর্বাভাস","inputsTitle":"খামারের ইনপুট তথ্য","inputsSub":"যেকোনো মান বদলান এবং নতুন পরিকল্পনা দেখতে সিমুলেশন চালান।","landArea":"জমির পরিমাণ","acres":"একর","budget":"বাজেট","soil":"মাটির ধরন","loamy":"পলি দোআঁশ মাটি","clay":"কালো মাটি","red":"লাল মাটি","laterite":"ল্যাটেরাইট মাটি","sandy":"বালি মাটি","mountain":"পাহাড়ি মাটি","season":"পরিকল্পনার মরসুম","run":"সিমুলেশন চালান","running":"মডেল চলছে","heroTitle":"আপনার জমি। আরও স্পষ্ট আগামী।","heroSub2":"একটি খামার। সংযুক্ত অন্তর্দৃষ্টি।","acresMapped":"ম্যাপ করা একর","cropZones":"ফসলের অঞ্চল","daysModeled":"মডেল করা দিন","export":"রিপোর্ট রপ্তানি","analytics":"MATLAB ও Simulink বিশ্লেষণ","soilMoisture":"মাটির আর্দ্রতা","irrigTrig":"সেচের ঘটনা","cropDist":"ফসল বণ্টন","recs":"স্মার্ট সুপারিশ","irrigation":"সেচের সময়সূচি","fert":"সারের পরিমাণ","pattern":"ফসলের ধরন","yield":"প্রত্যাশিত ফলন","quintals":"কুইন্টাল","income":"প্রত্যাশিত আয়","netProfit":"নিট লাভ","margin":"লাভের হার","every":"প্রতি {n} দিনে","rainTitle":"বৃষ্টির পূর্বাভাস ও ফসল পরামর্শ","next16":"আগামী 16 দিন","seasonOut":"মরসুমের পূর্বাভাস","waterSit":"জলের অবস্থা","cropFit":"এই মরসুমের উপযুক্ত ফসল","planTop":"সেরা 3 ফসলে পরিকল্পনা করুন","askAI":"কৃষি AI কে জিজ্ঞাসা করুন","totRain":"মোট বৃষ্টি","rainyDays":"বৃষ্টির দিন","above":"স্বাভাবিকের বেশি","below":"স্বাভাবিকের কম","normal":"প্রায় স্বাভাবিক","wxLive":"সরাসরি আবহাওয়া","partly":"আংশিক মেঘলা","clear":"পরিষ্কার আকাশ","overcast":"মেঘাচ্ছন্ন","rain":"হালকা বৃষ্টি","rainH":"বৃষ্টি","drizzle":"গুঁড়ি গুঁড়ি বৃষ্টি","fog":"কুয়াশা","storm":"বজ্রসহ বৃষ্টি","moisture":"আর্দ্রতা","day":"দিন","disclaimer":"এগুলি পরিকল্পনার অনুমান। পদক্ষেপ নেওয়ার আগে মাটি পরীক্ষা ও স্থানীয় মান্ডির দর যাচাই করুন।","sKharif":"খরিফ","sRabi":"রবি","sZaid":"জায়েদ (গ্রীষ্ম)","sZaidKharif":"জায়েদ খরিফ","sPerennial":"সারা বছর","profile":"প্রোফাইল","pName":"আপনার নাম","pVillage":"গ্রাম বা খামারের নাম","pSave":"প্রোফাইল সংরক্ষণ করুন","hello":"নমস্কার","Paddy":"ধান","Maize":"ভুট্টা","Green gram":"মুগ","Ragi":"রাগি","Bengal gram":"ছোলা","Sunflower":"সূর্যমুখী","Groundnut":"চিনাবাদাম","Sesame":"তিল","Wheat":"গম","Mustard":"সরিষা","Cotton":"তুলা","Soybean":"সয়াবিন","Pigeon pea":"অড়হর","Lentil":"মসুর","Pearl millet":"বাজরা","Cumin":"জিরা","Jute":"পাট","Sugarcane":"আখ"},"gu":{"tagline":"દરેક એકરમાં ચોકસાઈ","farmLocation":"ખેતરનું સ્થાન","temperature":"તાપમાન","humidity":"ભેજ","language":"ભાષા","navDash":"ખેતર ડેશબોર્ડ","navSaved":"સાચવેલા સિમ્યુલેશન","navRain":"વરસાદની આગાહી","inputsTitle":"ખેતરની ઇનપુટ વિગતો","inputsSub":"કોઈપણ મૂલ્ય બદલો અને નવી યોજના જોવા સિમ્યુલેશન ચલાવો.","landArea":"જમીનનો વિસ્તાર","acres":"એકર","budget":"બજેટ","soil":"જમીનનો પ્રકાર","loamy":"કાંપવાળી ગોરાડુ જમીન","clay":"કાળી જમીન","red":"લાલ જમીન","laterite":"લેટેરાઇટ જમીન","sandy":"રેતાળ જમીન","mountain":"પહાડી જમીન","season":"આયોજન ઋતુ","run":"સિમ્યુલેશન ચલાવો","running":"મોડેલ ચાલી રહ્યું છે","heroTitle":"તમારી જમીન. સ્પષ્ટ આવતીકાલ.","heroSub2":"એક ખેતર. જોડાયેલી સમજ.","acresMapped":"નકશામાં એકર","cropZones":"પાક વિસ્તાર","daysModeled":"મોડેલ દિવસો","export":"અહેવાલ નિકાસ","analytics":"MATLAB અને Simulink વિશ્લેષણ","soilMoisture":"જમીનનો ભેજ","irrigTrig":"સિંચાઈ ઘટનાઓ","cropDist":"પાક વહેંચણી","recs":"સ્માર્ટ ભલામણો","irrigation":"સિંચાઈ સમયપત્રક","fert":"ખાતર માત્રા","pattern":"પાક પદ્ધતિ","yield":"અપેક્ષિત ઉત્પાદન","quintals":"ક્વિન્ટલ","income":"અપેક્ષિત આવક","netProfit":"ચોખ્ખો નફો","margin":"નફાનો દર","every":"દર {n} દિવસે","rainTitle":"વરસાદની આગાહી અને પાક સલાહ","next16":"આગામી 16 દિવસ","seasonOut":"ઋતુનો અંદાજ","waterSit":"પાણીની સ્થિતિ","cropFit":"આ ઋતુ માટે યોગ્ય પાક","planTop":"ટોચના 3 પાકથી આયોજન કરો","askAI":"કૃષિ AI ને પૂછો","totRain":"કુલ વરસાદ","rainyDays":"વરસાદના દિવસો","above":"સામાન્યથી વધુ","below":"સામાન્યથી ઓછો","normal":"લગભગ સામાન્ય","wxLive":"લાઇવ હવામાન","partly":"આંશિક વાદળછાયું","clear":"સ્વચ્છ આકાશ","overcast":"વાદળછાયું","rain":"હળવો વરસાદ","rainH":"વરસાદ","drizzle":"ઝરમર","fog":"ધુમ્મસ","storm":"ગાજવીજ સાથે વરસાદ","moisture":"ભેજ","day":"દિવસ","disclaimer":"આ આયોજન માટેના અંદાજ છે. નિર્ણય પહેલાં જમીન ચકાસણી અને સ્થાનિક બજાર ભાવ તપાસો.","sKharif":"ખરીફ","sRabi":"રવી","sZaid":"ઉનાળુ (ઝૈદ)","sZaidKharif":"ઝૈદ ખરીફ","sPerennial":"આખું વર્ષ","profile":"પ્રોફાઇલ","pName":"તમારું નામ","pVillage":"ગામ અથવા ખેતરનું નામ","pSave":"પ્રોફાઇલ સાચવો","hello":"નમસ્તે","Paddy":"ડાંગર","Maize":"મકાઈ","Green gram":"મગ","Ragi":"રાગી","Bengal gram":"ચણા","Sunflower":"સૂર્યમુખી","Groundnut":"મગફળી","Sesame":"તલ","Wheat":"ઘઉં","Mustard":"રાઈ","Cotton":"કપાસ","Soybean":"સોયાબીન","Pigeon pea":"તુવેર","Lentil":"મસૂર","Pearl millet":"બાજરી","Cumin":"જીરું","Jute":"શણ","Sugarcane":"શેરડી"},"ml":{"tagline":"ഓരോ ഏക്കറിലും കൃത്യത","farmLocation":"കൃഷിയിടത്തിന്റെ സ്ഥലം","temperature":"താപനില","humidity":"ആർദ്രത","language":"ഭാഷ","navDash":"കൃഷി ഡാഷ്ബോർഡ്","navSaved":"സംരക്ഷിച്ച സിമുലേഷനുകൾ","navRain":"മഴ പ്രവചനം","inputsTitle":"കൃഷിയിട വിവരങ്ങൾ","inputsSub":"ഏത് മൂല്യവും മാറ്റി പുതിയ പദ്ധതി കാണാൻ സിമുലേഷൻ പ്രവർത്തിപ്പിക്കുക.","landArea":"ഭൂവിസ്തൃതി","acres":"ഏക്കർ","budget":"ബജറ്റ്","soil":"മണ്ണിന്റെ തരം","loamy":"എക്കൽ മണ്ണ്","clay":"കറുത്ത മണ്ണ്","red":"ചെമ്മണ്ണ്","laterite":"വെട്ടുകൽ മണ്ണ്","sandy":"മണൽ മണ്ണ്","mountain":"മലമണ്ണ്","season":"ആസൂത്രണ സീസൺ","run":"സിമുലേഷൻ പ്രവർത്തിപ്പിക്കുക","running":"മോഡൽ പ്രവർത്തിക്കുന്നു","heroTitle":"നിങ്ങളുടെ ഭൂമി. കൂടുതൽ വ്യക്തമായ നാളെ.","heroSub2":"ഒരു കൃഷിയിടം. ബന്ധിത ഉൾക്കാഴ്ച.","acresMapped":"മാപ്പ് ചെയ്ത ഏക്കർ","cropZones":"വിള മേഖലകൾ","daysModeled":"മോഡൽ ദിവസങ്ങൾ","export":"റിപ്പോർട്ട് എക്സ്പോർട്ട്","analytics":"MATLAB & Simulink വിശകലനം","soilMoisture":"മണ്ണിലെ ഈർപ്പം","irrigTrig":"ജലസേചന സംഭവങ്ങൾ","cropDist":"വിള വിതരണം","recs":"സ്മാർട്ട് ശുപാർശകൾ","irrigation":"ജലസേചന ക്രമം","fert":"വള അളവ്","pattern":"വിള രീതി","yield":"പ്രതീക്ഷിത വിളവ്","quintals":"ക്വിന്റൽ","income":"പ്രതീക്ഷിത വരുമാനം","netProfit":"അറ്റാദായം","margin":"ലാഭ നിരക്ക്","every":"ഓരോ {n} ദിവസത്തിലും","rainTitle":"മഴ പ്രവചനവും വിള ഉപദേശവും","next16":"അടുത്ത 16 ദിവസം","seasonOut":"സീസൺ അവലോകനം","waterSit":"ജല സ്ഥിതി","cropFit":"ഈ സീസണിന് അനുയോജ്യമായ വിളകൾ","planTop":"മികച്ച 3 വിളകൾ കൊണ്ട് ആസൂത്രണം","askAI":"കൃഷി AI യോട് ചോദിക്കൂ","totRain":"ആകെ മഴ","rainyDays":"മഴ ദിവസങ്ങൾ","above":"സാധാരണയിലും കൂടുതൽ","below":"സാധാരണയിലും കുറവ്","normal":"ഏകദേശം സാധാരണ","wxLive":"തത്സമയ കാലാവസ്ഥ","partly":"ഭാഗികമായി മേഘാവൃതം","clear":"തെളിഞ്ഞ ആകാശം","overcast":"മേഘാവൃതം","rain":"നേരിയ മഴ","rainH":"മഴ","drizzle":"ചാറ്റൽ മഴ","fog":"മൂടൽമഞ്ഞ്","storm":"ഇടിമിന്നലോടെ മഴ","moisture":"ഈർപ്പം","day":"ദിവസം","disclaimer":"ഇവ ആസൂത്രണ കണക്കുകളാണ്. തീരുമാനത്തിന് മുമ്പ് മണ്ണ് പരിശോധനയും പ്രാദേശിക വിപണി വിലയും ഉറപ്പാക്കുക.","sKharif":"ഖാരിഫ്","sRabi":"റാബി","sZaid":"സൈദ് (വേനൽ)","sZaidKharif":"സൈദ് ഖാരിഫ്","sPerennial":"വർഷം മുഴുവൻ","profile":"പ്രൊഫൈൽ","pName":"നിങ്ങളുടെ പേര്","pVillage":"ഗ്രാമം അല്ലെങ്കിൽ കൃഷിയിടത്തിന്റെ പേര്","pSave":"പ്രൊഫൈൽ സംരക്ഷിക്കുക","hello":"നമസ്കാരം","Paddy":"നെല്ല്","Maize":"ചോളം","Green gram":"ചെറുപയർ","Ragi":"റാഗി","Bengal gram":"കടല","Sunflower":"സൂര്യകാന്തി","Groundnut":"നിലക്കടല","Sesame":"എള്ള്","Wheat":"ഗോതമ്പ്","Mustard":"കടുക്","Cotton":"പരുത്തി","Soybean":"സോയാബീൻ","Pigeon pea":"തുവര","Lentil":"മസൂർ പരിപ്പ്","Pearl millet":"കമ്പ്","Cumin":"ജീരകം","Jute":"ചണം","Sugarcane":"കരിമ്പ്"},"pa":{"tagline":"ਹਰ ਏਕੜ ਵਿੱਚ ਸ਼ੁੱਧਤਾ","farmLocation":"ਖੇਤ ਦਾ ਟਿਕਾਣਾ","temperature":"ਤਾਪਮਾਨ","humidity":"ਨਮੀ","language":"ਭਾਸ਼ਾ","navDash":"ਖੇਤ ਡੈਸ਼ਬੋਰਡ","navSaved":"ਸੰਭਾਲੇ ਸਿਮੂਲੇਸ਼ਨ","navRain":"ਮੀਂਹ ਦੀ ਭਵਿੱਖਬਾਣੀ","inputsTitle":"ਖੇਤ ਦੇ ਇਨਪੁਟ ਵੇਰਵੇ","inputsSub":"ਕੋਈ ਵੀ ਮੁੱਲ ਬਦਲੋ ਅਤੇ ਨਵੀਂ ਯੋਜਨਾ ਵੇਖਣ ਲਈ ਸਿਮੂਲੇਸ਼ਨ ਚਲਾਓ।","landArea":"ਜ਼ਮੀਨ ਦਾ ਰਕਬਾ","acres":"ਏਕੜ","budget":"ਬਜਟ","soil":"ਮਿੱਟੀ ਦੀ ਕਿਸਮ","loamy":"ਜਲੋੜ੍ਹ ਮੈਰਾ ਮਿੱਟੀ","clay":"ਕਾਲੀ ਮਿੱਟੀ","red":"ਲਾਲ ਮਿੱਟੀ","laterite":"ਲੈਟਰਾਈਟ ਮਿੱਟੀ","sandy":"ਰੇਤਲੀ ਮਿੱਟੀ","mountain":"ਪਹਾੜੀ ਮਿੱਟੀ","season":"ਯੋਜਨਾ ਸੀਜ਼ਨ","run":"ਸਿਮੂਲੇਸ਼ਨ ਚਲਾਓ","running":"ਮਾਡਲ ਚੱਲ ਰਿਹਾ ਹੈ","heroTitle":"ਤੁਹਾਡੀ ਜ਼ਮੀਨ। ਸਾਫ਼ ਕੱਲ੍ਹ।","heroSub2":"ਇੱਕ ਖੇਤ। ਜੁੜੀ ਸਮਝ।","acresMapped":"ਨਕਸ਼ੇ ਵਾਲੇ ਏਕੜ","cropZones":"ਫ਼ਸਲ ਖੇਤਰ","daysModeled":"ਮਾਡਲ ਦਿਨ","export":"ਰਿਪੋਰਟ ਨਿਰਯਾਤ","analytics":"MATLAB ਅਤੇ Simulink ਵਿਸ਼ਲੇਸ਼ਣ","soilMoisture":"ਮਿੱਟੀ ਦੀ ਨਮੀ","irrigTrig":"ਸਿੰਚਾਈ ਘਟਨਾਵਾਂ","cropDist":"ਫ਼ਸਲ ਵੰਡ","recs":"ਸਮਾਰਟ ਸਿਫ਼ਾਰਸ਼ਾਂ","irrigation":"ਸਿੰਚਾਈ ਸਮਾਂ ਸਾਰਣੀ","fert":"ਖਾਦ ਦੀ ਮਾਤਰਾ","pattern":"ਫ਼ਸਲ ਢੰਗ","yield":"ਅਨੁਮਾਨਿਤ ਝਾੜ","quintals":"ਕੁਇੰਟਲ","income":"ਅਨੁਮਾਨਿਤ ਆਮਦਨ","netProfit":"ਸ਼ੁੱਧ ਮੁਨਾਫ਼ਾ","margin":"ਮੁਨਾਫ਼ਾ ਦਰ","every":"ਹਰ {n} ਦਿਨਾਂ ਬਾਅਦ","rainTitle":"ਮੀਂਹ ਦੀ ਭਵਿੱਖਬਾਣੀ ਅਤੇ ਫ਼ਸਲ ਸਲਾਹ","next16":"ਅਗਲੇ 16 ਦਿਨ","seasonOut":"ਸੀਜ਼ਨ ਦਾ ਅਨੁਮਾਨ","waterSit":"ਪਾਣੀ ਦੀ ਸਥਿਤੀ","cropFit":"ਇਸ ਸੀਜ਼ਨ ਲਈ ਢੁਕਵੀਆਂ ਫ਼ਸਲਾਂ","planTop":"ਸਿਖਰਲੀਆਂ 3 ਫ਼ਸਲਾਂ ਨਾਲ ਯੋਜਨਾ","askAI":"ਕ੍ਰਿਸ਼ੀ AI ਨੂੰ ਪੁੱਛੋ","totRain":"ਕੁੱਲ ਮੀਂਹ","rainyDays":"ਮੀਂਹ ਵਾਲੇ ਦਿਨ","above":"ਆਮ ਨਾਲੋਂ ਵੱਧ","below":"ਆਮ ਨਾਲੋਂ ਘੱਟ","normal":"ਲਗਭਗ ਆਮ","wxLive":"ਲਾਈਵ ਮੌਸਮ","partly":"ਅੰਸ਼ਕ ਬੱਦਲਵਾਈ","clear":"ਸਾਫ਼ ਅਸਮਾਨ","overcast":"ਬੱਦਲਵਾਈ","rain":"ਹਲਕਾ ਮੀਂਹ","rainH":"ਮੀਂਹ","drizzle":"ਬੂੰਦਾ ਬਾਂਦੀ","fog":"ਧੁੰਦ","storm":"ਗਰਜ ਨਾਲ ਮੀਂਹ","moisture":"ਨਮੀ","day":"ਦਿਨ","disclaimer":"ਇਹ ਯੋਜਨਾ ਅਨੁਮਾਨ ਹਨ। ਫ਼ੈਸਲੇ ਤੋਂ ਪਹਿਲਾਂ ਮਿੱਟੀ ਦੀ ਜਾਂਚ ਅਤੇ ਸਥਾਨਕ ਮੰਡੀ ਭਾਅ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ।","sKharif":"ਸਾਉਣੀ (ਖਰੀਫ਼)","sRabi":"ਹਾੜ੍ਹੀ (ਰਬੀ)","sZaid":"ਜ਼ੈਦ (ਗਰਮੀ)","sZaidKharif":"ਜ਼ੈਦ ਖਰੀਫ਼","sPerennial":"ਸਾਰਾ ਸਾਲ","profile":"ਪ੍ਰੋਫ਼ਾਈਲ","pName":"ਤੁਹਾਡਾ ਨਾਮ","pVillage":"ਪਿੰਡ ਜਾਂ ਖੇਤ ਦਾ ਨਾਮ","pSave":"ਪ੍ਰੋਫ਼ਾਈਲ ਸੰਭਾਲੋ","hello":"ਸਤ ਸ੍ਰੀ ਅਕਾਲ","Paddy":"ਝੋਨਾ","Maize":"ਮੱਕੀ","Green gram":"ਮੂੰਗੀ","Ragi":"ਰਾਗੀ","Bengal gram":"ਛੋਲੇ","Sunflower":"ਸੂਰਜਮੁਖੀ","Groundnut":"ਮੂੰਗਫਲੀ","Sesame":"ਤਿਲ","Wheat":"ਕਣਕ","Mustard":"ਸਰ੍ਹੋਂ","Cotton":"ਨਰਮਾ","Soybean":"ਸੋਇਆਬੀਨ","Pigeon pea":"ਅਰਹਰ","Lentil":"ਮਸਰ","Pearl millet":"ਬਾਜਰਾ","Cumin":"ਜੀਰਾ","Jute":"ਪਟਸਨ","Sugarcane":"ਗੰਨਾ"},"or":{"tagline":"ପ୍ରତି ଏକରରେ ସଠିକତା","farmLocation":"ଚାଷ ଜମିର ସ୍ଥାନ","temperature":"ତାପମାତ୍ରା","humidity":"ଆର୍ଦ୍ରତା","language":"ଭାଷା","navDash":"ଚାଷ ଡ୍ୟାସବୋର୍ଡ","navSaved":"ସଞ୍ଚିତ ସିମୁଲେସନ","navRain":"ବର୍ଷା ପୂର୍ବାନୁମାନ","inputsTitle":"ଚାଷ ଜମିର ଇନପୁଟ ବିବରଣୀ","inputsSub":"ଯେକୌଣସି ମୂଲ୍ୟ ବଦଳାନ୍ତୁ ଏବଂ ନୂଆ ଯୋଜନା ଦେଖିବାକୁ ସିମୁଲେସନ ଚଳାନ୍ତୁ।","landArea":"ଜମି ପରିମାଣ","acres":"ଏକର","budget":"ବଜେଟ","soil":"ମାଟିର ପ୍ରକାର","loamy":"ପଟୁ ଦୋରସା ମାଟି","clay":"କଳା ମାଟି","red":"ଲାଲ ମାଟି","laterite":"ମରଡ଼ି ମାଟି","sandy":"ବାଲିଆ ମାଟି","mountain":"ପାହାଡ଼ିଆ ମାଟି","season":"ଯୋଜନା ଋତୁ","run":"ସିମୁଲେସନ ଚଳାନ୍ତୁ","running":"ମଡେଲ ଚାଲୁଛି","heroTitle":"ଆପଣଙ୍କ ଜମି। ସ୍ପଷ୍ଟ ଆସନ୍ତାକାଲି।","heroSub2":"ଗୋଟିଏ ଚାଷ ଜମି। ସଂଯୁକ୍ତ ଜ୍ଞାନ।","acresMapped":"ମ୍ୟାପ ହୋଇଥିବା ଏକର","cropZones":"ଫସଲ ଅଞ୍ଚଳ","daysModeled":"ମଡେଲ ଦିନ","export":"ରିପୋର୍ଟ ରପ୍ତାନି","analytics":"MATLAB ଓ Simulink ବିଶ୍ଳେଷଣ","soilMoisture":"ମାଟିର ଆର୍ଦ୍ରତା","irrigTrig":"ଜଳସେଚନ ଘଟଣା","cropDist":"ଫସଲ ବଣ୍ଟନ","recs":"ସ୍ମାର୍ଟ ସୁପାରିଶ","irrigation":"ଜଳସେଚନ ସୂଚୀ","fert":"ସାର ପରିମାଣ","pattern":"ଫସଲ ପ୍ରଣାଳୀ","yield":"ଆଶା କରାଯାଉଥିବା ଅମଳ","quintals":"କ୍ୱିଣ୍ଟାଲ","income":"ଆଶା କରାଯାଉଥିବା ଆୟ","netProfit":"ନିଟ ଲାଭ","margin":"ଲାଭ ହାର","every":"ପ୍ରତି {n} ଦିନରେ","rainTitle":"ବର୍ଷା ପୂର୍ବାନୁମାନ ଓ ଫସଲ ପରାମର୍ଶ","next16":"ଆଗାମୀ 16 ଦିନ","seasonOut":"ଋତୁ ପୂର୍ବାନୁମାନ","waterSit":"ଜଳ ସ୍ଥିତି","cropFit":"ଏହି ଋତୁ ପାଇଁ ଉପଯୁକ୍ତ ଫସଲ","planTop":"ଶ୍ରେଷ୍ଠ 3 ଫସଲରେ ଯୋଜନା","askAI":"କୃଷି AI କୁ ପଚାରନ୍ତୁ","totRain":"ମୋଟ ବର୍ଷା","rainyDays":"ବର୍ଷା ଦିନ","above":"ସାଧାରଣଠାରୁ ଅଧିକ","below":"ସାଧାରଣଠାରୁ କମ","normal":"ପ୍ରାୟ ସାଧାରଣ","wxLive":"ସିଧାସଳଖ ପାଣିପାଗ","partly":"ଆଂଶିକ ମେଘୁଆ","clear":"ପରିଷ୍କାର ଆକାଶ","overcast":"ମେଘାଚ୍ଛନ୍ନ","rain":"ହାଲୁକା ବର୍ଷା","rainH":"ବର୍ଷା","drizzle":"ଝିପିଝିପି ବର୍ଷା","fog":"କୁହୁଡ଼ି","storm":"ବଜ୍ରପାତ ସହ ବର୍ଷା","moisture":"ଆର୍ଦ୍ରତା","day":"ଦିନ","disclaimer":"ଏଗୁଡ଼ିକ ଯୋଜନା ଆକଳନ। ପଦକ୍ଷେପ ପୂର୍ବରୁ ମାଟି ପରୀକ୍ଷା ଓ ସ୍ଥାନୀୟ ମଣ୍ଡି ଦର ନିଶ୍ଚିତ କରନ୍ତୁ।","sKharif":"ଖରିଫ","sRabi":"ରବି","sZaid":"ଜାଏଦ (ଗ୍ରୀଷ୍ମ)","sZaidKharif":"ଜାଏଦ ଖରିଫ","sPerennial":"ବର୍ଷସାରା","profile":"ପ୍ରୋଫାଇଲ","pName":"ଆପଣଙ୍କ ନାମ","pVillage":"ଗାଁ ବା ଚାଷ ଜମିର ନାମ","pSave":"ପ୍ରୋଫାଇଲ ସଞ୍ଚୟ କରନ୍ତୁ","hello":"ନମସ୍କାର","Paddy":"ଧାନ","Maize":"ମକା","Green gram":"ମୁଗ","Ragi":"ମାଣ୍ଡିଆ","Bengal gram":"ବୁଟ","Sunflower":"ସୂର୍ଯ୍ୟମୁଖୀ","Groundnut":"ଚିନାବାଦାମ","Sesame":"ରାଶି","Wheat":"ଗହମ","Mustard":"ସୋରିଷ","Cotton":"କପା","Soybean":"ସୋୟାବିନ","Pigeon pea":"ହରଡ଼","Lentil":"ମସୁର","Pearl millet":"ବାଜରା","Cumin":"ଜିରା","Jute":"ଝୋଟ","Sugarcane":"ଆଖୁ"},"as":{"tagline":"প্ৰতিটো একৰত নিখুঁততা","farmLocation":"খেতিপথাৰৰ স্থান","temperature":"উষ্ণতা","humidity":"আৰ্দ্ৰতা","language":"ভাষা","navDash":"খেতি ডেশ্বব'ৰ্ড","navSaved":"সংৰক্ষিত ছিমুলেচন","navRain":"বৰষুণৰ পূৰ্বানুমান","inputsTitle":"খেতিৰ ইনপুট বিৱৰণ","inputsSub":"যিকোনো মান সলনি কৰক আৰু নতুন পৰিকল্পনা চাবলৈ ছিমুলেচন চলাওক।","landArea":"মাটিৰ পৰিমাণ","acres":"একৰ","budget":"বাজেট","soil":"মাটিৰ প্ৰকাৰ","loamy":"পলসুৱা দোআঁহ মাটি","clay":"ক'লা মাটি","red":"ৰঙা মাটি","laterite":"লেটেৰাইট মাটি","sandy":"বালিময় মাটি","mountain":"পাহাৰীয়া মাটি","season":"পৰিকল্পনাৰ বতৰ","run":"ছিমুলেচন চলাওক","running":"মডেল চলি আছে","heroTitle":"আপোনাৰ মাটি। স্পষ্ট কাইলৈ।","heroSub2":"এখন পথাৰ। সংযুক্ত জ্ঞান।","acresMapped":"মেপ কৰা একৰ","cropZones":"শস্য অঞ্চল","daysModeled":"মডেল দিন","export":"প্ৰতিবেদন ৰপ্তানি","analytics":"MATLAB আৰু Simulink বিশ্লেষণ","soilMoisture":"মাটিৰ আৰ্দ্ৰতা","irrigTrig":"জলসিঞ্চনৰ ঘটনা","cropDist":"শস্য বিতৰণ","recs":"স্মাৰ্ট পৰামৰ্শ","irrigation":"জলসিঞ্চনৰ সূচী","fert":"সাৰৰ পৰিমাণ","pattern":"শস্যৰ ধৰণ","yield":"আশা কৰা উৎপাদন","quintals":"কুইণ্টল","income":"আশা কৰা আয়","netProfit":"নিকা লাভ","margin":"লাভৰ হাৰ","every":"প্ৰতি {n} দিনত","rainTitle":"বৰষুণৰ পূৰ্বানুমান আৰু শস্য পৰামৰ্শ","next16":"অহা 16 দিন","seasonOut":"বতৰৰ পূৰ্বানুমান","waterSit":"পানীৰ অৱস্থা","cropFit":"এই বতৰৰ উপযুক্ত শস্য","planTop":"শীৰ্ষ 3 শস্যৰে পৰিকল্পনা","askAI":"কৃষি AI ক সোধক","totRain":"মুঠ বৰষুণ","rainyDays":"বৰষুণৰ দিন","above":"স্বাভাৱিকতকৈ বেছি","below":"স্বাভাৱিকতকৈ কম","normal":"প্ৰায় স্বাভাৱিক","wxLive":"পোনপটীয়া বতৰ","partly":"আংশিক ডাৱৰীয়া","clear":"পৰিষ্কাৰ আকাশ","overcast":"ডাৱৰীয়া","rain":"পাতল বৰষুণ","rainH":"বৰষুণ","drizzle":"সৰু বৰষুণ","fog":"কুঁৱলী","storm":"বজ্ৰপাতৰ সৈতে বৰষুণ","moisture":"আৰ্দ্ৰতা","day":"দিন","disclaimer":"এইবোৰ পৰিকল্পনাৰ অনুমান। কাম কৰাৰ আগতে মাটি পৰীক্ষা আৰু স্থানীয় বজাৰৰ দৰ নিশ্চিত কৰক।","sKharif":"খাৰিফ","sRabi":"ৰবি","sZaid":"জায়েদ (গ্ৰীষ্ম)","sZaidKharif":"জায়েদ খাৰিফ","sPerennial":"গোটেই বছৰ","profile":"প্ৰ'ফাইল","pName":"আপোনাৰ নাম","pVillage":"গাঁও বা পথাৰৰ নাম","pSave":"প্ৰ'ফাইল সংৰক্ষণ কৰক","hello":"নমস্কাৰ","Paddy":"ধান","Maize":"মাকৈ","Green gram":"মুগ","Ragi":"ৰাগী","Bengal gram":"বুট","Sunflower":"সূৰ্যমুখী","Groundnut":"চীনাবাদাম","Sesame":"তিল","Wheat":"ঘেঁহু","Mustard":"সৰিয়হ","Cotton":"কপাহ","Soybean":"ছয়াবিন","Pigeon pea":"অৰহৰ","Lentil":"মচুৰ","Pearl millet":"বাজৰা","Cumin":"জিৰা","Jute":"মৰাপাট","Sugarcane":"কুঁহিয়াৰ"},"en":{"sKharif":"Kharif","sRabi":"Rabi","sZaid":"Zaid (summer)","sZaidKharif":"Zaid Kharif","sPerennial":"Whole year","profile":"Profile","pName":"Your name","pVillage":"Village or farm name","pSave":"Save profile","hello":"Namaste","noIrr":"Rain covers it","language":"Language"},"hi":{"sKharif":"खरीफ","sRabi":"रबी","sZaid":"जायद (गर्मी)","sZaidKharif":"जायद खरीफ","sPerennial":"पूरा साल","profile":"प्रोफ़ाइल","pName":"आपका नाम","pVillage":"गाँव या खेत का नाम","pSave":"प्रोफ़ाइल सहेजें","hello":"नमस्ते","language":"भाषा"},"kn":{"sKharif":"ಖಾರಿಫ್ (ಮುಂಗಾರು)","sRabi":"ರಬಿ (ಹಿಂಗಾರು)","sZaid":"ಬೇಸಿಗೆ (ಜೈದ್)","sZaidKharif":"ಜೈದ್ ಖಾರಿಫ್","sPerennial":"ವರ್ಷಪೂರ್ತಿ","profile":"ಪ್ರೊಫೈಲ್","pName":"ನಿಮ್ಮ ಹೆಸರು","pVillage":"ಗ್ರಾಮ ಅಥವಾ ಜಮೀನಿನ ಹೆಸರು","pSave":"ಪ್ರೊಫೈಲ್ ಉಳಿಸಿ","hello":"ನಮಸ್ಕಾರ","language":"ಭಾಷೆ"}};for(const k in TR){T[k]=Object.assign(T[k]||{},TR[k])}}
+const langOpts=()=>LANGS.map(([c,n,e])=>`<option value="${c}">${n}${c==='en'?'':' · '+e}</option>`).join('');
+$('#lang').innerHTML=langOpts();
+uiLangName=function(){return(LANGS.find(l=>l[0]===lang)||LANGS[0])[2]};
+function langLabelUI(){$('#langLabel').textContent=(LANGS.find(l=>l[0]===lang)||LANGS[0])[1];$('#lang').value=lang;const pl=$('#ppLang');if(pl)pl.value=lang}
+
+/* ================= all planning seasons ================= */
+SMONTHS.zaidkharif=[8,9,10,11,12];
+SEASONS.zaidkharif={label:''};SEASONS.perennial={label:''};
+seasonInfo=function(key){
+ const now=new Date(),y=now.getFullYear(),m=now.getMonth()+1;let sy,months,label;
+ const ym=(yy,mm)=>yy+'-'+String(mm).padStart(2,'0');
+ if(key==='perennial'){months=[];for(let i=1;i<=12;i++){const d=new Date(y,m-1+i,1);months.push(ym(d.getFullYear(),d.getMonth()+1))}
+  const st=new Date(months[0]+'-01T00:00:00');return{label:t('sPerennial')+' '+st.toLocaleDateString('en-IN',{month:'short',year:'numeric'}),months}}
+ if(key==='kharif')sy=m<=7?y:y+1;else if(key==='zaidkharif')sy=m<=8?y:y+1;else if(key==='rabi')sy=m===1?y-1:y;else sy=m<=3?y:y+1;
+ months=SMONTHS[key].map(mm=>ym(key==='rabi'&&mm<=3?sy+1:sy,mm));
+ label=key==='rabi'?`${t('sRabi')} ${sy}/${String(sy+1).slice(2)}`:`${t({kharif:'sKharif',zaidkharif:'sZaidKharif',summer:'sZaid'}[key])} ${sy}`;
+ return{label,months};
+};
+function refreshSeasons(){Object.keys(SEASONS).forEach(k=>SEASONS[k].label=seasonInfo(k).label);
+ const sel=$('#season');sel.innerHTML=['kharif','zaidkharif','rabi','summer','perennial'].map(k=>`<option value="${k}">${SEASONS[k].label}</option>`).join('');sel.value=S.season}
+const ZX={
+ south:{zaidkharif:[["Maize",.5],["Sunflower",.3],["Green gram",.2]],perennial:[["Sugarcane",.6],["Pigeon pea",.25],["Maize",.15]]},
+ deccan:{zaidkharif:[["Sunflower",.45],["Maize",.35],["Green gram",.2]],perennial:[["Sugarcane",.55],["Cotton",.3],["Pigeon pea",.15]]},
+ central:{zaidkharif:[["Maize",.5],["Green gram",.3],["Sesame",.2]],perennial:[["Sugarcane",.5],["Pigeon pea",.3],["Soybean",.2]]},
+ northwest:{zaidkharif:[["Maize",.5],["Green gram",.3],["Sesame",.2]],perennial:[["Sugarcane",.6],["Cotton",.25],["Pigeon pea",.15]]},
+ gangetic:{zaidkharif:[["Maize",.45],["Paddy",.35],["Green gram",.2]],perennial:[["Sugarcane",.65],["Pigeon pea",.2],["Lentil",.15]]},
+ west:{zaidkharif:[["Pearl millet",.5],["Sesame",.3],["Green gram",.2]],perennial:[["Cotton",.5],["Sugarcane",.3],["Pigeon pea",.2]]},
+ east:{zaidkharif:[["Paddy",.5],["Maize",.3],["Green gram",.2]],perennial:[["Sugarcane",.5],["Jute",.3],["Pigeon pea",.2]]}};
+for(const z in ZX)Object.assign(ZONES[z],ZX[z]);
+["Maize","Sunflower","Green gram","Sesame","Pearl millet","Paddy","Groundnut"].forEach(n=>NEED[n][2].push('zaidkharif'));
+["Sugarcane","Pigeon pea","Cotton"].forEach(n=>NEED[n][2].push('perennial'));
+
+/* ================= profile ================= */
+let PROFILE={};try{PROFILE=JSON.parse(localStorage.getItem('sk_profile')||'{}')||{}}catch(e){}
+const initials=n=>(n||'').trim().split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase()||'SK';
+function drawProfile(){
+ const av=$('#profBtn'),ph=$('#ppPhoto');
+ [av,ph].forEach(el=>{el.style.backgroundImage=PROFILE.photo?`url(${PROFILE.photo})`:''});
+ $('#avInit').textContent=PROFILE.photo?'':initials(PROFILE.name);$('#ppInit').textContent=PROFILE.photo?'':initials(PROFILE.name);
+ $('#ppRemove').hidden=!PROFILE.photo;
+ const h=$('#helloLine');if(PROFILE.name){h.hidden=false;h.textContent=`${t('hello')}, ${PROFILE.name.split(' ')[0]}${PROFILE.village?' · '+PROFILE.village:''}`}else h.hidden=true;
+}
+function placeProf(){const r=$('#profBtn').getBoundingClientRect(),w=Math.min(340,innerWidth*.94);const p=$('#profPop');p.style.top=(r.bottom+10)+'px';p.style.left=Math.max(8,Math.min(r.right-w,innerWidth-w-8))+'px'}
+function openProf(){$('#ppName').value=PROFILE.name||'';$('#ppVillage').value=PROFILE.village||'';$('#ppLang').innerHTML=langOpts();$('#ppLang').value=lang;placeProf();$('#profPop').classList.add('on');$('#profBtn').setAttribute('aria-expanded','true');setTimeout(()=>$('#ppName').focus(),40)}
+function closeProf(){$('#profPop').classList.remove('on');$('#profBtn').setAttribute('aria-expanded','false')}
+function saveProfile(){try{localStorage.setItem('sk_profile',JSON.stringify(PROFILE))}catch(e){toast('Profile photo is too large to save on this device')}}
+$('#profBtn').addEventListener('click',e=>{e.stopPropagation();$('#profPop').classList.contains('on')?closeProf():openProf()});
+document.addEventListener('pointerdown',e=>{const p=$('#profPop');if(p.classList.contains('on')&&!p.contains(e.target)&&!$('#profBtn').contains(e.target))closeProf()});
+addEventListener('resize',()=>{if($('#profPop').classList.contains('on'))placeProf()});
+$('#ppFile').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const img=new Image();const rd=new FileReader();
+ rd.onload=()=>{img.onload=()=>{const c=document.createElement('canvas'),z=160;c.width=c.height=z;const g=c.getContext('2d');const m=Math.min(img.width,img.height);g.drawImage(img,(img.width-m)/2,(img.height-m)/2,m,m,0,0,z,z);PROFILE.photo=c.toDataURL('image/jpeg',.82);saveProfile();drawProfile()};img.src=rd.result};rd.readAsDataURL(f);e.target.value=''});
+$('#ppRemove').addEventListener('click',()=>{delete PROFILE.photo;saveProfile();drawProfile()});
+$('#ppSave').addEventListener('click',()=>{PROFILE.name=$('#ppName').value.trim();PROFILE.village=$('#ppVillage').value.trim();const nl=$('#ppLang').value;saveProfile();
+ if(nl!==lang){lang=nl;try{localStorage.setItem('sk_lang',lang)}catch(e){}applyLang()}drawProfile();closeProf();toast(PROFILE.name?`${t('hello')}, ${PROFILE.name.split(' ')[0]}`:'Profile saved')});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeProf()});
+
+/* ================= presentable report ================= */
+function rLine(R){
+ const W=700,H=190,x0=40,x1=690,y0=14,y1=150,s=R.series,n=Math.max(1,s[s.length-1][0]);
+ const all=[...s.map(p=>p[1]),...(R.nat||[]).map(p=>p[1]),R.thr,R.fc];const lo=Math.max(0,Math.floor((Math.min(...all)-3)/5)*5),hi=Math.ceil((Math.max(...all)+3)/5)*5;
+ const X=d=>x0+d/n*(x1-x0),Y=v=>y1-(v-lo)/(hi-lo)*(y1-y0);
+ let g=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" font-family="Manrope,Arial" font-size="10">`;
+ for(let v=lo;v<=hi;v+=hi-lo>30?10:5)g+=`<line x1="${x0}" x2="${x1}" y1="${Y(v)}" y2="${Y(v)}" stroke="#E3EEE7"/><text x="${x0-6}" y="${Y(v)+3}" text-anchor="end" fill="#5B7567">${v}%</text>`;
+ if(R.todayX!=null)g+=`<rect x="${X(R.todayX)}" y="${y0}" width="${x1-X(R.todayX)}" height="${y1-y0}" fill="#EEF6FB"/><line x1="${X(R.todayX)}" x2="${X(R.todayX)}" y1="${y0}" y2="${y1}" stroke="#7FA3B8" stroke-dasharray="3 3"/><text x="${X(R.todayX)+4}" y="${y0+10}" fill="#3F6E88">Forecast</text>`;
+ g+=`<line x1="${x0}" x2="${x1}" y1="${Y(R.thr)}" y2="${Y(R.thr)}" stroke="#C99A3E" stroke-dasharray="5 4"/><text x="${x1}" y="${Y(R.thr)-4}" text-anchor="end" fill="#A47A26">Irrigate below ${R.thr}%</text>`;
+ if(R.nat&&R.nat.length)g+=`<path d="${R.nat.map((p,i)=>(i?'L':'M')+X(p[0]).toFixed(1)+' '+Y(p[1]).toFixed(1)).join('')}" fill="none" stroke="#3FA3E0" stroke-width="1.6" stroke-dasharray="4 3"/>`;
+ g+=`<path d="${s.map((p,i)=>(i?'L':'M')+X(p[0]).toFixed(1)+' '+Y(p[1]).toFixed(1)).join('')}" fill="none" stroke="#1F9E62" stroke-width="2.2"/>`;
+ R.pump.forEach(p=>{if(p[1])g+=`<circle cx="${X(p[0])}" cy="${Y(R.thr)}" r="3.5" fill="#C99A3E"/>`});
+ const step=Math.max(1,Math.ceil(n/7));for(let d=0;d<=n;d+=step)g+=`<text x="${X(d)}" y="${y1+16}" text-anchor="middle" fill="#5B7567">${R.dates?fmtD(R.dates[Math.min(R.dates.length-1,d)]):'Day '+d}</text>`;
+ g+=`<g transform="translate(${x0},${H-8})"><rect width="14" height="3" y="-4" fill="#1F9E62"/><text x="18" fill="#13241B">With Smart Krishi irrigation</text>${R.nat?'<rect x="190" width="14" height="3" y="-4" fill="#3FA3E0"/><text x="208" fill="#13241B">Measured, no irrigation (Open-Meteo)</text>':''}<circle cx="430" cy="-3" r="3.5" fill="#C99A3E"/><text x="438" fill="#13241B">Irrigation day</text></g></svg>`;
+ return g;
+}
+function rBars(D){
+ const p=D.fc.p,tt=D.fc.t,W=700,H=150,x0=36,x1=690,y0=10,y1=118,n=p.length,bw=(x1-x0)/n,mx=Math.max(10,Math.ceil(Math.max(...p)/10)*10),Y=v=>y1-v/mx*(y1-y0);
+ let g=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" font-family="Manrope,Arial" font-size="10">`;
+ [0,mx/2,mx].forEach(v=>g+=`<line x1="${x0}" x2="${x1}" y1="${Y(v)}" y2="${Y(v)}" stroke="#E3EEE7"/><text x="${x0-6}" y="${Y(v)+3}" text-anchor="end" fill="#5B7567">${Math.round(v)}</text>`);
+ p.forEach((v,i)=>{const x=x0+i*bw+bw*.2,w=bw*.6;g+=`<rect x="${x}" y="${Y(v)}" width="${w}" height="${Math.max(1,y1-Y(v))}" rx="2" fill="${v>=64.5?'#E07A5F':'#3FA3E0'}"/>`;if(v>=1)g+=`<text x="${x+w/2}" y="${Y(v)-3}" text-anchor="middle" fill="#13241B" font-size="9">${Math.round(v)}</text>`;if(i%2===0)g+=`<text x="${x+w/2}" y="${y1+14}" text-anchor="middle" fill="#5B7567">${fmtD(tt[i])}</text>`});
+ return g+`<text x="${x0}" y="${H-4}" fill="#5B7567">Daily rain, mm</text></svg>`;
+}
+function buildReport(){
+ const R=S.result,L=LOCS[S.loc],D=RAIN[S.loc],id='SK-'+String(S.runNo).padStart(3,'0'),now=new Date();
+ const rs=x=>'Rs. '+fmtIN(Math.round(x/100)*100);
+ const tot=R.crops.reduce((a,c)=>({a:a.a+c.acres,q:a.q+c.q,r:a.r+c.rev}),{a:0,q:0,r:0});
+ let h=`<div class="rh"><div class="rlogo"><div class="lg"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1F9E62" stroke-width="1.8" stroke-linecap="round"><path d="M12 21v-9"/><path d="M12 12c0-4 3-7 8-7 0 4.5-3 7-8 7z"/><path d="M12 14c0-3.2-2.4-5.6-7-5.6 0 3.6 2.6 5.6 7 5.6z"/><path d="M7 21h10"/></svg></div><div><b>Smart Krishi</b><span>Farm plan report · ${SEASONS[S.season].label}</span></div></div>
+ <div class="rmeta"><b>${L.name}</b><br>${now.toLocaleString('en-IN',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'})}<br>Run ${id}${PROFILE.name?`<br>Prepared for ${PROFILE.name}${PROFILE.village?', '+PROFILE.village:''}`:''}</div></div>
+ <div class="kf">
+  <div><span>Land</span><b>${fmtIN(S.acres,S.acres%1?1:0)} acres</b></div><div><span>Budget</span><b>${rs(S.budget)}</b></div>
+  <div><span>Soil</span><b>${t(S.soil)}</b></div><div><span>Weather now</span><b>${t(L.wx)}, ${L.temp} °C, ${L.hum}%</b></div>
+  <div><span>Expected yield</span><b>${fmtIN(R.totalQ,1)} q</b></div><div><span>Gross revenue</span><b>${rs(R.rev)}</b></div>
+  <div><span>Net profit</span><b>${rs(R.net)}</b></div><div><span>Margin</span><b>${fmtIN(R.margin,1)}%</b></div></div>
+ <h2>Crop plan</h2><table><tr><th>Crop</th><th>Variety</th><th class="n">Area (acres)</th><th class="n">Share</th><th class="n">Yield (q)</th><th class="n">Price (Rs./q)</th><th class="n">Revenue</th></tr>
+ ${R.crops.map(c=>`<tr><td>${t(c.n)}</td><td>${c.v}</td><td class="n">${fmtIN(c.acres,2)}</td><td class="n">${Math.round(c.share*100)}%</td><td class="n">${fmtIN(c.q,2)}</td><td class="n">${fmtIN(c.p)}</td><td class="n">${rs(c.rev)}</td></tr>`).join('')}
+ <tr class="tot"><td colspan="2">Total</td><td class="n">${fmtIN(tot.a,2)}</td><td class="n">100%</td><td class="n">${fmtIN(tot.q,2)}</td><td></td><td class="n">${rs(tot.r)}</td></tr></table>
+ <div class="two"><div class="sec"><h2>Irrigation</h2><ul>
+  <li><b>${R.trig>=2?t('every',{n:R.interval}):R.trig===1?'One irrigation in '+R.series.length+' days':'No irrigation needed in this window'}</b></li>
+  <li>${fmtIN(R.liters)} litres per irrigation (${fmtIN(R.depth,0)} mm across the farm)</li>
+  <li>Irrigate when root zone moisture falls below ${R.thr}%</li>
+  <li>Best time ${L.temp>=30?'05:00 to 07:00':'05:30 to 07:30'}, early morning</li>
+  <li>Irrigation events: ${R.trig} across the ${R.real?S.win+' day history and 16 day forecast':S.win+' day model run'}</li></ul></div>
+  <div class="sec"><h2>Fertilizer per acre</h2><table><tr><th>Nutrient</th><th class="n">Per acre</th><th class="n">Whole farm</th></tr>
+  ${['Nitrogen (N)','Phosphorus (P)','Potassium (K)'].map((n,i)=>`<tr><td>${n}</td><td class="n">${R.npk[i]} kg</td><td class="n">${fmtIN(R.npk[i]*S.acres,0)} kg</td></tr>`).join('')}</table>
+  <div class="note">Apply 50% at sowing, 25% at day 25 and 25% at day 45.</div></div></div>
+ <div class="chartbox"><b style="font-size:10.5pt">Soil moisture, ${R.real?'root zone 9 to 27 cm':'model estimate'}</b>${rLine(R)}</div>
+ <div class="two"><div class="sec"><h2>Income</h2><table><tr><td>Gross revenue</td><td class="n">${rs(R.rev)}</td></tr><tr><td>Input cost</td><td class="n">${rs(R.cost)}</td></tr><tr class="tot"><td>Net profit</td><td class="n">${rs(R.net)}</td></tr><tr><td>Margin</td><td class="n">${fmtIN(R.margin,1)}%</td></tr></table></div>
+  <div class="sec"><h2>Inputs used</h2><table><tr><td>Location</td><td>${L.name}</td></tr><tr><td>Soil</td><td>${t(S.soil)}${S.soil===soilFor(S.loc)?' (regional soil map)':' (farmer choice)'}</td></tr><tr><td>Season</td><td>${SEASONS[S.season].label}</td></tr><tr><td>Crop plan</td><td>${S.plan?'Top rain fit crops':'Regional plan'}</td></tr></table></div></div>`;
+ if(D&&D.fc){const p=D.fc.p,ttl=p.reduce((a,b)=>a+b,0),rainy=p.filter(x=>x>=2.5).length,months=seasonRain(D,S.season),E=months.reduce((a,m)=>a+m.exp,0),N=months.reduce((a,m)=>a+m.n,0),fits=cropFits(D,S.season).slice(0,6);
+  const adv=[...document.querySelectorAll('#rAdvice div span')].map(x=>x.textContent);
+  const need=R.crops.reduce((a,c)=>{const v=NEED[c.n]||[400,600];return a+c.share*(v[0]+v[1])/2},0),eff=E*.8;
+  h+=`<h2>Rain outlook, next 16 days</h2><div class="kf" style="grid-template-columns:repeat(3,1fr)"><div><span>Total rain</span><b>${fmtIN(ttl,0)} mm</b></div><div><span>Rainy days</span><b>${rainy} of ${p.length}</b></div><div><span>Wettest day</span><b>${fmtD(D.fc.t[p.indexOf(Math.max(...p))])}, ${fmtIN(Math.max(...p),0)} mm</b></div></div>
+  <div class="chartbox">${rBars(D)}</div>${adv.length?`<ul>${adv.map(a=>`<li>${a}</li>`).join('')}</ul>`:''}
+  <div class="two"><div class="sec"><h2>Season outlook</h2><table><tr><th>Month</th><th class="n">Expected</th><th class="n">10 yr average</th><th>Source</th></tr>
+  ${months.map(m=>`<tr><td>${new Date(m.ym+'-01T00:00:00').toLocaleDateString('en-IN',{month:'short',year:'numeric'})}</td><td class="n">${fmtIN(m.exp,0)} mm</td><td class="n">${fmtIN(m.n,0)} mm</td><td>${m.src==='fc'?'Forecast':m.src==='mix'?'Forecast and average':'Average'}</td></tr>`).join('')}
+  <tr class="tot"><td>Season</td><td class="n">${fmtIN(E,0)} mm</td><td class="n">${fmtIN(N,0)} mm</td><td>${N?Math.round(E/N*100)+'% of normal':''}</td></tr></table></div>
+  <div class="sec"><h2>Water situation</h2><ul><li>Crop plan needs about <b>${fmtIN(need,0)} mm</b> of water</li><li>Useful rain expected: <b>${fmtIN(eff,0)} mm</b> (${Math.round(Math.min(1,eff/need)*100)}% of need)</li><li>${need>eff?`Irrigation to plan: <b>${fmtIN(need-eff,0)} mm</b>, about ${fmtIN(Math.round((need-eff)*S.acres*4046.86/1e5)/10,1)} lakh litres`:'Rain should cover the crop plan'}</li></ul></div></div>
+  <h2>Crops that fit ${SEASONS[S.season].label}</h2><table><tr><th>#</th><th>Crop</th><th class="n">Fit</th><th class="n">Water need</th><th>Note</th></tr>
+  ${fits.map((f,i)=>`<tr><td>${i+1}</td><td>${t(f.n)}</td><td class="n">${Math.round(f.score*100)}%</td><td class="n">${f.need[0]} to ${f.need[1]} mm</td><td>${f.tag}${f.soilOk?'':', less suited to this soil'}</td></tr>`).join('')}</table>`}
+ h+=`<div class="foot">${t('disclaimer')}<br>Data: weather, soil moisture and rain from Open-Meteo (forecast, seasonal and ERA5 archive). Soil type from the regional soil map of India. Yields and prices are reference values.<br>Generated by Smart Krishi · krishna-kumar.in/smart-krishi</div>`;
+ $('#report').innerHTML=h;
+}
+
+const _render0=render;render=function(...a){_render0(...a);try{renderRain()}catch(e){console.error(e)}};
 /* ---------- boot ---------- */
+try{const sl=localStorage.getItem('sk_lang');if(sl&&T[sl])lang=sl}catch(e){}
 document.querySelectorAll('[data-i18n]').forEach(el=>el.textContent=t(el.dataset.i18n));
-setWeather(false);renderSaved();render();firstRender=false;refreshLive(S.loc);
+{const m=new Date().getMonth()+1;S.season=m>=2&&m<=5?'summer':m>=6&&m<=7?'kharif':m>=8&&m<=9?'zaidkharif':'rabi'}refreshSeasons();langLabelUI();drawProfile();
+autoSoil();setWeather(false);renderSaved();render();firstRender=false;refreshLive(S.loc);loadRain(S.loc);
 })();
 </script>
 </body>
