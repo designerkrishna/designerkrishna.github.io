@@ -221,6 +221,7 @@ main{min-width:0}
 @keyframes grow{from{transform:scaleY(0)}}
 .pbar.fire .pb{animation:flash .9s ease-out}
 .pbar.fire .cap{animation:capf .9s ease-out}
+.pbar.past .pb{opacity:.45}.pbar.past .cap{opacity:.5}
 .pbar.hov .pb{fill:rgba(94,230,160,.55)}
 @keyframes flash{0%{fill:#C9FBE0;filter:drop-shadow(0 0 10px #5EE6A0)}100%{fill:url(#pg)}}
 @keyframes capf{0%{r:7}100%{r:3}}
@@ -919,55 +920,66 @@ try{saved=JSON.parse(localStorage.getItem('sk_runs')||'[]')||[]}catch(e){saved=[
 function rng(seed){return()=>{seed|=0;seed=seed+0x6D2B79F5|0;let x=Math.imul(seed^seed>>>15,1|seed);x=x+Math.imul(x^x>>>7,61|x)^x;return((x^x>>>14)>>>0)/4294967296}}
 function hash(s){let h=2166136261;for(const c of s)h=Math.imul(h^c.charCodeAt(0),16777619);return h>>>0}
 
+const CROPWAT={ // FAO-56: mid season Kc, effective root depth (m), allowed depletion fraction p
+ "Paddy":[1.2,.4,.2],"Maize":[1.2,1.0,.55],"Green gram":[1.05,.6,.45],"Ragi":[1.0,.6,.55],"Bengal gram":[1.0,.8,.5],"Sunflower":[1.05,1.0,.45],"Groundnut":[1.15,.6,.5],"Sesame":[1.1,.8,.6],"Wheat":[1.15,1.0,.55],"Mustard":[1.05,.8,.6],"Cotton":[1.15,1.2,.65],"Soybean":[1.15,.8,.5],"Pigeon pea":[1.05,1.0,.5],"Lentil":[1.05,.6,.5],"Pearl millet":[1.0,1.0,.55],"Cumin":[.95,.5,.4],"Jute":[1.15,.6,.5],"Sugarcane":[1.25,1.2,.65]};
 function simulate(){
  const L=LOCS[S.loc],So=SOILS[S.soil]||SOILS.loamy,Se={crops:S.plan?S.plan.map((n,i)=>({n,s:[.6,.25,.15][i],c:CCOL[i],...CROPS[n]})):cropsFor(S.loc,S.season)};
  const r=rng(hash([S.loc,S.soil,S.season,S.acres,S.budget,S.win].join('|')));
- const et=So.drain*L.et*(1+(L.temp-26)*.04)*(1-(L.hum-60)*.006);
- let series=[],pump=[],m=So.fc*.97,trig=0,lastTrig=null,gaps=[];
- const H=!S.imported&&RAIN&&RAIN[S.loc]&&RAIN[S.loc].hist;let nat=null,dates=null,todayX=null,refills=[];
- if(S.imported){series=S.imported.m.map((v,i)=>[S.imported.d[i],v]);pump=S.imported.p.map((v,i)=>[S.imported.d[i],v]);trig=0;for(let i=1;i<pump.length;i++)if(pump[i][1]>0&&pump[i-1][1]===0)trig++;if(pump.length&&pump[0][1]>0)trig++;}
- else if(H){
-  const i0=Math.max(H.first,H.today-S.win),i1=Math.min(H.t.length,H.today+16);nat=[];dates=[];
-  let extra=0,last=H.sm[i0]!=null?H.sm[i0]:So.fc*.8;
-  for(let i=i0;i<i1;i++){const x=i-i0;dates.push(H.t[i]);const nv=H.sm[i]!=null?H.sm[i]:last;last=nv;nat.push([x,nv]);
-   let mm=nv+Math.min(extra,Math.max(0,So.fc-nv)),on=0;
-   if(mm<=So.thr){on=1;trig++;refills.push((So.fc-mm)*3);if(lastTrig!==null)gaps.push(x-lastTrig);lastTrig=x}
-   series.push([x,+mm.toFixed(2)]);pump.push([x,on]);
-   if(on)extra+=So.fc-mm;
-   extra=Math.max(0,Math.min(extra,So.fc-nv))*(1-Math.min(.35,.08+(H.et0[i]||3)*.025))}
-  todayX=H.today-i0;
- }
- else{
-  for(let d=0;d<=S.win+1e-9;d+=.5){
-   let on=0;
-   if(m<=So.thr){on=1;trig++;refills.push((So.fc-m)*3);if(lastTrig!==null)gaps.push(d-lastTrig);lastTrig=d}
-   series.push([d,+m.toFixed(2)]);pump.push([d,on]);
-   if(on){m=So.fc*(.97+r()*.03)}
-   else{m-=et*.5*(.82+r()*.36);const FC=RAIN&&RAIN[S.loc]&&RAIN[S.loc].fc;if(FC&&d<FC.p.length){if(d%1===0&&FC.p[d]>0)m=Math.min(So.fc,m+FC.p[d]*.3)}else if(r()<L.rainP*.5)m=Math.min(So.fc,m+2+r()*4)}
-  }
- }
- const avg=series.reduce((a,b)=>a+b[1],0)/series.length;
- const interval=gaps.length?Math.round(gaps.reduce((a,b)=>a+b,0)/gaps.length):Math.max(1,Math.round(S.win/Math.max(1,trig)));
+ // crop plan and economics
  const req=S.acres*30000, bf=Math.max(.4,Math.min(1.3,S.budget/req));
  let shares=Se.crops.map(c=>c.s);
  if(bf<.85){const shift=Math.min(.3,(.85-bf)*.6);shares[0]-=shift*.7;shares[1]-=shift*.3;shares[2]+=shift}
  const yF=So.yf*L.yf*(bf<1?.75+.25*bf:1+Math.min(.08,(bf-1)*.2));
  const crops=Se.crops.map((c,i)=>{const a=S.acres*shares[i];const q=a*c.y*yF;return{...c,share:shares[i],acres:a,q,rev:q*c.p,moist:0}});
+ // FAO-56 root zone water balance
+ const main=crops.slice().sort((a,b)=>b.share-a.share)[0],cw=CROPWAT[main.n]||[1.05,.8,.5];
+ const Kc=crops.reduce((a,c)=>a+c.share*(CROPWAT[c.n]||cw)[0],0),Zr=cw[1],pf=cw[2],EFF=.7;
+ const TAW=(So.fc-So.wp)*10*Zr,RAW=pf*TAW,thrPct=So.fc-RAW/(10*Zr);
+ const theta=Dr=>So.fc-Dr/(10*Zr);
+ let series=[],pump=[],trig=0,lastTrig=null,gaps=[],events=[],nat=null,dates=null,todayX=null,real=false,endDr=0,avgEt=0;
+ const H=!S.imported&&RAIN&&RAIN[S.loc]&&RAIN[S.loc].hist;
+ if(S.imported){series=S.imported.m.map((v,i)=>[S.imported.d[i],v]);pump=S.imported.p.map((v,i)=>[S.imported.d[i],v]);for(let i=0;i<pump.length;i++)if(pump[i][1]>0&&(i===0||pump[i-1][1]===0)){trig++;if(lastTrig!==null)gaps.push(pump[i][0]-lastTrig);lastTrig=pump[i][0]}}
+ else{
+  let P,E,M=null;
+  if(H){real=true;const i0=Math.max(H.first,H.today-S.win),i1=Math.min(H.t.length,H.today+16);
+   P=H.p.slice(i0,i1);E=H.et0.slice(i0,i1);dates=H.t.slice(i0,i1);todayX=H.today-i0;
+   const v=H.sm.filter(x=>x!=null).sort((a,b)=>a-b),site=v[Math.floor(v.length*.95)]||So.fc,k=So.fc/site;
+   let last=H.sm[i0]!=null?H.sm[i0]:site*.8;M=H.sm.slice(i0,i1).map(x=>{if(x!=null)last=x;return Math.min(So.fc*1.15,Math.max(So.wp*.6,last*k))});
+   nat=M.map((x,i)=>[i,+x.toFixed(2)]);
+  }else{const n=S.win+1,e0=Math.max(2,3.6+(L.temp-26)*.18-(L.hum-60)*.025);
+   E=Array.from({length:n},()=>e0*(.88+r()*.24));P=Array.from({length:n},()=>r()<L.rainP*1.6?2+r()*14:0)}
+  let Dr=M?Math.max(0,Math.min(TAW,(So.fc-M[0])*10*Zr)):RAW*.3;
+  for(let x=0;x<P.length;x++){
+   const pr=P[x]||0,pe=pr>=5?pr*.8:pr>=1?pr*.6:0;
+   Dr=Math.min(TAW,Math.max(0,Dr-pe+Kc*(E[x]||0)));
+   let on=0;
+   if(Dr>=RAW){on=1;trig++;const ev={x,net:Dr,gross:Dr/EFF,date:dates?dates[x]:null,planned:todayX!=null&&x>=todayX};events.push(ev);if(lastTrig!==null)gaps.push(x-lastTrig);lastTrig=x}
+   series.push([x,+theta(Dr).toFixed(2)]);pump.push([x,on]);
+   if(on)Dr=0;
+  }
+  endDr=Dr;avgEt=E.slice(-7).reduce((a,b)=>a+(b||0),0)/Math.min(7,E.length);
+ }
+ const avg=series.reduce((a,b)=>a+b[1],0)/series.length;
+ const interval=gaps.length?Math.round(gaps.reduce((a,b)=>a+b,0)/gaps.length):Math.max(1,Math.round(RAW/Math.max(.5,Kc*(avgEt||4))));
+ const nextIrr=events.find(e=>todayX==null||e.x>=todayX)||null;
+ const daysToNext=nextIrr?(todayX!=null?nextIrr.x-todayX:nextIrr.x):Math.max(1,Math.ceil((RAW-endDr)/Math.max(.5,Kc*(avgEt||4)))+(todayX!=null?series.length-1-todayX:0));
+ const pastTrig=events.filter(e=>!e.planned).length,planTrig=events.filter(e=>e.planned).length;
  const totalQ=crops.reduce((a,c)=>a+c.q,0);
  const bench=Math.round(crops.reduce((a,c)=>a+c.acres*c.y,0)*1.04);
  const rev=crops.reduce((a,c)=>a+c.rev,0);
  const cost=bf<=1?S.budget:req+(S.budget-req)*.5;
  const net=rev-cost, margin=rev>0?net/rev*100:0;
  const npk=[0,1,2].map(k=>Math.round(crops.reduce((a,c)=>a+c.npk[k]*c.share,0)*So.nf/5)*5);
- const DEPTH=refills.length?refills.reduce((a,b)=>a+b,0)/refills.length:(So.fc-So.thr)*3,liters=Math.round(S.acres*4046.86*DEPTH/100)*100;
+ const DEPTH=events.length?events.reduce((a,e)=>a+e.gross,0)/events.length:RAW/EFF,liters=Math.round(S.acres*4046.86*DEPTH/100)*100;
  const zoneOff=[1.2,-.8,-2.2];
- crops.forEach((c,i)=>c.moist=Math.round(avg+zoneOff[i]+(S.soil==='sandy'&&i===0?-1:0)));
+ crops.forEach((c,i)=>c.moist=Math.round(avg+zoneOff[i]));
  const r2=rng(hash('spark'+S.budget+S.loc));
  const spark=[];const m0=margin*.68;for(let i=0;i<14;i++){const p=i/13;spark.push(m0+(margin-m0)*Math.pow(p,.8)+(r2()-.5)*margin*.06*(1-p))}spark[13]=margin;
- const lastSeries=series[series.length-1][1];
- const daysToNext=Math.max(1,Math.round((lastSeries-So.thr)/Math.max(.5,et)));
- return{series,pump,avg,trig,interval,crops,totalQ,bench,rev,cost,net,margin,npk,liters,spark,thr:(S.imported&&S.imported.thr)||So.thr,fc:(S.imported&&S.imported.fc)||So.fc,depth:Math.round(DEPTH),nat,dates,todayX,real:!!H,daysToNext,bf};
+ return{series,pump,avg,trig,interval,crops,totalQ,bench,rev,cost,net,margin,npk,liters,spark,
+  thr:(S.imported&&S.imported.thr)||+thrPct.toFixed(1),fc:(S.imported&&S.imported.fc)||So.fc,depth:Math.round(DEPTH),nat,dates,todayX,real,daysToNext,bf,
+  events,nextIrr,pastTrig,planTrig,TAW,RAW,Kc,Zr,pf,EFF,main:main.n};
 }
+
 
 /* ---------- helpers ---------- */
 function countUp(el,to,{d=0,pre='',suf='',dur=1100,fmt=fmtIN}={}){
@@ -1019,7 +1031,7 @@ function moistChart(R){
  const marks=trigs.map((t0,i)=>`<g class="drop" style="animation-delay:${1.1+i*.12}s" transform="translate(${X(t0)} ${Y(R.thr)})"><circle r="9" fill="rgba(217,180,108,.16)"/><circle r="3.6" fill="#D9B46C"/></g>`).join('');
  let extra='';
  if(R.todayX!=null){const tx=X(R.todayX);extra+=`<rect x="${tx}" y="${CH.y0}" width="${CH.x1-tx}" height="${CH.y1-CH.y0}" fill="rgba(143,208,245,.06)"/><line x1="${tx}" x2="${tx}" y1="${CH.y0}" y2="${CH.y1}" stroke="rgba(143,208,245,.55)" stroke-dasharray="3 4"/><text class="ax" x="${tx+6}" y="${CH.y0+10}" style="fill:#8FD0F5">Today · forecast</text>`}
- if(R.nat&&R.nat.length)extra+=`<path class="natl" d="${R.nat.map((p,i)=>(i?'L':'M')+X(p[0]).toFixed(1)+' '+Y(p[1]).toFixed(1)).join('')}" fill="none" stroke="#8FD0F5" stroke-width="1.6" stroke-dasharray="4 4" opacity=".9"/><text class="ax" x="${CH.x0+4}" y="${CH.y0+10}" style="fill:#8FD0F5">- - Measured, no irrigation</text>`;
+ if(R.nat&&R.nat.length)extra+=`<path class="natl" d="${R.nat.map((p,i)=>(i?'L':'M')+X(p[0]).toFixed(1)+' '+Y(p[1]).toFixed(1)).join('')}" fill="none" stroke="#8FD0F5" stroke-width="1.6" stroke-dasharray="4 4" opacity=".9"/><text class="ax" x="${CH.x0+4}" y="${CH.y0+10}" style="fill:#8FD0F5">- - Measured, scaled to your soil</text>`;
  svg.innerHTML=`<defs>
   <linearGradient id="mg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5EE6A0" stop-opacity=".34"/><stop offset=".7" stop-color="#5EE6A0" stop-opacity=".05"/><stop offset="1" stop-color="#5EE6A0" stop-opacity="0"/></linearGradient>
   <linearGradient id="ml" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2FBF7C"/><stop offset=".55" stop-color="#5EE6A0"/><stop offset="1" stop-color="#CFE08A"/></linearGradient>
@@ -1063,7 +1075,7 @@ function pumpChart(R){
  let d=`M${X(0)} ${Y(0)}`;const on=R.pump.filter(p=>p[1]).map(p=>p[0]);
  on.forEach(t0=>{d+=`L${X(t0)} ${Y(0)}L${X(t0)} ${Y(1)}L${X(t0+w)} ${Y(1)}L${X(t0+w)} ${Y(0)}`});d+=`L${X(xmax)} ${Y(0)}`;
  const bw=Math.max(8,X(w)-X(0)+6);
- const bars=on.map((t0,i)=>`<g class="pbar" data-d="${t0}" transform="translate(${X(t0)+(X(w)-X(0))/2} ${Y(0)})"><rect class="pb" x="${-bw/2}" y="${Y(1)-Y(0)}" width="${bw}" height="${Y(0)-Y(1)}" rx="4" fill="url(#pg)" style="animation-delay:${.35+i*.12}s"/><circle class="cap" cy="${Y(1)-Y(0)}" r="3" fill="#C9FBE0" style="animation-delay:${.6+i*.12}s"/></g>`).join('');
+ const bars=on.map((t0,i)=>`<g class="pbar${R.todayX!=null&&t0<R.todayX?' past':''}" data-d="${t0}" transform="translate(${X(t0)+(X(w)-X(0))/2} ${Y(0)})"><rect class="pb" x="${-bw/2}" y="${Y(1)-Y(0)}" width="${bw}" height="${Y(0)-Y(1)}" rx="4" fill="url(#pg)" style="animation-delay:${.35+i*.12}s"/><circle class="cap" cy="${Y(1)-Y(0)}" r="3" fill="#C9FBE0" style="animation-delay:${.6+i*.12}s"/></g>`).join('');
  svg.innerHTML=`<defs><linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5EE6A0" stop-opacity=".55"/><stop offset="1" stop-color="#5EE6A0" stop-opacity=".04"/></linearGradient>
   <filter id="glow2" x="-10%" y="-30%" width="120%" height="160%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
  ${axes(xmax,0,1,[],R.dates?'':t('day')+'s',R.dates?(v=>fmtD(R.dates[Math.min(R.dates.length-1,Math.round(v))])):null)}${R.todayX!=null?`<line x1="${X(R.todayX)}" x2="${X(R.todayX)}" y1="${CH.y0}" y2="${CH.y1}" stroke="rgba(143,208,245,.55)" stroke-dasharray="3 4"/><text class="ax" x="${X(R.todayX)+6}" y="${CH.y0+10}" style="fill:#8FD0F5">Today</text>`:''}
@@ -1075,7 +1087,7 @@ function pumpChart(R){
  P={X,Y,w,xmax,bars:[...svg.querySelectorAll('.pbar')].map(g=>({d:+g.dataset.d,g}))};
  const tip=$('#pumpTip');
  P.bars.forEach(({g,d:dd})=>{g.style.cursor='pointer';
-  g.addEventListener('pointerenter',()=>{const bb=svg.getBoundingClientRect();tip.innerHTML=`<span>${R.dates?fmtD(R.dates[dd]):t('day')+' '+(+dd).toFixed(dd%1?1:0)}</span><b>${R.todayX!=null&&dd>=R.todayX?'Irrigate (planned)':'Irrigate'}</b>`;tip.style.opacity=1;tip.style.left=(X(dd)/560*bb.width)+'px';tip.style.top=(Y(1)/230*bb.height-50)+'px';g.classList.add('hov')});
+  g.addEventListener('pointerenter',()=>{const bb=svg.getBoundingClientRect();tip.innerHTML=`<span>${R.dates?fmtD(R.dates[dd]):t('day')+' '+(+dd).toFixed(dd%1?1:0)}</span><b>${R.todayX!=null?(dd>=R.todayX?'Planned':'Needed'):'Irrigate'}${(()=>{const ev=(R.events||[]).find(e=>e.x===dd);return ev?' · '+fmtIN(ev.gross,0)+' mm':''})()}</b>`;tip.style.opacity=1;tip.style.left=(X(dd)/560*bb.width)+'px';tip.style.top=(Y(1)/230*bb.height-50)+'px';g.classList.add('hov')});
   g.addEventListener('pointerleave',()=>{tip.style.opacity=0;g.classList.remove('hov')});
   g.addEventListener('click',()=>{PB.t=dd;updatePlayhead(true)})});
 }
@@ -1198,15 +1210,16 @@ function render(animate=true){
  hero(R);PB.t=0;PB.hold=performance.now()+1700;M=null;P=null;
  reveal($('#moistCard'),()=>{moistChart(R);pumpChart(R);PB.hold=performance.now()+1700});reveal($('#donut').closest('.card'),()=>donut(R));reveal($('#spark').closest('.card'),()=>spark(R));
  $('#avgMoist').textContent=t('avg',{n:Math.round(R.avg)});
- $('#trigCount').textContent=t('trig',{n:R.trig});
+ $('#trigCount').textContent=R.real?`${R.pastTrig} past · ${R.planTrig} planned`:t('trig',{n:R.trig});
+ $('#trigCount').nextElementSibling.textContent=S.imported?'MATLAB import':R.real?'FAO 56 water balance':'Estimated model';
  $('#moistSrc').textContent=S.imported?('File: '+S.imported.name):R.real?'Open-Meteo soil data':'Estimated model';
  $('#moistCard .legend').textContent=S.imported?'Imported MATLAB moisture':R.real?`Root zone 9 to 27 cm · last ${R.todayX} days and ${R.series.length-R.todayX} day forecast`:t('moistLegend')+' (live soil data loads on the website)';
- $('#irrEvery').textContent=R.trig>=2?t('every',{n:R.interval}):R.trig===1?`1 × / ${R.series.length} ${t('day').toLowerCase()}`:t('noIrr');
+ $('#irrEvery').textContent=t('every',{n:R.interval});
  countUp($('#liters'),R.liters,{suf:' L'});
  $('#litersSub').textContent=t('perCycle',{mm:R.depth,a:fmtIN(S.acres,S.acres%1?1:0)});
  const hot=LOCS[S.loc].temp>=30;
  $('#irrTime').textContent=(hot?'05:00 to 07:00':'05:30 to 07:30')+' · '+t('early');
- $('#irrStart').textContent=t('startBelow',{n:R.thr});
+ $('#irrStart').textContent=(S.imported?'':(R.nextIrr&&R.nextIrr.date?`Next: ${fmtD(R.nextIrr.date)}${R.nextIrr.x===R.todayX?' (today)':''} · `:`Next in about ${R.daysToNext} days · `))+t('startBelow',{n:fmtIN(R.thr,1)});
  const names=['N · Nitrogen','P · Phosphorus','K · Potassium'],cols=['#5EE6A0','#CFE08A','#D9B46C'];
  $('#nutBars').innerHTML=R.npk.map((v,i)=>`<div class="nut"><div class="t">${names[i]}<span>${v}  kg</span></div><div class="track"><div class="fill" style="background:${cols[i]}" data-w="${Math.min(100,v/100*100)}"></div></div></div>`).join('');
  requestAnimationFrame(()=>requestAnimationFrame(()=>document.querySelectorAll('.nut .fill').forEach(f=>f.style.width=f.dataset.w+'%')));
@@ -1633,7 +1646,7 @@ $('#modelIn').addEventListener('change',e=>{lsSet('sk_model_'+curModel().prov,e.
 function farmContext(){
  const L=LOCS[S.loc],R=S.result,D=RAIN[S.loc];
  let c=`You are Krishi AI inside the Smart Krishi farm planning website for Indian farmers. Give practical, specific advice in simple language. Use metric units and rupees. Keep answers short (under 180 words) unless asked for detail. Answer in ${uiLangName()}. These numbers are planning estimates from a simple model, so suggest a soil test and local Krishi Vigyan Kendra advice for big decisions.\n\nFARM CONTEXT${PROFILE.name?`\nFarmer: ${PROFILE.name}${PROFILE.village?', '+PROFILE.village:''}`:''}\nLocation: ${L.name}\nWeather now: ${t(L.wx)}, ${L.temp} °C, humidity ${L.hum}%\nSoil: ${t(S.soil)}${S.soil===soilFor(S.loc)?' (regional soil map)':' (set by farmer)'}\nLand: ${S.acres} acres, budget Rs. ${fmtIN(S.budget)}\nSeason: ${SEASONS[S.season].label}`;
- if(R)c+=`\nCrop plan: ${R.crops.map(x=>`${x.n} ${fmtIN(x.acres,2)} acres`).join(', ')}\nIrrigation: every ${R.interval} days, ${fmtIN(R.liters)} litres per cycle, trigger below ${R.thr}% soil moisture\nFertilizer per acre: N ${R.npk[0]} kg, P ${R.npk[1]} kg, K ${R.npk[2]} kg\nExpected yield: ${fmtIN(R.totalQ,1)} quintals, revenue Rs. ${fmtIN(Math.round(R.rev))}, net profit Rs. ${fmtIN(Math.round(R.net))}`;
+ if(R)c+=`\nCrop plan: ${R.crops.map(x=>`${x.n} ${fmtIN(x.acres,2)} acres`).join(', ')}\nIrrigation (FAO 56 water balance): typical interval ${R.interval} days, ${fmtIN(R.liters)} litres per irrigation, trigger below ${R.thr}% soil moisture; next irrigation ${R.nextIrr&&R.nextIrr.date?fmtD(R.nextIrr.date):'in about '+R.daysToNext+' days'}; ${R.pastTrig||0} needed in recent past, ${R.planTrig||0} planned in forecast\nFertilizer per acre: N ${R.npk[0]} kg, P ${R.npk[1]} kg, K ${R.npk[2]} kg\nExpected yield: ${fmtIN(R.totalQ,1)} quintals, revenue Rs. ${fmtIN(Math.round(R.rev))}, net profit Rs. ${fmtIN(Math.round(R.net))}`;
  if(D&&D.fc){const tot=D.fc.p.reduce((a,b)=>a+b,0);c+=`\nRain next 16 days: ${fmtIN(tot,0)} mm total; daily mm: ${D.fc.t.map((d,i)=>fmtD(d)+' '+Math.round(D.fc.p[i])).join(', ')}`;
   const m=seasonRain(D,S.season);c+=`\nSeason rain expected: ${m.map(x=>x.ym+' '+Math.round(x.exp)+' mm (10 yr avg '+Math.round(x.n)+')').join('; ')}`;
   c+=`\nBest fit crops this season: ${cropFits(D,S.season).slice(0,6).map(f=>f.n+' '+Math.round(f.score*100)+'%').join(', ')}`}
@@ -1800,15 +1813,15 @@ function buildReport(){
  ${R.crops.map(c=>`<tr><td>${t(c.n)}</td><td>${c.v}</td><td class="n">${fmtIN(c.acres,2)}</td><td class="n">${Math.round(c.share*100)}%</td><td class="n">${fmtIN(c.q,2)}</td><td class="n">${fmtIN(c.p)}</td><td class="n">${rs(c.rev)}</td></tr>`).join('')}
  <tr class="tot"><td colspan="2">Total</td><td class="n">${fmtIN(tot.a,2)}</td><td class="n">100%</td><td class="n">${fmtIN(tot.q,2)}</td><td></td><td class="n">${rs(tot.r)}</td></tr></table>
  <div class="two"><div class="sec"><h2>Irrigation</h2><ul>
-  <li><b>${R.trig>=2?t('every',{n:R.interval}):R.trig===1?'One irrigation in '+R.series.length+' days':'No irrigation needed in this window'}</b></li>
-  <li>${fmtIN(R.liters)} litres per irrigation (${fmtIN(R.depth,0)} mm across the farm)</li>
-  <li>Irrigate when root zone moisture falls below ${R.thr}%</li>
+  <li><b>${R.nextIrr&&R.nextIrr.date?'Next irrigation '+fmtD(R.nextIrr.date)+', about '+fmtIN(R.nextIrr.gross,0)+' mm':'Next irrigation in about '+R.daysToNext+' days'}</b></li>
+  <li>Typical interval ${R.interval} days. ${fmtIN(R.liters)} litres per irrigation (${fmtIN(R.depth,0)} mm gross at ${Math.round(R.EFF*100)}% efficiency)</li>
+  <li>Irrigate when root zone moisture falls below ${fmtIN(R.thr,1)}% (${Math.round(R.pf*100)}% of available water used by ${t(R.main)})</li>
   <li>Best time ${L.temp>=30?'05:00 to 07:00':'05:30 to 07:30'}, early morning</li>
-  <li>Irrigation events: ${R.trig} across the ${R.real?S.win+' day history and 16 day forecast':S.win+' day model run'}</li></ul></div>
+  <li>${R.real?`${R.pastTrig} irrigations needed in the last ${R.todayX} days, ${R.planTrig} planned in the next ${R.series.length-R.todayX} days`:`${R.trig} irrigations in a ${S.win} day model run`}</li></ul>${(R.events||[]).filter(e=>e.planned).length?`<table><tr><th>Planned date</th><th class="n">Net</th><th class="n">Gross</th><th class="n">Litres</th></tr>${R.events.filter(e=>e.planned).map(e=>`<tr><td>${fmtD(e.date)}</td><td class="n">${fmtIN(e.net,0)} mm</td><td class="n">${fmtIN(e.gross,0)} mm</td><td class="n">${fmtIN(Math.round(e.gross*S.acres*4046.86/100)*100)}</td></tr>`).join('')}</table>`:''}<div class="note">Method: FAO 56 root zone water balance using Open-Meteo rain and reference evapotranspiration, crop coefficient ${R.Kc.toFixed(2)}, root depth ${R.Zr} m.</div></div>
   <div class="sec"><h2>Fertilizer per acre</h2><table><tr><th>Nutrient</th><th class="n">Per acre</th><th class="n">Whole farm</th></tr>
   ${['Nitrogen (N)','Phosphorus (P)','Potassium (K)'].map((n,i)=>`<tr><td>${n}</td><td class="n">${R.npk[i]} kg</td><td class="n">${fmtIN(R.npk[i]*S.acres,0)} kg</td></tr>`).join('')}</table>
   <div class="note">Apply 50% at sowing, 25% at day 25 and 25% at day 45.</div></div></div>
- <div class="chartbox"><b style="font-size:10.5pt">Soil moisture, ${R.real?'root zone 9 to 27 cm':'model estimate'}</b>${rLine(R)}</div>
+ <div class="chartbox"><b style="font-size:10.5pt">Soil moisture, ${R.real?'measured (scaled to your soil) and with irrigation':'model estimate'}</b>${rLine(R)}</div>
  <div class="two"><div class="sec"><h2>Income</h2><table><tr><td>Gross revenue</td><td class="n">${rs(R.rev)}</td></tr><tr><td>Input cost</td><td class="n">${rs(R.cost)}</td></tr><tr class="tot"><td>Net profit</td><td class="n">${rs(R.net)}</td></tr><tr><td>Margin</td><td class="n">${fmtIN(R.margin,1)}%</td></tr></table></div>
   <div class="sec"><h2>Inputs used</h2><table><tr><td>Location</td><td>${L.name}</td></tr><tr><td>Soil</td><td>${t(S.soil)}${S.soil===soilFor(S.loc)?' (regional soil map)':' (farmer choice)'}</td></tr><tr><td>Season</td><td>${SEASONS[S.season].label}</td></tr><tr><td>Crop plan</td><td>${S.plan?'Top rain fit crops':'Regional plan'}</td></tr></table></div></div>`;
  if(D&&D.fc){const p=D.fc.p,ttl=p.reduce((a,b)=>a+b,0),rainy=p.filter(x=>x>=2.5).length,months=seasonRain(D,S.season),E=months.reduce((a,m)=>a+m.exp,0),N=months.reduce((a,m)=>a+m.n,0),fits=cropFits(D,S.season).slice(0,6);
